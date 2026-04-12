@@ -1,0 +1,202 @@
+:root {
+    --bg-color: #0f172a;
+    --text-main: #94a3b8;
+    --text-bright: #e2e8f0;
+    --accent: #5eead4;
+    --card-hover: rgba(30, 41, 59, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+	font-family: "Lexend", sans-serif;
+	font-weight: <weight>;
+	font-style: normal;
+    overflow-x: hidden;
+}
+
+/* Effetto mouse spotlight */
+.spotlight {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    background: radial-gradient(600px at var(--x) var(--y), rgba(29, 78, 216, 0.15), transparent 80%);
+    z-index: 1;
+}
+
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 50px;
+}
+
+/* Sidebar */
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 100px 0;
+}
+
+.sidebar h1 { color: var(--text-bright); font-size: 3rem; }
+.sidebar h2 { color: var(--text-bright); font-size: 1.2rem; margin-top: 10px; }
+.sidebar p { max-width: 300px; margin-top: 20px; }
+
+.nav-links { display: flex; flex-direction: column; margin-top: 50px; }
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+}
+.nav-links a span {
+    width: 30px;
+    height: 1px;
+    background: var(--text-main);
+    margin-right: 15px;
+    transition: 0.3s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--text-bright); }
+.nav-links a:hover span, .nav-links a.active span { width: 60px; background: var(--text-bright); }
+
+/* Main Content */
+.content { width: 60%; padding: 100px 0; }
+section { margin-bottom: 100px; }
+
+.card {
+    display: flex;
+    padding: 20px;
+    border-radius: 8px;
+    transition: 0.3s;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.card:hover { background: var(--card-hover); box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7); }
+
+.date { min-width: 120px; font-size: 0.8rem; text-transform: uppercase; }
+.details h3 { color: var(--text-bright); margin-bottom: 10px; }
+.tags { margin-top: 15px; }
+.tags span {
+    background: rgba(94, 234, 212, 0.1);
+    color: var(--accent);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    margin-right: 10px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+    .container { flex-direction: column; padding: 0 20px; }
+    .sidebar { position: relative; width: 100%; height: auto; padding: 50px 0; }
+    .content { width: 100%; padding: 0; }
+}
+.project-card {
+display: flex !important;
+gap: 20px !important;
+align-items: flex-start !important;
+}
+
+.project-img {
+min-width: 140px;
+max-width: 140px;
+height: 80px;
+border: 1px solid rgba(255,255,255,0.1);
+border-radius: 4px;
+overflow: hidden;
+}
+
+.project-img img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+opacity: 0.6;
+transition: 0.3s;
+}
+
+.project-card:hover .project-img img {
+opacity: 1;
+}
+
+/* 1. Definiamo la transizione per il titolo h3 */
+.card .details h3 {
+transition: color 0.3s ease;
+}
+
+/* 2. Quando l'utente passa il mouse sulla card (hover), il titolo h3 diventa blu */
+.card:hover .details h3 {
+color: var(--accent) !important;
+}
+#contact {
+text-align: center;
+max-width: 600px;
+margin: 0 auto 150px auto;
+padding-top: 50px;
+}
+
+.section-number {
+color: var(--accent);
+font-family: monospace;
+font-size: 1rem;
+display: block;
+margin-bottom: 20px;
+}
+
+.contact-card {
+padding: 30px;
+background: rgba(30, 41, 59, 0.2);
+border-left: 2px solid var(--accent); /* Una sottile linea azzurra laterale */
+border-radius: 4px;
+}
+
+.contact-title {
+color: var(--text-bright);
+font-size: 2rem;
+margin-bottom: 20px;
+}
+
+.contact-intro {
+margin-bottom: 30px;
+font-size: 1.1rem;
+}
+
+.contact-info-list {
+display: flex;
+flex-direction: column;
+gap: 15px;
+}
+
+.info-item {
+font-size: 1rem;
+color: var(--text-main);
+}
+
+.info-item span {
+display: inline-block;
+width: 100px; /* Allinea le etichette (Email, Località, ecc.) */
+color: var(--text-bright);
+font-weight: 600;
+}
+
+.info-item strong {
+color: var(--accent);
+font-family: 'Inter', sans-serif;
+letter-spacing: 0.5px;
+}
