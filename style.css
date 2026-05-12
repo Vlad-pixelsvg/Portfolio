@@ -1,3 +1,16 @@
+/* Stile per il titolo H3 */
+  .titolo-linkabile {
+    display: inline-block; /* Fa sì che il link occupi solo lo spazio del testo */
+    text-decoration: none;  /* Rimuove la sottolineatura standard */
+    color: inherit;         /* Eredita il colore del testo circostante (nero o quello del body) */
+    transition: color 0.3s ease; /* Rende il cambio di colore fluido e non scattoso */
+  }
+
+  /* Effetto al passaggio del mouse */
+  .titolo-linkabile:hover {
+    color: #007bff; /* Un bel blu/azzurro moderno */
+    cursor: pointer;
+  }
 :root {
     --bg-color: #0f172a;
     --text-main: #94a3b8;
