@@ -3,15 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MetsGeneratore.py — Tool METS/XML per la Digitalizzazione MAB</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome Icons CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>MetsGeneratore.py - Pipeline METS/XML per la Digitalizzazione MAB</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,322 +12,161 @@
             theme: {
                 extend: {
                     colors: {
-                        slate: {
-                            750: '#182234',
-                            850: '#131C2E',
-                            900: '#0F172A',
-                            800: '#1E293B',
-                            700: '#334155',
-                            400: '#94A3B8',
-                            50: '#F8FAFC'
-                        },
-                        sky: {
-                            400: '#38BDF8',
-                            500: '#0EA5E9',
-                        },
-                        emerald: {
-                            400: '#34D399',
-                            500: '#10B981',
+                        brand: {
+                            dark: '#0F172A',
+                            card: '#1E293B',
+                            border: '#334155',
+                            accent: '#38BDF8',
+                            emerald: '#34D399'
                         }
                     },
                     fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
                     }
                 }
             }
         }
     </script>
     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        body {
-            background-color: #0F172A;
-            color: #F8FAFC;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+        /* Forza massima visibilità per tutti i testi */
+        p, span, li, h1, h2, h3, h4, h5, h6, label, div, td, th {
+            color: #FFFFFF !important;
         }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+        .text-accent {
+            color: #38BDF8 !important;
         }
-        ::-webkit-scrollbar-track {
-            background: #0F172A;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #38BDF8;
-        }
-
-        .glow-sky {
-            box-shadow: 0 0 30px -5px rgba(56, 189, 248, 0.2);
-        }
-        
-        .glow-emerald {
-            box-shadow: 0 0 30px -5px rgba(52, 211, 153, 0.2);
-        }
-
-        .xml-node {
-            transition: all 0.2s ease-in-out;
-        }
-        .xml-node:hover {
-            background-color: rgba(56, 189, 248, 0.08);
-            border-left-color: #38BDF8;
+        .text-emerald {
+            color: #34D399 !important;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-sky-500 selection:text-white">
+<body class="bg-[#0F172A] text-white font-sans antialiased min-h-screen flex flex-col selection:bg-[#38BDF8] selection:text-[#0F172A]">
 
-    <!-- 1. HEADER & NAVIGATION -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-700/60 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                
-                <!-- Logo -->
-                <a href="#" class="flex items-center space-x-3 group">
-                    <div class="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-sky-400 group-hover:border-sky-400/50 group-hover:text-emerald-400 transition-all shadow-inner">
-                        <i class="fa-solid fa-file-code text-lg"></i>
-                    </div>
-                    <span class="font-mono font-bold text-lg text-slate-50 group-hover:text-sky-400 transition-colors">
-                        MetsGeneratore<span class="text-sky-400">.py</span>
-                    </span>
-                </a>
-
-                <!-- Desktop Navigation Links -->
-                <nav class="hidden lg:flex items-center space-x-1 lg:space-x-6 text-sm font-medium text-slate-400">
-                    <a href="#guida-semplice" class="px-3 py-2 rounded-md hover:text-emerald-400 hover:bg-slate-800/60 transition-all flex items-center gap-1.5">
-                        <i class="fa-solid fa-lightbulb text-amber-400"></i>
-                        <span>In parole semplici</span>
-                    </a>
-                    <a href="#panoramica" class="px-3 py-2 rounded-md hover:text-sky-400 hover:bg-slate-800/60 transition-all">Panoramica</a>
-                    <a href="#caratteristiche" class="px-3 py-2 rounded-md hover:text-sky-400 hover:bg-slate-800/60 transition-all">Caratteristiche</a>
-                    <a href="#workflow" class="px-3 py-2 rounded-md hover:text-sky-400 hover:bg-slate-800/60 transition-all">Workflow</a>
-                    <a href="#struttura-mets" class="px-3 py-2 rounded-md hover:text-sky-400 hover:bg-slate-800/60 transition-all">Struttura METS</a>
-                </nav>
-
-                <!-- CTA Button -->
-                <div class="flex items-center space-x-3">
-                    <button onclick="openRequestModal()" class="inline-flex items-center space-x-2 bg-sky-500 hover:bg-sky-400 text-slate-900 font-bold px-4 py-2 rounded-lg text-sm transition-all shadow-md hover:shadow-sky-500/20">
-                        <i class="fa-solid fa-download text-xs"></i>
-                        <span>Download / Richiedi Tool</span>
-                    </button>
-
-                    <!-- Mobile Menu Button -->
-                    <button id="mobile-menu-btn" type="button" aria-label="Apri menu" class="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none">
-                        <i class="fa-solid fa-bars text-xl"></i>
-                    </button>
+    <!-- HEADER & NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-[#0F172A]/95 backdrop-blur-md border-b border-[#334155]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-[#38BDF8]/20 border border-[#38BDF8] flex items-center justify-center text-[#38BDF8]">
+                    <i class="fa-solid fa-file-code text-xl"></i>
                 </div>
+                <span class="font-mono font-bold text-xl tracking-tight text-white">MetsGeneratore<span class="text-[#38BDF8]">.py</span></span>
             </div>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+                <a href="#a-cosa-serve" class="hover:text-[#38BDF8] transition-colors py-1">A cosa serve?</a>
+                <a href="#in-parole-semplici" class="hover:text-[#38BDF8] transition-colors py-1">In Parole Semplici</a>
+                <a href="#caratteristiche" class="hover:text-[#38BDF8] transition-colors py-1">Caratteristiche</a>
+                <a href="#stack" class="hover:text-[#38BDF8] transition-colors py-1">Stack Tecnico</a>
+                <a href="#workflow" class="hover:text-[#38BDF8] transition-colors py-1">Flusso di Lavoro</a>
+            </nav>
+
+            <!-- CTA Button -->
+            <div class="hidden md:flex items-center">
+                <a href="#richiedi" class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg font-bold text-sm bg-[#38BDF8] text-[#0F172A] hover:bg-sky-300 transition-all transform hover:-translate-y-0.5 shadow-lg shadow-sky-500/20">
+                    <i class="fa-solid fa-download mr-2"></i> Richiedi il Tool
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="md:hidden text-white p-2 focus:outline-none" aria-label="Apri Menu">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
         </div>
 
-        <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden border-b border-slate-700 bg-slate-900 px-4 pt-2 pb-4 space-y-2">
-            <a href="#guida-semplice" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-emerald-400 hover:bg-slate-800">In parole semplici</a>
-            <a href="#panoramica" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-sky-400">Panoramica</a>
-            <a href="#caratteristiche" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-sky-400">Caratteristiche</a>
-            <a href="#workflow" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-sky-400">Workflow</a>
-            <a href="#struttura-mets" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-sky-400">Struttura METS</a>
-            <button onclick="openRequestModal()" class="w-full text-center mt-2 bg-sky-500 text-slate-900 font-bold px-4 py-2.5 rounded-lg text-sm">
-                Richiedi il Tool
-            </button>
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#1E293B] border-b border-[#334155] px-4 pt-2 pb-6 space-y-3">
+            <a href="#a-cosa-serve" class="block py-2 font-medium border-b border-[#334155]/50">A cosa serve?</a>
+            <a href="#in-parole-semplici" class="block py-2 font-medium border-b border-[#334155]/50">In Parole Semplici</a>
+            <a href="#caratteristiche" class="block py-2 font-medium border-b border-[#334155]/50">Caratteristiche</a>
+            <a href="#stack" class="block py-2 font-medium border-b border-[#334155]/50">Stack Tecnico</a>
+            <a href="#workflow" class="block py-2 font-medium border-b border-[#334155]/50">Flusso di Lavoro</a>
+            <a href="#richiedi" class="inline-block w-full text-center mt-2 px-5 py-3 rounded-lg font-bold bg-[#38BDF8] text-[#0F172A]">
+                <i class="fa-solid fa-download mr-2"></i> Richiedi il Tool
+            </a>
         </div>
     </header>
 
     <main class="flex-grow">
         
-        <!-- 2. HERO BANNER -->
-        <section class="relative pt-12 pb-16 lg:pt-20 lg:pb-24 overflow-hidden">
-            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[300px] bg-sky-500/10 blur-[120px] rounded-full pointer-events-none"></div>
-            <div class="absolute top-1/3 right-10 w-[250px] h-[250px] bg-emerald-500/10 blur-[100px] rounded-full pointer-events-none"></div>
-
+        <!-- HERO BANNER -->
+        <section class="relative py-20 lg:py-28 overflow-hidden border-b border-[#334155]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="text-center max-w-4xl mx-auto space-y-8">
                     
-                    <!-- Hero Content Left -->
-                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                        
-                        <!-- Badge -->
-                        <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-800 border border-sky-400/30 text-sky-400 text-xs sm:text-sm font-medium font-mono shadow-sm">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                            <span>Open-Source Tool • Settore MAB (SBN / Clavis NG)</span>
-                        </div>
-
-                        <!-- Main Title -->
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-50 leading-tight">
-                            MetsGeneratore<span class="text-sky-400">.py</span>
-                        </h1>
-
-                        <!-- Subtitle -->
-                        <p class="text-xl sm:text-2xl font-semibold text-emerald-400 font-sans tracking-wide">
-                            Pipeline di Generazione METS/XML per la Digitalizzazione Libraria
-                        </p>
-
-                        <!-- Short Description -->
-                        <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                            Strumento automatizzato ideato per **bibliotecari, archivisti e digitalizzatori**. Unisce le schede di catalogo (<span class="text-slate-200 font-mono">UNIMARC / Clavis</span>) con le scansioni ad alta risoluzione (<span class="text-slate-200 font-mono">TIFF</span>) creando pacchetti digitali certificati pronti per la conservazione.
-                        </p>
-
-                        <!-- CTA Action Buttons -->
-                        <div class="pt-4 flex flex-wrap justify-center lg:justify-start gap-4">
-                            <button onclick="openRequestModal()" class="inline-flex items-center space-x-2.5 bg-sky-500 hover:bg-sky-400 text-slate-900 px-6 py-3.5 rounded-xl font-bold text-sm transition-all transform hover:-translate-y-0.5 shadow-lg shadow-sky-500/20">
-                                <i class="fa-solid fa-download text-lg"></i>
-                                <span>Download Script / Richiesta</span>
-                            </button>
-                            <a href="#guida-semplice" class="inline-flex items-center space-x-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-6 py-3.5 rounded-xl font-semibold text-sm transition-all">
-                                <i class="fa-solid fa-lightbulb"></i>
-                                <span>Guida per Bibliotecari</span>
-                            </a>
-                            <a href="#struttura-mets" class="inline-flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-300 px-5 py-3.5 rounded-xl font-medium text-sm border border-slate-700 transition-all">
-                                <i class="fa-solid fa-book-bookmark text-sky-400"></i>
-                                <span>Doc Tecnica</span>
-                            </a>
-                        </div>
-
-                        <!-- Key Highlights bar -->
-                        <div class="pt-6 border-t border-slate-800 flex flex-wrap justify-center lg:justify-start gap-6 text-xs font-mono text-slate-400">
-                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-check text-emerald-400"></i> Python 3.9+</span>
-                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-check text-emerald-400"></i> Standard ISO 20775</span>
-                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-check text-emerald-400"></i> NISO Z39.87 Compatible</span>
-                        </div>
+                    <!-- Badge -->
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-[#1E293B] border border-[#38BDF8]/40 shadow-inner">
+                        <span class="w-2.5 h-2.5 rounded-full bg-[#34D399] animate-pulse"></span>
+                        <span class="text-xs font-mono font-bold tracking-wider uppercase text-white">
+                            Tool Python • Settore MAB (SBN / Clavis NG)
+                        </span>
                     </div>
 
-                    <!-- Hero Visual Box Right -->
-                    <div class="lg:col-span-5">
-                        <div class="rounded-2xl bg-slate-800 border border-slate-700 shadow-2xl overflow-hidden glow-sky">
-                            <!-- Terminal Header -->
-                            <div class="bg-slate-850 px-4 py-3 border-b border-slate-700/80 flex items-center justify-between">
-                                <div class="flex items-center space-x-2">
-                                    <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
-                                    <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
-                                    <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
-                                </div>
-                                <span class="text-xs font-mono text-slate-400">MetsGeneratore Console</span>
-                                <i class="fa-solid fa-bolt text-xs text-amber-400"></i>
-                            </div>
-                            
-                            <!-- Graphic Summary Box -->
-                            <div class="p-6 font-mono text-xs space-y-4 bg-slate-900/90 text-slate-300">
-                                <div class="p-3 bg-slate-800/80 rounded-lg border border-slate-700 space-y-1">
-                                    <p class="text-sky-400 font-bold">[1] INGRESSO DATI</p>
-                                    <p class="text-slate-400">&bull; Scheda SBN/Clavis (Export XML)</p>
-                                    <p class="text-slate-400">&bull; Cartella Scansioni (/master_tiff/)</p>
-                                </div>
+                    <!-- Title -->
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
+                        <span class="font-mono text-[#38BDF8]">MetsGeneratore.py</span>
+                    </h1>
 
-                                <div class="text-center text-emerald-400 text-base">
-                                    <i class="fa-solid fa-arrow-down-long animate-bounce"></i>
-                                </div>
+                    <p class="text-2xl sm:text-3xl font-semibold text-white">
+                        Pipeline di Generazione METS/XML per la Digitalizzazione Libraria
+                    </p>
 
-                                <div class="p-3 bg-slate-800/80 rounded-lg border border-emerald-500/40 space-y-1">
-                                    <p class="text-emerald-400 font-bold">[2] ELABORAZIONE AUTOMATICA</p>
-                                    <p class="text-slate-300">&bull; Mappatura Titolo/Autore &rarr; MODS</p>
-                                    <p class="text-slate-300">&bull; Calcolo Checksum MD5 Immagini</p>
-                                    <p class="text-slate-300">&bull; Estrazione Risoluzione DPI & EXIF</p>
-                                </div>
+                    <p class="text-lg sm:text-xl text-white leading-relaxed max-w-3xl mx-auto font-normal">
+                        Tool Python per la creazione automatizzata di pacchetti di archiviazione digitale (<strong class="text-[#38BDF8]">METS / MODS / MIX</strong>) tramite parsing di dati catalografici UNIMARC ed estrazione automatica dei metadati tecnici EXIF/TIFF.
+                    </p>
 
-                                <div class="text-center text-sky-400 text-base">
-                                    <i class="fa-solid fa-arrow-down-long"></i>
-                                </div>
-
-                                <div class="p-3 bg-sky-500/10 rounded-lg border border-sky-400/50 space-y-1 text-center">
-                                    <p class="text-sky-300 font-bold">[3] RISULTATO FINALE</p>
-                                    <p class="text-slate-100 font-sans text-xs">File <span class="font-mono text-emerald-400 font-bold">METS.xml</span> pronto per la Teca Digitale</p>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- CTA Group -->
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="#richiedi" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-base bg-[#38BDF8] text-[#0F172A] hover:bg-sky-300 transition-all shadow-lg shadow-sky-500/25 flex items-center justify-center">
+                            <i class="fa-solid fa-paper-plane mr-2"></i> Richiedi lo Script
+                        </a>
+                        <a href="#a-cosa-serve" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-base bg-[#1E293B] hover:bg-[#334155] text-white border border-[#334155] transition-all flex items-center justify-center">
+                            <i class="fa-solid fa-circle-info mr-2 text-[#38BDF8]"></i> Scopri come funziona
+                        </a>
                     </div>
 
                 </div>
             </div>
         </section>
 
-        <!-- 3. SEZIONE PER NON PROGRAMMATORI / DIVULGATIVA -->
-        <section id="guida-semplice" class="py-16 bg-slate-850 border-y border-slate-800 relative">
+        <!-- SEZIONE: A COSA SERVE? (NUOVA SEZIONE SPECIFICA) -->
+        <section id="a-cosa-serve" class="py-20 bg-[#1E293B]/40 border-b border-[#334155]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <div class="text-center max-w-3xl mx-auto mb-12">
-                    <span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-mono font-bold uppercase tracking-wider mb-3">
-                        <i class="fa-solid fa-user-check"></i>
-                        <span>Per Bibliotecari, Archivisti e Responsabili MAB</span>
-                    </span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-50">Cos'è e a cosa serve in parole semplici</h2>
-                    <p class="mt-3 text-slate-400">Non serve essere programmatori per capire il valore di MetsGeneratore.py nelle campagne di digitalizzazione.</p>
-                </div>
-
-                <!-- 3 Cards: Cos'è, Di cosa hai bisogno, Cosa ottieni -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="max-w-4xl mx-auto bg-[#1E293B] border-2 border-[#38BDF8] rounded-2xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+                    <div class="absolute -right-12 -top-12 w-40 h-40 bg-[#38BDF8]/10 rounded-full blur-2xl pointer-events-none"></div>
                     
-                    <!-- Layman Card 1 -->
-                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-7 hover:border-emerald-400/50 transition-all duration-300 flex flex-col justify-between group shadow-lg">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-400/30 text-emerald-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-puzzle-piece"></i>
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-100 mb-3">1. La "Colla Digitale" del Libro</h3>
-                            <p class="text-sm text-slate-300 leading-relaxed">
-                                Immagina di aver digitalizzato un libro antico: hai da una parte la **scheda del catalogo** (con autore, titolo e anno) e dall'altra **decine di foto TIFF** delle pagine.
-                            </p>
-                            <p class="text-sm text-slate-400 mt-3 leading-relaxed">
-                                <span class="text-sky-300 font-semibold">MetsGeneratore.py</span> agisce come un registro automatico: "incolla" i dati del catalogo con le singole immagini nell'ordine esatto di lettura.
-                            </p>
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-14 h-14 rounded-xl bg-[#38BDF8]/20 border border-[#38BDF8] flex items-center justify-center text-[#38BDF8] text-2xl flex-shrink-0">
+                            <i class="fa-solid fa-circle-question"></i>
                         </div>
-                        <div class="mt-6 pt-4 border-t border-slate-700/60 text-xs font-mono text-emerald-400 flex items-center gap-2">
-                            <i class="fa-solid fa-link"></i>
-                            <span>Connette Dati &amp; Immagini</span>
-                        </div>
+                        <h2 class="text-3xl font-extrabold text-white">Ma a cosa serve?</h2>
                     </div>
 
-                    <!-- Layman Card 2 -->
-                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-7 hover:border-sky-400/50 transition-all duration-300 flex flex-col justify-between group shadow-lg">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-400/30 text-sky-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-list-check"></i>
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-100 mb-3">2. Cosa serve per usarlo?</h3>
-                            <p class="text-sm text-slate-300 mb-3">Solo tre elementi fondamentali già presenti nei tuoi progetti:</p>
-                            <ul class="text-xs text-slate-300 space-y-2.5 font-sans">
-                                <li class="flex items-start gap-2">
-                                    <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5"></i>
-                                    <span><strong>File XML dal catalogo:</strong> esportato da Clavis NG, SBN o altro software catalografico.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5"></i>
-                                    <span><strong>Cartella Immagini:</strong> i master TIFF scansionati dallo scanner planetario.</span>
-                                </li>
-                                <li class="flex items-start gap-2">
-                                    <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5"></i>
-                                    <span><strong>Python gratuito:</strong> installato su un qualsiasi PC dell'istituto.</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-700/60 text-xs font-mono text-sky-400 flex items-center gap-2">
-                            <i class="fa-solid fa-gears"></i>
-                            <span>Requisiti minimi standard</span>
-                        </div>
-                    </div>
-
-                    <!-- Layman Card 3 -->
-                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-7 hover:border-amber-400/50 transition-all duration-300 flex flex-col justify-between group shadow-lg">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-400/30 text-amber-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-box-archive"></i>
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-100 mb-3">3. Cosa ottieni alla fine?</h3>
-                            <p class="text-sm text-slate-300 leading-relaxed">
-                                Un unico pacchetto standardizzato (**METS/XML**) contenente:
+                    <div class="space-y-6 text-lg leading-relaxed text-white">
+                        <p>
+                            Non tutte le biblioteche e gli enti dispongono di software di metadazione avanzati o di complessi sistemi di archiviazione digitale come DSpace o Obsidian.
+                        </p>
+                        <p>
+                            È invece molto comune possedere uno spazio di digitalizzazione dotato di scanner a lampada, apparecchiature da ufficio o piccoli planetari. È proprio qui che nasce l'esigenza concreta di <strong class="text-[#38BDF8]">inviare i propri materiali digitalizzati ad altri enti, archivi centrali o aziende esterne</strong> garantendo un sistema di metadazione internazionale perfettamente conforme alle norme vigenti (<strong class="text-[#34D399]">METS / XML</strong>).
+                        </p>
+                        <div class="p-6 bg-[#0F172A] border border-[#334155] rounded-xl text-white">
+                            <p class="font-medium">
+                                <i class="fa-solid fa-bolt text-[#38BDF8] mr-2"></i>
+                                Questo programma permette di prendere la <strong class="text-white">cartella del libro digitalizzato</strong> e l'<strong class="text-white">estrazione del volume catalogato</strong> (dal proprio gestionale per la massima precisione o dal catalogo nazionale per un XML generico) e creare, con <strong class="text-[#34D399]">un semplice click</strong>, un file XML valido e strutturato all'interno di ciascuna cartella.
                             </p>
-                            <ul class="text-xs text-slate-400 space-y-2 mt-3 leading-relaxed">
-                                <li>&bull; Scheda del libro traducibile in tutti i portali internazionali.</li>
-                                <li>&bull; Impronta digitale (MD5) di ogni foto per evitare alterazioni.</li>
-                                <li>&bull; Dati tecnici dello scanner (DPI, colori, risoluzione).</li>
-                                <li>&bull; L'ordine sequenziale per sfogliare il libro online.</li>
-                            </ul>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-700/60 text-xs font-mono text-amber-400 flex items-center gap-2">
-                            <i class="fa-solid fa-vault"></i>
-                            <span>Pronto per l'Archivio Storico</span>
                         </div>
                     </div>
 
@@ -344,214 +175,67 @@
             </div>
         </section>
 
-        <!-- 4. SEZIONE PANORAMICA DEL PROGETTO -->
-        <section id="panoramica" class="py-16 relative">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <div class="text-center max-w-3xl mx-auto mb-12">
-                    <h2 class="text-xs font-mono font-bold tracking-widest text-sky-400 uppercase mb-2">Sfida & Soluzione Tecnologica</h2>
-                    <p class="text-3xl font-extrabold text-slate-50">Panoramica del Progetto</p>
-                    <p class="mt-3 text-slate-400">Automatizzare la convergenza tra catalogo bibliografico e metadati di conservazione hardware.</p>
-                </div>
-
-                <!-- Problem Solving Box -->
-                <div class="mb-16 bg-gradient-to-r from-slate-800 via-slate-800 to-slate-800/90 border border-slate-700 rounded-2xl p-6 sm:p-8 shadow-lg relative overflow-hidden">
-                    <div class="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-sky-400 to-emerald-400"></div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                        <div class="lg:col-span-8 space-y-4">
-                            <div class="inline-flex items-center space-x-2 text-amber-400 text-sm font-semibold">
-                                <i class="fa-solid fa-triangle-exclamation"></i>
-                                <span>Il Problema nelle Campagne MAB</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-100">L'Integrazione Difficile tra Metadati Catalografici e Hardware di Scansione</h3>
-                            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                                Nelle campagne di digitalizzazione di fondi librari, coordinare i dati di catalogo con gigabyte di master <span class="font-mono text-sky-300">TIFF</span> ad alta risoluzione richiede tradizionalmente enorme lavoro manuale. Senza automazione, l'incongruenza nei checksum MD5 o la perdita dei metadati EXIF rende i dati inutilizzabili nei depositi digitali a lungo termine.
-                            </p>
-                        </div>
-                        <div class="lg:col-span-4 bg-slate-900/80 rounded-xl p-5 border border-slate-700/60 font-mono text-xs space-y-2">
-                            <div class="text-slate-400 font-bold border-b border-slate-800 pb-2 flex justify-between">
-                                <span>SOLUZIONE AUTOMATIZZATA</span>
-                                <i class="fa-solid fa-check-double text-emerald-400"></i>
-                            </div>
-                            <div class="text-emerald-400 flex items-center justify-between">
-                                <span>&bull; Mappatura Catalogo</span>
-                                <span class="text-slate-400">UNIMARC &rarr; MODS</span>
-                            </div>
-                            <div class="text-emerald-400 flex items-center justify-between">
-                                <span>&bull; Metadati Hardware</span>
-                                <span class="text-slate-400">TIFF EXIF &rarr; MIX</span>
-                            </div>
-                            <div class="text-emerald-400 flex items-center justify-between">
-                                <span>&bull; Integrità File</span>
-                                <span class="text-slate-400">MD5 Hash Block</span>
-                            </div>
-                            <div class="text-emerald-400 flex items-center justify-between">
-                                <span>&bull; Standard Output</span>
-                                <span class="text-slate-400">METS XML 1.12</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Process 4 Steps Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    
-                    <div class="bg-slate-800/80 border border-slate-700 hover:border-sky-400/50 p-6 rounded-xl transition-all duration-300 relative group">
-                        <div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-400/30 text-sky-400 flex items-center justify-center font-mono font-bold text-lg mb-4 group-hover:bg-sky-500 group-hover:text-slate-900 transition-colors">
-                            01
-                        </div>
-                        <h4 class="text-lg font-bold text-slate-100 mb-2">Parsing SBN / Clavis</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            Parsing intelligente di dump XML proveniente dai software di catalogazione. Estrazione automatica dei campi UNIMARC.
-                        </p>
-                    </div>
-
-                    <div class="bg-slate-800/80 border border-slate-700 hover:border-sky-400/50 p-6 rounded-xl transition-all duration-300 relative group">
-                        <div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-400/30 text-sky-400 flex items-center justify-center font-mono font-bold text-lg mb-4 group-hover:bg-sky-500 group-hover:text-slate-900 transition-colors">
-                            02
-                        </div>
-                        <h4 class="text-lg font-bold text-slate-100 mb-2">Mapping MODS</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            Conversione dei tag UNIMARC (Titolo, Autore, Edizione, Note) nello schema descrittivo internazionale MODS.
-                        </p>
-                    </div>
-
-                    <div class="bg-slate-800/80 border border-slate-700 hover:border-emerald-400/50 p-6 rounded-xl transition-all duration-300 relative group">
-                        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-400/30 text-emerald-400 flex items-center justify-center font-mono font-bold text-lg mb-4 group-hover:bg-emerald-500 group-hover:text-slate-900 transition-colors">
-                            03
-                        </div>
-                        <h4 class="text-lg font-bold text-slate-100 mb-2">Analisi TIFF & MD5</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            Ispezione delle immagini master: estrazione DPI, risoluzione, profili colore e calcolo checksum di sicurezza MD5.
-                        </p>
-                    </div>
-
-                    <div class="bg-slate-800/80 border border-slate-700 hover:border-emerald-400/50 p-6 rounded-xl transition-all duration-300 relative group">
-                        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-400/30 text-emerald-400 flex items-center justify-center font-mono font-bold text-lg mb-4 group-hover:bg-emerald-500 group-hover:text-slate-900 transition-colors">
-                            04
-                        </div>
-                        <h4 class="text-lg font-bold text-slate-100 mb-2">Generazione METS</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            Assemblaggio finale dell'albero METS XML con fileSec, structMap paginata e validazione automatica.
-                        </p>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 5. SEZIONE CARATTERISTICHE PRINCIPALI -->
-        <section id="caratteristiche" class="py-20 bg-slate-850 border-t border-slate-800 relative">
+        <!-- SEZIONE: IN PAROLE SEMPLICI (PIU DETTAGLIATA) -->
+        <section id="in-parole-semplici" class="py-20 border-b border-[#334155]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
                 <div class="text-center max-w-3xl mx-auto mb-16">
-                    <h2 class="text-xs font-mono font-bold tracking-widest text-emerald-400 uppercase mb-2">Funzionalità Avanzate</h2>
-                    <p class="text-3xl sm:text-4xl font-extrabold text-slate-50">Caratteristiche Principali</p>
-                    <p class="mt-3 text-slate-400">Progettato per garantire accuratezza catalografica, efficienza di processo ed aderenza agli standard W3C e Library of Congress.</p>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 text-white">In Parole Semplici</h2>
+                    <p class="text-lg text-white font-medium">
+                        Cosa serve per usare il programma e cosa viene generato al termine del processo.
+                    </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="grid md:grid-row-2 gap-12">
                     
-                    <!-- Feature 1 -->
-                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-7 hover:border-sky-400/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 text-sky-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 group-hover:border-sky-400 transition-all">
-                                <i class="fa-solid fa-code-merge"></i>
+                    <!-- Requisiti Iniziali -->
+                    <div class="bg-[#1E293B] border border-[#334155] rounded-2xl p-8 shadow-xl">
+                        <h3 class="text-2xl font-bold mb-6 text-[#38BDF8] flex items-center">
+                            <i class="fa-solid fa-list-check mr-3"></i> Di cosa hai bisogno per iniziare
+                        </h3>
+                        <div class="grid sm:grid-cols-3 gap-6">
+                            <div class="p-5 bg-[#0F172A] border border-[#334155] rounded-xl space-y-3">
+                                <div class="w-10 h-10 rounded-lg bg-[#38BDF8]/20 text-[#38BDF8] flex items-center justify-center font-bold text-lg">1</div>
+                                <h4 class="font-bold text-white text-lg">Scansioni Immagini</h4>
+                                <p class="text-white text-sm">La cartella con le immagini digitalizzate del volume (es. file TIFF o JPEG con le pagine del libro).</p>
                             </div>
-                            <h3 class="text-lg font-bold text-slate-50 mb-3 group-hover:text-sky-400 transition-colors">Parsing UNIMARC & Clavis XML</h3>
-                            <p class="text-sm text-slate-400 leading-relaxed">
-                                Riconoscimento ed estrazione automatica dei tag catalografici chiave: Tag 001 (BID/Barcode), 200 (Titolo), 210 (Edizione), 215 (Descrizione fisica), 300 (Note) e 700 (Autori).
-                            </p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-700/60 flex items-center justify-between text-xs font-mono text-slate-400">
-                            <span>UNIMARC / MARC21</span>
-                            <span class="text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">Supportato</span>
+                            <div class="p-5 bg-[#0F172A] border border-[#334155] rounded-xl space-y-3">
+                                <div class="w-10 h-10 rounded-lg bg-[#38BDF8]/20 text-[#38BDF8] flex items-center justify-center font-bold text-lg">2</div>
+                                <h4 class="font-bold text-white text-lg">Dati Catalografici</h4>
+                                <p class="text-white text-sm">L'esportazione XML del catalogo dal gestionale (es. Clavis NG o SBN) oppure un XML scaricato dal catalogo nazionale.</p>
+                            </div>
+                            <div class="p-5 bg-[#0F172A] border border-[#334155] rounded-xl space-y-3">
+                                <div class="w-10 h-10 rounded-lg bg-[#38BDF8]/20 text-[#38BDF8] flex items-center justify-center font-bold text-lg">3</div>
+                                <h4 class="font-bold text-white text-lg">Lo Script Python</h4>
+                                <p class="text-white text-sm">Il file MetsGeneratore.py pronto all'uso sul tuo computer (richiede Python installato).</p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Feature 2 -->
-                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-7 hover:border-emerald-400/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 text-emerald-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 group-hover:border-emerald-400 transition-all">
-                                <i class="fa-solid fa-microchip"></i>
+                    <!-- Risultato Finale -->
+                    <div class="bg-[#1E293B] border border-[#334155] rounded-2xl p-8 shadow-xl">
+                        <h3 class="text-2xl font-bold mb-6 text-[#34D399] flex items-center">
+                            <i class="fa-solid fa-box-archive mr-3"></i> Cosa ottieni come risultato
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="p-5 bg-[#0F172A] border border-[#334155] rounded-xl flex items-start space-x-4">
+                                <div class="text-[#34D399] text-2xl mt-1"><i class="fa-solid fa-circle-check"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-white text-lg">Un file "mets.xml" dentro ogni cartella</h4>
+                                    <p class="text-white mt-1">
+                                        Il programma crea automaticamente un documento XML standard all'interno di ciascuna cartella del libro digitalizzato.
+                                    </p>
+                                </div>
                             </div>
-                            <h3 class="text-lg font-bold text-slate-50 mb-3 group-hover:text-emerald-400 transition-colors">Metadati Tecnici NISO Z39.87</h3>
-                            <p class="text-sm text-slate-400 leading-relaxed">
-                                Lettura automatica dell'header delle immagini master tramite schema MIX: registra modello scanner, profondità di bit, profilo colore e risoluzione ottica X/Y.
-                            </p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-700/60 flex items-center justify-between text-xs font-mono text-slate-400">
-                            <span>Schema MIX / EXIF</span>
-                            <span class="text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">Automatico</span>
-                        </div>
-                    </div>
-
-                    <!-- Feature 3 -->
-                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-7 hover:border-sky-400/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 text-sky-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 group-hover:border-sky-400 transition-all">
-                                <i class="fa-solid fa-shield-halved"></i>
+                            <div class="p-5 bg-[#0F172A] border border-[#334155] rounded-xl flex items-start space-x-4">
+                                <div class="text-[#34D399] text-2xl mt-1"><i class="fa-solid fa-circle-check"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-white text-lg">Pronto per l'invio e la conservazione a lungo termine</h4>
+                                    <p class="text-white mt-1">
+                                        Il pacchetto prodotto è conforme agli standard internazionali della Library of Congress e pronto per essere consegnato ad altri enti o caricato in un archivio digitale.
+                                    </p>
+                                </div>
                             </div>
-                            <h3 class="text-lg font-bold text-slate-50 mb-3 group-hover:text-sky-400 transition-colors">Integrità Checksum MD5</h3>
-                            <p class="text-sm text-slate-400 leading-relaxed">
-                                Calcolo dinamico degli hash per la conservazione a lungo termine. Elaborazione a blocchi di memoria (<span class="font-mono text-xs">chunking</span>) per gestire file TIFF senza saturare la RAM.
-                            </p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-700/60 flex items-center justify-between text-xs font-mono text-slate-400">
-                            <span>Conservazione Digitale</span>
-                            <span class="text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">MD5 Dynamic</span>
-                        </div>
-                    </div>
-
-                    <!-- Feature 4 -->
-                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-7 hover:border-emerald-400/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 text-emerald-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 group-hover:border-emerald-400 transition-all">
-                                <i class="fa-solid fa-folder-tree"></i>
-                            </div>
-                            <h3 class="text-lg font-bold text-slate-50 mb-3 group-hover:text-emerald-400 transition-colors">Elaborazione Batch Massiva</h3>
-                            <p class="text-sm text-slate-400 leading-relaxed">
-                                Associazione automatica tra cartelle contenenti le scansioni e gli ID di catalogo (BID/Barcode), consentendo la generazione di centinaia di METS in un solo ciclo.
-                            </p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-700/60 flex items-center justify-between text-xs font-mono text-slate-400">
-                            <span>Scalabilità Batch</span>
-                            <span class="text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">Massivo</span>
-                        </div>
-                    </div>
-
-                    <!-- Feature 5 -->
-                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-7 hover:border-sky-400/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 text-sky-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 group-hover:border-sky-400 transition-all">
-                                <i class="fa-solid fa-certificate"></i>
-                            </div>
-                            <h3 class="text-lg font-bold text-slate-50 mb-3 group-hover:text-sky-400 transition-colors">Conformità Standard LoC</h3>
-                            <p class="text-sm text-slate-400 leading-relaxed">
-                                Inserimento rigoroso dei namespace della Library of Congress (<span class="font-mono text-xs">mets, mods, mix, xlink</span>) per massima compatibilità con i repository nazionali.
-                            </p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-700/60 flex items-center justify-between text-xs font-mono text-slate-400">
-                            <span>Standard LoC</span>
-                            <span class="text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">Validato</span>
-                        </div>
-                    </div>
-
-                    <!-- Feature 6 -->
-                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-7 hover:border-emerald-400/60 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 text-emerald-400 flex items-center justify-center text-xl mb-6 group-hover:scale-110 group-hover:border-emerald-400 transition-all">
-                                <i class="fa-solid fa-sitemap"></i>
-                            </div>
-                            <h3 class="text-lg font-bold text-slate-50 mb-3 group-hover:text-emerald-400 transition-colors">Mappatura Fisico-Logica</h3>
-                            <p class="text-sm text-slate-400 leading-relaxed">
-                                Costruzione della sezione <span class="font-mono text-xs text-sky-300">&lt;structMap&gt;</span> per stabilire l'ordine sequenziale esatto di lettura delle immagini, inclusi allegati e copertine.
-                            </p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-700/60 flex items-center justify-between text-xs font-mono text-slate-400">
-                            <span>Navigabilità</span>
-                            <span class="text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">Physical Map</span>
                         </div>
                     </div>
 
@@ -560,506 +244,234 @@
             </div>
         </section>
 
-        <!-- 6. SEZIONE STACK TECNOLOGICO -->
-        <section id="stack" class="py-16 relative border-t border-slate-800">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <div class="text-center max-w-3xl mx-auto mb-12">
-                    <h2 class="text-xs font-mono font-bold tracking-widest text-sky-400 uppercase mb-2">Architettura Core</h2>
-                    <p class="text-3xl font-extrabold text-slate-50">Stack Tecnologico & Dipendenze Python</p>
-                    <p class="mt-3 text-slate-400">Librerie ad alte prestazioni usate dallo script in ambiente Python 3.9+.</p>
-                </div>
-
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-4">
-                    
-                    <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl text-center hover:border-sky-400/50 transition-all group">
-                        <i class="fa-brands fa-python text-3xl text-sky-400 mb-2 group-hover:scale-110 transition-transform"></i>
-                        <h4 class="font-bold text-sm text-slate-100">Python 3.x</h4>
-                        <p class="text-[11px] font-mono text-slate-400 mt-1">Core Engine</p>
-                    </div>
-
-                    <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl text-center hover:border-emerald-400/50 transition-all group">
-                        <i class="fa-solid fa-code text-3xl text-emerald-400 mb-2 group-hover:scale-110 transition-transform"></i>
-                        <h4 class="font-bold text-sm text-slate-100">lxml</h4>
-                        <p class="text-[11px] font-mono text-slate-400 mt-1">ElementTree XML</p>
-                    </div>
-
-                    <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl text-center hover:border-sky-400/50 transition-all group">
-                        <i class="fa-regular fa-image text-3xl text-sky-400 mb-2 group-hover:scale-110 transition-transform"></i>
-                        <h4 class="font-bold text-sm text-slate-100">Pillow (PIL)</h4>
-                        <p class="text-[11px] font-mono text-slate-400 mt-1">TIFF & EXIF Tag</p>
-                    </div>
-
-                    <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl text-center hover:border-emerald-400/50 transition-all group">
-                        <i class="fa-solid fa-hashtag text-3xl text-emerald-400 mb-2 group-hover:scale-110 transition-transform"></i>
-                        <h4 class="font-bold text-sm text-slate-100">hashlib</h4>
-                        <p class="text-[11px] font-mono text-slate-400 mt-1">MD5 Chunking</p>
-                    </div>
-
-                    <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl text-center hover:border-sky-400/50 transition-all group">
-                        <i class="fa-solid fa-glasses text-3xl text-sky-400 mb-2 group-hover:scale-110 transition-transform"></i>
-                        <h4 class="font-bold text-sm text-slate-100">re</h4>
-                        <p class="text-[11px] font-mono text-slate-400 mt-1">Regex UNIMARC</p>
-                    </div>
-
-                    <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl text-center hover:border-emerald-400/50 transition-all group">
-                        <i class="fa-regular fa-folder-open text-3xl text-emerald-400 mb-2 group-hover:scale-110 transition-transform"></i>
-                        <h4 class="font-bold text-sm text-slate-100">glob</h4>
-                        <p class="text-[11px] font-mono text-slate-400 mt-1">File Traversing</p>
-                    </div>
-
-                    <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl text-center hover:border-sky-400/50 transition-all group">
-                        <i class="fa-solid fa-hard-drive text-3xl text-sky-400 mb-2 group-hover:scale-110 transition-transform"></i>
-                        <h4 class="font-bold text-sm text-slate-100">os / sys</h4>
-                        <p class="text-[11px] font-mono text-slate-400 mt-1">FileSystem I/O</p>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 7. SEZIONE FLUSSO DI LAVORO (WORKFLOW DIAGRAM) -->
-        <section id="workflow" class="py-20 bg-slate-850 border-t border-slate-800 relative">
+        <!-- SEZIONE: CARATTERISTICHE PRINCIPALI -->
+        <section id="caratteristiche" class="py-20 border-b border-[#334155] bg-[#1E293B]/20">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
                 <div class="text-center max-w-3xl mx-auto mb-16">
-                    <h2 class="text-xs font-mono font-bold tracking-widest text-emerald-400 uppercase mb-2">Diagramma Visivo</h2>
-                    <p class="text-3xl font-extrabold text-slate-50">Workflow Operativo della Pipeline</p>
-                    <p class="mt-3 text-slate-400">Rappresentazione schematica dell'elaborazione dai file sorgente all'XML METS validato.</p>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 text-white">Caratteristiche Tecniche</h2>
+                    <p class="text-lg text-white font-medium">
+                        Funzionalità avanzate per la gestione professionale delle campagne di digitalizzazione.
+                    </p>
                 </div>
 
-                <!-- Workflow Diagram Card -->
-                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 sm:p-10 shadow-2xl relative">
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                        
-                        <!-- Input Box -->
-                        <div class="lg:col-span-4 bg-slate-900 border border-slate-700/80 rounded-xl p-5 space-y-4">
-                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                                <span class="font-mono text-xs font-bold text-sky-400 uppercase flex items-center gap-2">
-                                    <i class="fa-solid fa-right-to-bracket"></i> Input Sorgente
-                                </span>
-                                <span class="text-[10px] bg-sky-500/10 text-sky-300 font-mono px-2 py-0.5 rounded">MAB Source</span>
-                            </div>
-                            
-                            <div class="space-y-3">
-                                <div class="p-3 bg-slate-800/70 rounded-lg border border-slate-700 flex items-center justify-between">
-                                    <div class="flex items-center space-x-3">
-                                        <i class="fa-solid fa-file-code text-amber-400 text-lg"></i>
-                                        <div>
-                                            <p class="text-xs font-mono font-bold text-slate-200">export_clavis.xml</p>
-                                            <p class="text-[10px] text-slate-400">Catalogo SBN / Clavis Dump</p>
-                                        </div>
-                                    </div>
-                                    <i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i>
-                                </div>
-
-                                <div class="p-3 bg-slate-800/70 rounded-lg border border-slate-700 flex items-center justify-between">
-                                    <div class="flex items-center space-x-3">
-                                        <i class="fa-solid fa-images text-sky-400 text-lg"></i>
-                                        <div>
-                                            <p class="text-xs font-mono font-bold text-slate-200">/scans_master/*.tif</p>
-                                            <p class="text-[10px] text-slate-400">Cartella Scansioni Master</p>
-                                        </div>
-                                    </div>
-                                    <i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i>
-                                </div>
-                            </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Card 1 -->
+                    <div class="bg-[#1E293B] border border-[#334155] rounded-xl p-6 hover:border-[#38BDF8] transition-all">
+                        <div class="w-12 h-12 rounded-lg bg-[#38BDF8]/20 text-[#38BDF8] flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-code-merge"></i>
                         </div>
-
-                        <!-- Process Core Box -->
-                        <div class="lg:col-span-4 relative">
-                            <div class="hidden lg:block absolute -left-6 top-1/2 -translate-y-1/2 text-sky-400 text-xl z-20">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </div>
-
-                            <div class="bg-gradient-to-b from-slate-900 to-slate-850 border-2 border-sky-400/50 rounded-xl p-6 shadow-xl relative text-center glow-sky">
-                                <div class="w-12 h-12 rounded-full bg-sky-500 text-slate-900 flex items-center justify-center mx-auto text-xl font-bold mb-3">
-                                    <i class="fa-solid fa-gear animate-spin" style="animation-duration: 8s;"></i>
-                                </div>
-                                <h3 class="font-mono font-bold text-slate-50 text-base">MetsGeneratore.py</h3>
-                                <p class="text-xs text-slate-400 mt-1">Elaborazione &amp; Normalizzazione</p>
-
-                                <div class="mt-4 pt-3 border-t border-slate-800 text-left space-y-1.5 font-mono text-[11px] text-slate-300">
-                                    <p class="text-emerald-400 flex items-center gap-1.5"><i class="fa-solid fa-check text-[10px]"></i> XML Parsing &amp; MODS Mapping</p>
-                                    <p class="text-emerald-400 flex items-center gap-1.5"><i class="fa-solid fa-check text-[10px]"></i> Reading EXIF Headers</p>
-                                    <p class="text-emerald-400 flex items-center gap-1.5"><i class="fa-solid fa-check text-[10px]"></i> MD5 Hash Generation</p>
-                                    <p class="text-emerald-400 flex items-center gap-1.5"><i class="fa-solid fa-check text-[10px]"></i> StructMap Physical Order</p>
-                                </div>
-                            </div>
-
-                            <div class="hidden lg:block absolute -right-6 top-1/2 -translate-y-1/2 text-emerald-400 text-xl z-20">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </div>
-                        </div>
-
-                        <!-- Output Box -->
-                        <div class="lg:col-span-4 bg-slate-900 border border-emerald-500/30 rounded-xl p-5 space-y-4">
-                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                                <span class="font-mono text-xs font-bold text-emerald-400 uppercase flex items-center gap-2">
-                                    <i class="fa-solid fa-box-archive"></i> Output Finale
-                                </span>
-                                <span class="text-[10px] bg-emerald-500/10 text-emerald-300 font-mono px-2 py-0.5 rounded">Validato LoC</span>
-                            </div>
-
-                            <div class="p-3 bg-slate-800/90 rounded-lg border border-emerald-500/40 space-y-2">
-                                <div class="flex items-center space-x-3">
-                                    <i class="fa-solid fa-file-circle-check text-emerald-400 text-2xl"></i>
-                                    <div>
-                                        <p class="text-xs font-mono font-bold text-slate-100">mets_BID00412.xml</p>
-                                        <p class="text-[10px] text-emerald-400 font-mono">Pacchetto METS v1.12</p>
-                                    </div>
-                                </div>
-                                <div class="text-[11px] font-mono text-slate-400 pt-2 border-t border-slate-700/60">
-                                    Contiene: <span class="text-sky-300">&lt;dmdSec&gt;</span>, <span class="text-sky-300">&lt;amdSec&gt;</span>, <span class="text-sky-300">&lt;fileSec&gt;</span> e <span class="text-sky-300">&lt;structMap&gt;</span>.
-                                </div>
-                            </div>
-                        </div>
-
+                        <h3 class="text-xl font-bold mb-2 text-white">Parsing UNIMARC & Clavis</h3>
+                        <p class="text-white text-sm leading-relaxed">
+                            Mappatura automatica dei tag catalogati (001, 200, 210, 215, 300, 700) per convertire le informazioni bibliografiche nello standard MODS.
+                        </p>
                     </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-[#1E293B] border border-[#334155] rounded-xl p-6 hover:border-[#38BDF8] transition-all">
+                        <div class="w-12 h-12 rounded-lg bg-[#38BDF8]/20 text-[#38BDF8] flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-[#34D399] fa-camera"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Metadati Tecnici (MIX)</h3>
+                        <p class="text-white text-sm leading-relaxed">
+                            Lettura degli header hardware TIFF via Pillow (risoluzione, dati del sensore, spazio colore) ed esportazione nello schema NISO Z39.87 / MIX.
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-[#1E293B] border border-[#334155] rounded-xl p-6 hover:border-[#38BDF8] transition-all">
+                        <div class="w-12 h-12 rounded-lg bg-[#38BDF8]/20 text-[#38BDF8] flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-fingerprint"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Impronta Digitale MD5</h3>
+                        <p class="text-white text-sm leading-relaxed">
+                            Calcolo dinamico a blocchi dell'hash MD5 per ogni singola immagine. Garantisce l'integrità del file per la conservazione sostitutiva.
+                        </p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="bg-[#1E293B] border border-[#334155] rounded-xl p-6 hover:border-[#38BDF8] transition-all">
+                        <div class="w-12 h-12 rounded-lg bg-[#38BDF8]/20 text-[#38BDF8] flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-folder-tree"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Elaborazione Massiva</h3>
+                        <p class="text-white text-sm leading-relaxed">
+                            Processa interi lotti di lavoro collegando automaticamente ogni cartella di immagini al rispettivo codice identificativo (BID o Barcode).
+                        </p>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="bg-[#1E293B] border border-[#334155] rounded-xl p-6 hover:border-[#38BDF8] transition-all">
+                        <div class="w-12 h-12 rounded-lg bg-[#38BDF8]/20 text-[#38BDF8] flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-certificate"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Standard Library of Congress</h3>
+                        <p class="text-white text-sm leading-relaxed">
+                            Generazione rigorosa conforme agli schemi W3C con corretta definizione dei namespace (mets, mods, mix, xlink).
+                        </p>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="bg-[#1E293B] border border-[#334155] rounded-xl p-6 hover:border-[#38BDF8] transition-all">
+                        <div class="w-12 h-12 rounded-lg bg-[#38BDF8]/20 text-[#38BDF8] flex items-center justify-center text-xl font-bold mb-4">
+                            <i class="fa-solid fa-terminal"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Esecuzione Semplice</h3>
+                        <p class="text-white text-sm leading-relaxed">
+                            Nessun software pesante da installare. Lo script può essere avviato da riga di comando o integrato in procedure automatiche.
+                        </p>
+                    </div>
+
                 </div>
 
             </div>
         </section>
 
-        <!-- 8. SEZIONE STRUTTURA DELL'OUTPUT GENERATO (METS.XML) -->
-        <section id="struttura-mets" class="py-20 relative border-t border-slate-800">
+        <!-- SEZIONE: STACK TECNOLOGICO -->
+        <section id="stack" class="py-20 border-b border-[#334155]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
                 <div class="text-center max-w-3xl mx-auto mb-16">
-                    <h2 class="text-xs font-mono font-bold tracking-widest text-sky-400 uppercase mb-2">Anatomia XML</h2>
-                    <p class="text-3xl font-extrabold text-slate-50">Struttura dell'Output METS Generato</p>
-                    <p class="mt-3 text-slate-400">Esplora la gerarchia dei nodi generati nel file <span class="font-mono text-slate-200">mets.xml</span> finale.</p>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 text-white">Stack Tecnologico</h2>
+                    <p class="text-lg text-white font-medium">
+                        Librerie Python standard ed efficienti per garantire velocità ed esecuzione affidabile.
+                    </p>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
                     
-                    <!-- Left: Node Selector -->
-                    <div class="lg:col-span-5 space-y-3 font-mono text-sm">
-                        
-                        <div class="p-3 bg-slate-900 border border-slate-700 rounded-lg text-slate-300 font-bold flex items-center justify-between">
-                            <span class="text-sky-400">&lt;mets:mets&gt;</span>
-                            <span class="text-xs font-normal text-slate-400">W3C Namespaces</span>
-                        </div>
-
-                        <!-- Node 1: metsHdr -->
-                        <div onclick="selectXmlSection('hdr')" id="node-hdr" class="xml-node cursor-pointer p-3.5 bg-slate-800 border-l-4 border-l-sky-400 border-y border-r border-slate-700 rounded-r-lg hover:bg-slate-750">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-sky-300">&lt;metsHdr&gt;</span>
-                                <span class="text-xs text-slate-400">Intestazione</span>
-                            </div>
-                            <p class="text-xs text-slate-400 font-sans mt-1">Timestamp ISO e metadati dell'istituto creatore.</p>
-                        </div>
-
-                        <!-- Node 2: dmdSec -->
-                        <div onclick="selectXmlSection('dmd')" id="node-dmd" class="xml-node cursor-pointer p-3.5 bg-slate-800 border-l-4 border-l-transparent border-y border-r border-slate-700 rounded-r-lg hover:bg-slate-750">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-emerald-400">&lt;dmdSec&gt;</span>
-                                <span class="text-xs text-slate-400">Descriptive Metadata</span>
-                            </div>
-                            <p class="text-xs text-slate-400 font-sans mt-1">Scheda catalografica Unimarc mappata in MODS XML.</p>
-                        </div>
-
-                        <!-- Node 3: amdSec -->
-                        <div onclick="selectXmlSection('amd')" id="node-amd" class="xml-node cursor-pointer p-3.5 bg-slate-800 border-l-4 border-l-transparent border-y border-r border-slate-700 rounded-r-lg hover:bg-slate-750">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-amber-400">&lt;amdSec&gt;</span>
-                                <span class="text-xs text-slate-400">Administrative Metadata</span>
-                            </div>
-                            <p class="text-xs text-slate-400 font-sans mt-1">Diritti d'uso e metadati tecnici dello scanner (MIX).</p>
-                        </div>
-
-                        <!-- Node 4: fileSec -->
-                        <div onclick="selectXmlSection('file')" id="node-file" class="xml-node cursor-pointer p-3.5 bg-slate-800 border-l-4 border-l-transparent border-y border-r border-slate-700 rounded-r-lg hover:bg-slate-750">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-sky-300">&lt;fileSec&gt;</span>
-                                <span class="text-xs text-slate-400">File Manifest</span>
-                            </div>
-                            <p class="text-xs text-slate-400 font-sans mt-1">Elenco immagini master TIFF con MIME e hash MD5.</p>
-                        </div>
-
-                        <!-- Node 5: structMap -->
-                        <div onclick="selectXmlSection('struct')" id="node-struct" class="xml-node cursor-pointer p-3.5 bg-slate-800 border-l-4 border-l-transparent border-y border-r border-slate-700 rounded-r-lg hover:bg-slate-750">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-purple-400">&lt;structMap&gt;</span>
-                                <span class="text-xs text-slate-400">Mappa Strutturale</span>
-                            </div>
-                            <p class="text-xs text-slate-400 font-sans mt-1">Sequenza fisica pagina per pagina per lo sfogliatore.</p>
-                        </div>
-
+                    <div class="bg-[#1E293B] border border-[#334155] p-6 rounded-xl text-center space-y-2">
+                        <i class="fa-brands fa-python text-3xl text-[#38BDF8]"></i>
+                        <h4 class="font-mono font-bold text-white">Python 3.x</h4>
+                        <span class="inline-block text-xs font-mono text-[#34D399]">Core Language</span>
                     </div>
 
-                    <!-- Right: Code Display -->
-                    <div class="lg:col-span-7 bg-slate-900 border border-slate-700 rounded-xl overflow-hidden shadow-2xl">
-                        <div class="bg-slate-800/80 px-4 py-3 border-b border-slate-700 flex items-center justify-between font-mono text-xs">
-                            <span class="text-slate-300 flex items-center gap-2">
-                                <i class="fa-solid fa-code text-sky-400"></i>
-                                <span id="xml-tab-title">metsHdr (Intestazione METS)</span>
-                            </span>
-                            <button onclick="copyXmlCode()" class="text-slate-400 hover:text-emerald-400 transition-colors flex items-center gap-1">
-                                <i class="fa-regular fa-copy"></i>
-                                <span>Copia Snippet</span>
-                            </button>
-                        </div>
+                    <div class="bg-[#1E293B] border border-[#334155] p-6 rounded-xl text-center space-y-2">
+                        <i class="fa-solid fa-code text-3xl text-[#38BDF8]"></i>
+                        <h4 class="font-mono font-bold text-white">lxml</h4>
+                        <span class="inline-block text-xs font-mono text-[#34D399]">XML Parsing</span>
+                    </div>
 
-                        <pre class="p-5 font-mono text-xs sm:text-sm overflow-x-auto text-slate-300 leading-relaxed max-h-[420px]"><code id="xml-code-display">&lt;<span class="text-sky-400">mets:metsHdr</span> <span class="text-emerald-400">CREATEDATE</span>=<span class="text-amber-300">"2026-10-04T12:00:00Z"</span> <span class="text-emerald-400">RECORDSTATUS</span>=<span class="text-amber-300">"COMPLETE"</span>&gt;
-    &lt;<span class="text-sky-400">mets:agent</span> <span class="text-emerald-400">ROLE</span>=<span class="text-amber-300">"CREATOR"</span> <span class="text-emerald-400">TYPE</span>=<span class="text-amber-300">"SOFTWARE"</span>&gt;
-        &lt;<span class="text-sky-400">mets:name</span>&gt;MetsGeneratore.py v2.4 (Python Pipeline)&lt;/<span class="text-sky-400">mets:name</span>&gt;
-    &lt;/<span class="text-sky-400">mets:agent</span>&gt;
-    &lt;<span class="text-sky-400">mets:agent</span> <span class="text-emerald-400">ROLE</span>=<span class="text-amber-300">"CUSTODIAN"</span> <span class="text-emerald-400">TYPE</span>=<span class="text-amber-300">"ORGANIZATION"</span>&gt;
-        &lt;<span class="text-sky-400">mets:name</span>&gt;Biblioteca / Archivio MAB&lt;/<span class="text-sky-400">mets:name</span>&gt;
-    &lt;/<span class="text-sky-400">mets:agent</span>&gt;
-&lt;/<span class="text-sky-400">mets:metsHdr</span>&gt;</code></pre>
+                    <div class="bg-[#1E293B] border border-[#334155] p-6 rounded-xl text-center space-y-2">
+                        <i class="fa-solid fa-image text-3xl text-[#38BDF8]"></i>
+                        <h4 class="font-mono font-bold text-white">Pillow (PIL)</h4>
+                        <span class="inline-block text-xs font-mono text-[#34D399]">EXIF/TIFF Tags</span>
+                    </div>
+
+                    <div class="bg-[#1E293B] border border-[#334155] p-6 rounded-xl text-center space-y-2">
+                        <i class="fa-solid fa-key text-3xl text-[#38BDF8]"></i>
+                        <h4 class="font-mono font-bold text-white">hashlib</h4>
+                        <span class="inline-block text-xs font-mono text-[#34D399]">MD5 Chunking</span>
+                    </div>
+
+                    <div class="bg-[#1E293B] border border-[#334155] p-6 rounded-xl text-center space-y-2">
+                        <i class="fa-solid fa-gears text-3xl text-[#38BDF8]"></i>
+                        <h4 class="font-mono font-bold text-white">re & glob</h4>
+                        <span class="inline-block text-xs font-mono text-[#34D399]">Pattern Matching</span>
+                    </div>
+
+                    <div class="bg-[#1E293B] border border-[#334155] p-6 rounded-xl text-center space-y-2">
+                        <i class="fa-solid fa-folder text-3xl text-[#38BDF8]"></i>
+                        <h4 class="font-mono font-bold text-white">os & sys</h4>
+                        <span class="inline-block text-xs font-mono text-[#34D399]">System I/O</span>
                     </div>
 
                 </div>
 
+            </div>
+        </section>
+
+        <!-- SEZIONE: FLUSSO DI LAVORO -->
+        <section id="workflow" class="py-20 border-b border-[#334155] bg-[#1E293B]/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 text-white">Flusso di Lavoro</h2>
+                    <p class="text-lg text-white font-medium">
+                        Dalla cartella non metadata al pacchetto conservativo validato.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8 items-center">
+                    
+                    <!-- Step 1 -->
+                    <div class="bg-[#1E293B] border border-[#334155] rounded-xl p-8 relative">
+                        <div class="text-xs font-mono font-bold text-[#38BDF8] uppercase tracking-wider mb-2">Fase 1 • Input</div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Dati di Partenza</h3>
+                        <ul class="space-y-3 text-sm text-white">
+                            <li class="flex items-center"><i class="fa-solid fa-file-code text-[#38BDF8] mr-2"></i> File XML Catalogo (UNIMARC/SBN)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-folder-open text-[#38BDF8] mr-2"></i> Cartella Scansioni TIFF / JPEG</li>
+                        </ul>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-[#1E293B] border-2 border-[#38BDF8] rounded-xl p-8 relative shadow-xl">
+                        <div class="text-xs font-mono font-bold text-[#34D399] uppercase tracking-wider mb-2">Fase 2 • Elaborazione</div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">MetsGeneratore.py</h3>
+                        <ul class="space-y-3 text-sm text-white">
+                            <li class="flex items-center"><i class="fa-solid fa-gears text-[#34D399] mr-2"></i> Parsing tag bibliografici</li>
+                            <li class="flex items-center"><i class="fa-solid fa-microchip text-[#34D399] mr-2"></i> Lettura parametri EXIF/TIFF</li>
+                            <li class="flex items-center"><i class="fa-solid fa-lock text-[#34D399] mr-2"></i> Calcolo Hash MD5</li>
+                        </ul>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-[#1E293B] border border-[#334155] rounded-xl p-8 relative">
+                        <div class="text-xs font-mono font-bold text-[#38BDF8] uppercase tracking-wider mb-2">Fase 3 • Output</div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Pacchetto Finale</h3>
+                        <ul class="space-y-3 text-sm text-white">
+                            <li class="flex items-center"><i class="fa-solid fa-file-circle-check text-[#34D399] mr-2"></i> File <strong>mets.xml</strong> generato</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-[#34D399] mr-2"></i> Pronto per DSpace, SBN o Archivi</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEZIONE: RICHIEDI IL TOOL (CTA FOOTER) -->
+        <section id="richiedi" class="py-20 bg-[#1E293B]">
+            <div class="max-w-4xl mx-auto px-4 text-center space-y-8">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Vuoi utilizzare MetsGeneratore.py nel tuo ente?</h2>
+                <p class="text-lg text-white font-medium">
+                    Il programma è disponibile per biblioteche, archivi, musei e operatori del settore MAB che necessitano di automatizzare la creazione dei pacchetti METS/XML.
+                </p>
+                <div class="pt-4">
+                    <a href="mailto:info@esempio-mab.it?subject=Richiesta%20MetsGeneratore.py" class="inline-flex items-center px-8 py-4 rounded-xl font-bold text-lg bg-[#38BDF8] text-[#0F172A] hover:bg-sky-300 transition-all shadow-xl shadow-sky-500/20">
+                        <i class="fa-solid fa-envelope mr-3"></i> Contatta lo Sviluppatore
+                    </a>
+                </div>
             </div>
         </section>
 
     </main>
 
-    <!-- 9. FOOTER -->
-    <footer class="bg-slate-900 border-t border-slate-800 text-slate-400 text-sm py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
-                
-                <!-- Footer Info Left -->
-                <div class="md:col-span-6 space-y-3">
-                    <div class="flex items-center space-x-2 font-mono font-bold text-slate-100 text-base">
-                        <i class="fa-solid fa-file-code text-sky-400"></i>
-                        <span>MetsGeneratore.py</span>
-                    </div>
-                    <p class="text-xs text-slate-400 max-w-md leading-relaxed">
-                        Strumento ad alto profilo tecnico ideato per la convergenza di catalogazione e conservazione digitale nei progetti MAB (Musei, Archivi e Biblioteche).
-                    </p>
-                    <p class="text-xs text-emerald-400 font-mono">
-                        Conforme agli standard internazionali Library of Congress
-                    </p>
-                </div>
-
-                <!-- Links Right -->
-                <div class="md:col-span-3 space-y-2">
-                    <p class="font-semibold text-slate-200 text-xs font-mono uppercase tracking-wider">Risorse MAB</p>
-                    <ul class="space-y-1.5 text-xs">
-                        <li><a href="https://www.loc.gov/standards/mets/" target="_blank" class="hover:text-sky-400 transition-colors">Library of Congress METS</a></li>
-                        <li><a href="https://www.iccu.sbn.it/" target="_blank" class="hover:text-sky-400 transition-colors">ICCU / SBN Nazionale</a></li>
-                        <li><a href="https://www.loc.gov/standards/mods/" target="_blank" class="hover:text-sky-400 transition-colors">Schema MODS XML</a></li>
-                        <li><a href="https://www.loc.gov/standards/mix/" target="_blank" class="hover:text-sky-400 transition-colors">NISO Z39.87 / MIX</a></li>
-                    </ul>
-                </div>
-
-                <div class="md:col-span-3 space-y-2">
-                    <p class="font-semibold text-slate-200 text-xs font-mono uppercase tracking-wider">Richiesta Tool</p>
-                    <ul class="space-y-1.5 text-xs">
-                        <li><button onclick="openRequestModal()" class="hover:text-sky-400 transition-colors text-left"><i class="fa-solid fa-envelope mr-1"></i> Richiedi lo Script Python</button></li>
-                        <li><a href="#guida-semplice" class="hover:text-sky-400 transition-colors"><i class="fa-solid fa-lightbulb mr-1"></i> Guida per non-programmatori</a></li>
-                        <li><a href="#struttura-mets" class="hover:text-sky-400 transition-colors"><i class="fa-solid fa-book mr-1"></i> Specifiche Tecniche Output</a></li>
-                    </ul>
-                </div>
-
+    <!-- FOOTER -->
+    <footer class="bg-[#0F172A] border-t border-[#334155] py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-file-code text-[#38BDF8] text-xl"></i>
+                <span class="font-mono font-bold text-white">MetsGeneratore.py</span>
             </div>
-
-            <!-- Bottom Copyright -->
-            <div class="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
-                <p>&copy; 2026 MetsGeneratore.py • Tool Open-Source per il settore MAB</p>
-                <p class="mt-2 sm:mt-0 font-mono">Realizzato con Python &amp; Tailwind CSS</p>
+            <p class="text-sm text-white font-medium text-center md:text-left">
+                Sviluppato per la digitalizzazione e la conservazione del patrimonio culturale (MAB).
+            </p>
+            <div class="text-xs font-mono text-white">
+                Standard METS • MODS • MIX
             </div>
         </div>
     </footer>
 
-    <!-- MODAL RICHIESTA / DOWNLOAD SCRIPT -->
-    <div id="request-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden p-4">
-        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative">
-            <button onclick="closeRequestModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            
-            <div class="space-y-4">
-                <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-400/30 text-sky-400 flex items-center justify-center text-xl">
-                    <i class="fa-solid fa-paper-plane"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-slate-50">Richiedi / Download MetsGeneratore.py</h3>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                    Il tool è attualmente in fase di distribuzione diretta per istituti MAB, biblioteche e progetti di conservazione. Compila il form per ricevere lo script Python e la documentazione d'uso.
-                </p>
-
-                <form onsubmit="submitRequest(event)" class="space-y-3 pt-2">
-                    <div>
-                        <label class="block text-xs font-mono text-slate-300 mb-1">Nome e Cognome / Ente</label>
-                        <input type="text" required placeholder="Es. Mario Rossi - Biblioteca Civica" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-sky-400">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-mono text-slate-300 mb-1">Email Istituzionale</label>
-                        <input type="email" required placeholder="nome@istituto.it" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-sky-400">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-mono text-slate-300 mb-1">Software di catalogazione in uso</label>
-                        <select class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-sky-400">
-                            <option>Clavis NG</option>
-                            <option>SBN Web / ICCU</option>
-                            <option>Sebina OpenLibrary</option>
-                            <option>Altro software MAB</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-900 font-bold py-3 rounded-lg text-sm transition-all mt-4">
-                        Invia Richiesta Script
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Interactive Client JavaScript -->
+    <!-- Script per Menu Mobile -->
     <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
         });
-
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // Modal Controls
-        function openRequestModal() {
-            document.getElementById('request-modal').classList.remove('hidden');
-        }
-        function closeRequestModal() {
-            document.getElementById('request-modal').classList.add('hidden');
-        }
-
-        function submitRequest(e) {
-            e.preventDefault();
-            closeRequestModal();
-            showToast("Richiesta inviata! Riceverai lo script via mail.");
-        }
-
-        // XML Snippets Code Viewer
-        const xmlSnippets = {
-            hdr: {
-                title: 'metsHdr (Intestazione METS)',
-                code: `&lt;<span class="text-sky-400">mets:metsHdr</span> <span class="text-emerald-400">CREATEDATE</span>=<span class="text-amber-300">"2026-10-04T12:00:00Z"</span> <span class="text-emerald-400">RECORDSTATUS</span>=<span class="text-amber-300">"COMPLETE"</span>&gt;
-    &lt;<span class="text-sky-400">mets:agent</span> <span class="text-emerald-400">ROLE</span>=<span class="text-amber-300">"CREATOR"</span> <span class="text-emerald-400">TYPE</span>=<span class="text-amber-300">"SOFTWARE"</span>&gt;
-        &lt;<span class="text-sky-400">mets:name</span>&gt;MetsGeneratore.py v2.4 (Python Pipeline)&lt;/<span class="text-sky-400">mets:name</span>&gt;
-    &lt;/<span class="text-sky-400">mets:agent</span>&gt;
-    &lt;<span class="text-sky-400">mets:agent</span> <span class="text-emerald-400">ROLE</span>=<span class="text-amber-300">"CUSTODIAN"</span> <span class="text-emerald-400">TYPE</span>=<span class="text-amber-300">"ORGANIZATION"</span>&gt;
-        &lt;<span class="text-sky-400">mets:name</span>&gt;Biblioteca / Archivio MAB&lt;/<span class="text-sky-400">mets:name</span>&gt;
-    &lt;/<span class="text-sky-400">mets:agent</span>&gt;
-&lt;/<span class="text-sky-400">mets:metsHdr</span>&gt;`
-            },
-            dmd: {
-                title: 'dmdSec (Metadati Descrittivi MODS da UNIMARC)',
-                code: `&lt;<span class="text-sky-400">mets:dmdSec</span> <span class="text-emerald-400">ID</span>=<span class="text-amber-300">"DMD_BID_00412"</span>&gt;
-    &lt;<span class="text-sky-400">mets:mdWrap</span> <span class="text-emerald-400">MDTYPE</span>=<span class="text-amber-300">"MODS"</span>&gt;
-        &lt;<span class="text-sky-400">mets:xmlData</span>&gt;
-            &lt;<span class="text-emerald-400">mods:mods</span>&gt;
-                &lt;<span class="text-emerald-400">mods:titleInfo</span>&gt;
-                    &lt;<span class="text-emerald-400">mods:title</span>&gt;De Divina Proportione&lt;/<span class="text-emerald-400">mods:title</span>&gt;
-                &lt;/<span class="text-emerald-400">mods:titleInfo</span>&gt;
-                &lt;<span class="text-emerald-400">mods:name</span> <span class="text-sky-300">type</span>=<span class="text-amber-300">"personal"</span>&gt;
-                    &lt;<span class="text-emerald-400">mods:namePart</span>&gt;Pacioli, Luca&lt;/<span class="text-emerald-400">mods:namePart</span>&gt;
-                &lt;/<span class="text-emerald-400">mods:name</span>&gt;
-                &lt;<span class="text-emerald-400">mods:originInfo</span>&gt;
-                    &lt;<span class="text-emerald-400">mods:dateIssued</span>&gt;1509&lt;/<span class="text-emerald-400">mods:dateIssued</span>&gt;
-                &lt;/<span class="text-emerald-400">mods:originInfo</span>&gt;
-            &lt;/<span class="text-emerald-400">mods:mods</span>&gt;
-        &lt;/<span class="text-sky-400">mets:xmlData</span>&gt;
-    &lt;/<span class="text-sky-400">mets:mdWrap</span>&gt;
-&lt;/<span class="text-sky-400">mets:dmdSec</span>&gt;`
-            },
-            amd: {
-                title: 'amdSec (Metadati Tecnici MIX dallo Scanner)',
-                code: `&lt;<span class="text-sky-400">mets:amdSec</span> <span class="text-emerald-400">ID</span>=<span class="text-amber-300">"AMD_IMG_001"</span>&gt;
-    &lt;<span class="text-sky-400">mets:techMD</span> <span class="text-emerald-400">ID</span>=<span class="text-amber-300">"TECH_001"</span>&gt;
-        &lt;<span class="text-sky-400">mets:mdWrap</span> <span class="text-emerald-400">MDTYPE</span>=<span class="text-amber-300">"NISOIMG"</span>&gt;
-            &lt;<span class="text-sky-400">mets:xmlData</span>&gt;
-                &lt;<span class="text-amber-300">mix:mix</span>&gt;
-                    &lt;<span class="text-amber-300">mix:BasicImageInformation</span>&gt;
-                        &lt;<span class="text-amber-300">mix:FormatDesignation</span>&gt;image/tiff&lt;/<span class="text-amber-300">mix:FormatDesignation</span>&gt;
-                    &lt;/<span class="text-amber-300">mix:BasicImageInformation</span>&gt;
-                    &lt;<span class="text-amber-300">mix:ImageCaptureMetadata</span>&gt;
-                        &lt;<span class="text-amber-300">mix:ScannerModel</span>&gt;Zeutschel OS 12000&lt;/<span class="text-amber-300">mix:ScannerModel</span>&gt;
-                        &lt;<span class="text-amber-300">mix:XResolution</span>&gt;600&lt;/<span class="text-amber-300">mix:XResolution</span>&gt;
-                    &lt;/<span class="text-amber-300">mix:ImageCaptureMetadata</span>&gt;
-                &lt;/<span class="text-amber-300">mix:mix</span>&gt;
-            &lt;/<span class="text-sky-400">mets:xmlData</span>&gt;
-        &lt;/<span class="text-sky-400">mets:mdWrap</span>&gt;
-    &lt;/<span class="text-sky-400">mets:techMD</span>&gt;
-&lt;/<span class="text-sky-400">mets:amdSec</span>&gt;`
-            },
-            file: {
-                title: 'fileSec (Elenco Immagini TIFF & Checksum MD5)',
-                code: `&lt;<span class="text-sky-400">mets:fileSec</span>&gt;
-    &lt;<span class="text-sky-400">mets:fileGrp</span> <span class="text-emerald-400">USE</span>=<span class="text-amber-300">"MASTER"</span>&gt;
-        &lt;<span class="text-sky-400">mets:file</span> <span class="text-emerald-400">ID</span>=<span class="text-amber-300">"FILE_0001_MASTER"</span> <span class="text-emerald-400">MIMETYPE</span>=<span class="text-amber-300">"image/tiff"</span> 
-                   <span class="text-emerald-400">CHECKSUM</span>=<span class="text-amber-300">"e99a18c428cb38d5f260853678922e03"</span> <span class="text-emerald-400">CHECKSUMTYPE</span>=<span class="text-amber-300">"MD5"</span>&gt;
-            &lt;<span class="text-sky-400">mets:FLocat</span> <span class="text-emerald-400">LOCTYPE</span>=<span class="text-amber-300">"URL"</span> <span class="text-emerald-400">xlink:href</span>=<span class="text-amber-300">"master/0001.tif"</span>/&gt;
-        &lt;/<span class="text-sky-400">mets:file</span>&gt;
-    &lt;/<span class="text-sky-400">mets:fileGrp</span>&gt;
-&lt;/<span class="text-sky-400">mets:fileSec</span>&gt;`
-            },
-            struct: {
-                title: 'structMap (Mappatura Sequenziale Pagina per Pagina)',
-                code: `&lt;<span class="text-sky-400">mets:structMap</span> <span class="text-emerald-400">TYPE</span>=<span class="text-amber-300">"PHYSICAL"</span>&gt;
-    &lt;<span class="text-sky-400">mets:div</span> <span class="text-emerald-400">TYPE</span>=<span class="text-amber-300">"book"</span> <span class="text-emerald-400">LABEL</span>=<span class="text-amber-300">"Volume Antico"</span>&gt;
-        &lt;<span class="text-sky-400">mets:div</span> <span class="text-emerald-400">TYPE</span>=<span class="text-amber-300">"page"</span> <span class="text-emerald-400">ORDER</span>=<span class="text-amber-300">"1"</span> <span class="text-emerald-400">ORDERLABEL</span>=<span class="text-amber-300">"Copertina"</span>&gt;
-            &lt;<span class="text-sky-400">mets:fptr</span> <span class="text-emerald-400">FILEID</span>=<span class="text-amber-300">"FILE_0001_MASTER"</span>/&gt;
-        &lt;/<span class="text-sky-400">mets:div</span>&gt;
-    &lt;/<span class="text-sky-400">mets:div</span>&gt;
-&lt;/<span class="text-sky-400">mets:structMap</span>&gt;`
-            }
-        };
-
-        function selectXmlSection(key) {
-            document.getElementById('xml-tab-title').innerText = xmlSnippets[key].title;
-            document.getElementById('xml-code-display').innerHTML = xmlSnippets[key].code;
-
-            ['hdr', 'dmd', 'amd', 'file', 'struct'].forEach(k => {
-                const node = document.getElementById(`node-${k}`);
-                if (k === key) {
-                    node.classList.add('border-l-sky-400', 'bg-slate-750');
-                    node.classList.remove('border-l-transparent');
-                } else {
-                    node.classList.remove('border-l-sky-400', 'bg-slate-750');
-                    node.classList.add('border-l-transparent');
-                }
-            });
-        }
-
-        function copyXmlCode() {
-            const rawText = document.getElementById('xml-code-display').innerText;
-            const dummy = document.createElement('textarea');
-            document.body.appendChild(dummy);
-            dummy.value = rawText;
-            dummy.select();
-            document.execCommand('copy');
-            document.body.removeChild(dummy);
-
-            showToast("Snippet XML copiato negli appunti!");
-        }
-
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.className = 'fixed bottom-5 right-5 z-50 bg-emerald-400 text-slate-900 px-4 py-2.5 rounded-lg shadow-xl font-mono text-xs font-bold flex items-center space-x-2 transition-all transform translate-y-2 opacity-0';
-            toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> <span>${message}</span>`;
-            
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.classList.remove('translate-y-2', 'opacity-0');
-            }, 10);
-
-            setTimeout(() => {
-                toast.classList.add('opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 2500);
-        }
     </script>
 </body>
 </html>
