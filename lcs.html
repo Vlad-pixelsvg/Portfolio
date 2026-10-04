@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCSPiemonte - Case Study & Portfolio Interactive</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0F172A',
+                            card: '#1E293B',
+                            border: '#334155',
+                            accent: '#38BDF8',
+                            emerald: '#34D399'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Regola di salvaguardia: forza la visibilità di tutti i testi in bianco */
+        p, span, li, h1, h2, h3, h4, h5, h6, label, div, td, th, a, button {
+            color: #FFFFFF !important;
+        }
+        .text-accent {
+            color: #38BDF8 !important;
+        }
+        .text-emerald {
+            color: #34D399 !important;
+        }
+        .btn-text {
+            color: #0F172A !important;
+        }
+        .tab-active {
+            background-color: #38BDF8 !important;
+            border-color: #38BDF8 !important;
+        }
+        .tab-active * {
+            color: #0F172A !important;
+        }
+    </style>
+</head>
+<body class="bg-[#0F172A] text-white font-sans antialiased min-h-screen flex flex-col selection:bg-[#38BDF8] selection:text-[#0F172A]">
+
+    <!-- HEADER & NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-[#0F172A]/90 backdrop-blur-md border-b border-[#334155]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-[#38BDF8]/20 border border-[#38BDF8] flex items-center justify-center text-[#38BDF8]">
+                    <i class="fa-solid fa-landmark text-xl text-[#38BDF8]"></i>
+                </div>
+                <span class="font-bold text-xl tracking-tight text-white">LCS<span class="text-[#38BDF8]">Piemonte</span></span>
+            </div>
+
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+                <a href="#screenshots" class="hover:text-[#38BDF8] transition-colors py-1">Anteprime Interattive</a>
+                <a href="#layout-mab" class="hover:text-[#38BDF8] transition-colors py-1">Struttura MAB</a>
+                <a href="#database-demo" class="hover:text-[#38BDF8] transition-colors py-1">Simulatore Database</a>
+                <a href="#stack" class="hover:text-[#38BDF8] transition-colors py-1">Stack Tecnologico</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <a href="https://vlad-pixelsvg.github.io/LCSPiemonte/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-bold text-sm bg-[#38BDF8] text-[#0F172A] hover:bg-sky-300 transition-all shadow-lg shadow-sky-500/20 transform hover:-translate-y-0.5">
+                    <span class="btn-text font-bold"><i class="fa-solid fa-arrow-up-right-from-square mr-2"></i> Apri il Sito Live</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        
+        <!-- HERO BANNER CON EFFETTI -->
+        <section class="relative py-20 lg:py-28 border-b border-[#334155] overflow-hidden">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#38BDF8]/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center max-w-4xl mx-auto space-y-8">
+                    
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-[#1E293B] border border-[#38BDF8]/40 shadow-inner">
+                        <span class="w-2.5 h-2.5 rounded-full bg-[#34D399] animate-pulse"></span>
+                        <span class="text-xs font-mono font-bold tracking-wider uppercase text-white">
+                            Interactive Case Study • Frontend & Data Architecture
+                        </span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
+                        LCSPiemonte
+                    </h1>
+
+                    <p class="text-2xl sm:text-3xl font-semibold text-white">
+                        Guida Digitale e Portale Orientamento al Settore MAB
+                    </p>
+
+                    <p class="text-lg sm:text-xl text-white leading-relaxed max-w-3xl mx-auto">
+                        Piattaforma web interattiva con database integrato per strutturare e semplificare l'accesso al settore di Musei, Archivi e Biblioteche in Piemonte.
+                    </p>
+
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="https://vlad-pixelsvg.github.io/LCSPiemonte/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-base bg-[#38BDF8] text-[#0F172A] hover:bg-sky-300 transition-all shadow-lg shadow-sky-500/25 flex items-center justify-center">
+                            <span class="btn-text font-bold"><i class="fa-solid fa-globe mr-2"></i> Visita il Sito Online</span>
+                        </a>
+                        <a href="#database-demo" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-base bg-[#1E293B] hover:bg-[#334155] border border-[#334155] transition-all flex items-center justify-center">
+                            <i class="fa-solid fa-sliders mr-2 text-[#38BDF8]"></i> Prova il Filtro Dati
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE: QUADRANTI SCREENSHOT INTERATTIVI CON LIGHTBOX -->
+        <section id="screenshots" class="py-20 border-b border-[#334155] bg-[#1E293B]/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 text-white">Anteprime Interfaccia (Galleria Cliccabile)</h2>
+                    <p class="text-lg text-white font-medium">
+                        Clicca su uno dei quadranti per ingrandire la schermata ed esplorare l'interfaccia a schermo intero.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    
+                    <!-- Quadrante 1 -->
+                    <div class="bg-[#1E293B] border border-[#334155] rounded-2xl overflow-hidden shadow-xl hover:border-[#38BDF8] transition-all group cursor-pointer" onclick="openLightbox(0)">
+                        <div class="bg-[#0F172A] px-6 py-4 border-b border-[#334155] flex items-center justify-between">
+                            <span class="font-mono font-bold text-sm text-[#38BDF8]">
+                                <i class="fa-solid fa-window-maximize mr-2"></i> 01. Landing Page Split Layout
+                            </span>
+                            <span class="text-xs bg-[#38BDF8]/20 text-white px-3 py-1 rounded-full border border-[#38BDF8]">Ingrandisci <i class="fa-solid fa-[#38BDF8] fa-expand ml-1"></i></span>
+                        </div>
+                        
+                        <div class="relative bg-[#0F172A] aspect-video flex items-center justify-center p-4 border-b border-[#334155] overflow-hidden">
+                            <!-- Inserisci l'immagine reale qui sostituendo il box o modificando src -->
+                            <div class="text-center p-8 border-2 border-dashed border-[#334155] rounded-xl w-full h-full flex flex-col items-center justify-center bg-[#1E293B]/40 group-hover:scale-105 transition-transform duration-300">
+                                <i class="fa-solid fa-image text-5xl text-[#38BDF8] mb-3 group-hover:animate-bounce"></i>
+                                <p class="font-bold text-white text-base">Clicca per aprire lo Screenshot Home Page</p>
+                                <p class="text-xs text-white mt-1">Esempio: img/home-mab.png</p>
+                            </div>
+                        </div>
+
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">Interfaccia Split MAB</h3>
+                            <p class="text-white text-sm leading-relaxed">
+                                Layout visivo che organizza e divide in modo chiaro le tre macro-aree di Musei, Archivi e Biblioteche.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Quadrante 2 -->
+                    <div class="bg-[#1E293B] border border-[#334155] rounded-2xl overflow-hidden shadow-xl hover:border-[#38BDF8] transition-all group cursor-pointer" onclick="openLightbox(1)">
+                        <div class="bg-[#0F172A] px-6 py-4 border-b border-[#334155] flex items-center justify-between">
+                            <span class="font-mono font-bold text-sm text-[#38BDF8]">
+                                <i class="fa-solid fa-sitemap mr-2"></i> 02. Mappa Orientamento Concetti
+                            </span>
+                            <span class="text-xs bg-[#38BDF8]/20 text-white px-3 py-1 rounded-full border border-[#38BDF8]">Ingrandisci <i class="fa-solid fa-expand ml-1"></i></span>
+                        </div>
+                        
+                        <div class="relative bg-[#0F172A] aspect-video flex items-center justify-center p-4 border-b border-[#334155] overflow-hidden">
+                            <div class="text-center p-8 border-2 border-dashed border-[#334155] rounded-xl w-full h-full flex flex-col items-center justify-center bg-[#1E293B]/40 group-hover:scale-105 transition-transform duration-300">
+                                <i class="fa-solid fa-image text-5xl text-[#38BDF8] mb-3 group-hover:animate-bounce"></i>
+                                <p class="font-bold text-white text-base">Clicca per aprire la Mappa Concettuale</p>
+                                <p class="text-xs text-white mt-1">Esempio: img/mappa-concetti.png</p>
+                            </div>
+                        </div>
+
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">Guida Concorsi e Graduatorie</h3>
+                            <p class="text-white text-sm leading-relaxed">
+                                Struttura schematica che guida l'utente attraverso i requisiti per accedere al lavoro pubblico nei beni culturali.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Quadrante 3 -->
+                    <div class="bg-[#1E293B] border border-[#334155] rounded-2xl overflow-hidden shadow-xl hover:border-[#38BDF8] transition-all group cursor-pointer" onclick="openLightbox(2)">
+                        <div class="bg-[#0F172A] px-6 py-4 border-b border-[#334155] flex items-center justify-between">
+                            <span class="font-mono font-bold text-sm text-[#38BDF8]">
+                                <i class="fa-solid fa-database mr-2"></i> 03. Consultazione Database Enti
+                            </span>
+                            <span class="text-xs bg-[#38BDF8]/20 text-white px-3 py-1 rounded-full border border-[#38BDF8]">Ingrandisci <i class="fa-solid fa-expand ml-1"></i></span>
+                        </div>
+                        
+                        <div class="relative bg-[#0F172A] aspect-video flex items-center justify-center p-4 border-b border-[#334155] overflow-hidden">
+                            <div class="text-center p-8 border-2 border-dashed border-[#334155] rounded-xl w-full h-full flex flex-col items-center justify-center bg-[#1E293B]/40 group-hover:scale-105 transition-transform duration-300">
+                                <i class="fa-solid fa-image text-5xl text-[#38BDF8] mb-3 group-hover:animate-bounce"></i>
+                                <p class="font-bold text-white text-base">Clicca per aprire la Vista Database</p>
+                                <p class="text-xs text-white mt-1">Esempio: img/database-enti.png</p>
+                            </div>
+                        </div>
+
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">Anagrafica Poli e Biblioteche</h3>
+                            <p class="text-white text-sm leading-relaxed">
+                                Elenco consultabile e filtrabile dei poli SBN, delle reti bibliotecarie territoriali e degli istituti culturali regionali.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Quadrante 4 -->
+                    <div class="bg-[#1E293B] border border-[#334155] rounded-2xl overflow-hidden shadow-xl hover:border-[#38BDF8] transition-all group cursor-pointer" onclick="openLightbox(3)">
+                        <div class="bg-[#0F172A] px-6 py-4 border-b border-[#334155] flex items-center justify-between">
+                            <span class="font-mono font-bold text-sm text-[#38BDF8]">
+                                <i class="fa-solid fa-mobile-screen-button mr-2"></i> 04. Design Mobile Responsive
+                            </span>
+                            <span class="text-xs bg-[#38BDF8]/20 text-white px-3 py-1 rounded-full border border-[#38BDF8]">Ingrandisci <i class="fa-solid fa-expand ml-1"></i></span>
+                        </div>
+                        
+                        <div class="relative bg-[#0F172A] aspect-video flex items-center justify-center p-4 border-b border-[#334155] overflow-hidden">
+                            <div class="text-center p-8 border-2 border-dashed border-[#334155] rounded-xl w-full h-full flex flex-col items-center justify-center bg-[#1E293B]/40 group-hover:scale-105 transition-transform duration-300">
+                                <i class="fa-solid fa-image text-5xl text-[#38BDF8] mb-3 group-hover:animate-bounce"></i>
+                                <p class="font-bold text-white text-base">Clicca per aprire la Vista Mobile</p>
+                                <p class="text-xs text-white mt-1">Esempio: img/mobile-view.png</p>
+                            </div>
+                        </div>
+
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">Esperienza Utente Touch</h3>
+                            <p class="text-white text-sm leading-relaxed">
+                                Adattamento completo del layout per smartphone, con menu agevole e lettura facilitata anche in mobilità.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEZIONE: TAB SWITCHER DINAMICO PER L'ARCHITETTURA MAB -->
+        <section id="layout-mab" class="py-20 border-b border-[#334155]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 text-white">Architettura dell'Interfaccia MAB</h2>
+                    <p class="text-lg text-white font-medium">
+                        Seleziona una categoria per esplorare come sono stati suddivisi i contenuti del settore.
+                    </p>
+                </div>
+
+                <!-- Tab Buttons -->
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <button onclick="switchTab('biblio')" id="tab-biblio" class="tab-btn px-6 py-3 rounded-xl font-bold border border-[#334155] bg-[#1E293B] hover:border-[#38BDF8] transition-all tab-active">
+                        <i class="fa-solid fa-book-bookmark mr-2"></i> Biblioteche
+                    </button>
+                    <button onclick="switchTab('archivi')" id="tab-archivi" class="tab-btn px-6 py-3 rounded-xl font-bold border border-[#334155] bg-[#1E293B] hover:border-[#38BDF8] transition-all">
+                        <i class="fa-solid fa-box-archive mr-2"></i> Archivi
+                    </button>
+                    <button onclick="switchTab('musei')" id="tab-musei" class="tab-btn px-6 py-3 rounded-xl font-bold border border-[#334155] bg-[#1E293B] hover:border-[#38BDF8] transition-all">
+                        <i class="fa-solid fa-building-columns mr-2"></i> Musei
+                    </button>
+                </div>
+
+                <!-- Tab Content Boxes -->
+                <div class="max-w-4xl mx-auto bg-[#1E293B] border border-[#334155] rounded-2xl p-8 sm:p-10 shadow-2xl">
+                    
+                    <!-- Content: Biblioteche -->
+                    <div id="content-biblio" class="tab-content space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-[#38BDF8]/20 text-[#38BDF8] flex items-center justify-center text-2xl">
+                                <i class="fa-solid fa-book-bookmark"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Settore Biblioteche & Servizio Pubblico</h3>
+                                <p class="text-sm font-mono text-[#38BDF8]">Poli SBN • Cataloghi Opac • Servizi di Lettura</p>
+                            </div>
+                        </div>
+                        <p class="text-white text-base leading-relaxed">
+                            Organizzazione completa delle informazioni sui requisiti concorsuali per istruttori e funzionari bibliotecari. Mappatura diretta delle reti territoriali (come il Sistema Bibliotecario Urbano di Torino e le reti provinciali) con accesso alle guide per i software gestionali (Clavis NG, SBN Web).
+                        </p>
+                    </div>
+
+                    <!-- Content: Archivi -->
+                    <div id="content-archivi" class="tab-content hidden space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-[#34D399]/20 text-[#34D399] flex items-center justify-center text-2xl">
+                                <i class="fa-solid fa-box-archive"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Settore Archivi & Conservazione Documentale</h3>
+                                <p class="text-sm font-mono text-[#34D399]">Archivi Storici • Protocollo • Gestione Documentale</p>
+                            </div>
+                        </div>
+                        <p class="text-white text-base leading-relaxed">
+                            Sezione focalizzata sugli standard di conservazione, sulla titolazione degli archivi comunali e regionali e sui requisiti per archivisti di stato e liberi professionisti che operano nella riordinazione dei fondi storici in Piemonte.
+                        </p>
+                    </div>
+
+                    <!-- Content: Musei -->
+                    <div id="content-musei" class="tab-content hidden space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-[#38BDF8]/20 text-[#38BDF8] flex items-center justify-center text-2xl">
+                                <i class="fa-solid fa-building-columns"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Settore Musei & Valorizzazione Culturale</h3>
+                                <p class="text-sm font-mono text-[#38BDF8]">Poli Museali • Didattica • Biglietteria e Accoglienza</p>
+                            </div>
+                        </div>
+                        <p class="text-white text-base leading-relaxed">
+                            Panoramica sui profili di accoglienza, didattica e conservazione del patrimonio artistico e museale. Indicazioni pratiche su contratti di lavoro, associazioni di categoria e bandi per la promozione dei musei civici piemontesi.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEZIONE: SIMULATORE INTERATTIVO DATABASE -->
+        <section id="database-demo" class="py-20 border-b border-[#334155] bg-[#1E293B]/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 text-white">Simulatore Database LCSPiemonte</h2>
+                    <p class="text-lg text-white font-medium">
+                        Prova i filtri dinamici per vedere come i dati del database vengono strutturati e filtrati nell'interfaccia.
+                    </p>
+                </div>
+
+                <!-- Filtri di ricerca -->
+                <div class="flex flex-wrap justify-center gap-3 mb-8">
+                    <button onclick="filterData('all')" class="db-filter-btn px-4 py-2 rounded-lg font-bold text-sm border border-[#38BDF8] bg-[#38BDF8] text-[#0F172A]">
+                        <span class="btn-text">Tutti i Record</span>
+                    </button>
+                    <button onclick="filterData('sbn')" class="db-filter-btn px-4 py-2 rounded-lg font-bold text-sm border border-[#334155] bg-[#1E293B] hover:border-[#38BDF8]">
+                        Poli SBN
+                    </button>
+                    <button onclick="filterData('concorsi')" class="db-filter-btn px-4 py-2 rounded-lg font-bold text-sm border border-[#334155] bg-[#1E293B] hover:border-[#38BDF8]">
+                        Requisiti Concorsi
+                    </button>
+                    <button onclick="filterData('sistemi')" class="db-filter-btn px-4 py-2 rounded-lg font-bold text-sm border border-[#334155] bg-[#1E293B] hover:border-[#38BDF8]">
+                        Sistemi Bibliotecari
+                    </button>
+                </div>
+
+                <!-- Griglia Card Dati Interattiva -->
+                <div id="db-cards-container" class="grid md:grid-cols-3 gap-6">
+                    
+                    <!-- Card 1 -->
+                    <div class="db-card sbn bg-[#1E293B] border border-[#334155] p-6 rounded-xl space-y-3 transition-all duration-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-[#38BDF8]/20 text-[#38BDF8] border border-[#38BDF8]">Polo SBN</span>
+                            <i class="fa-solid fa-network-wired text-[#38BDF8]"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white">Polo SBN BTO (Torino)</h4>
+                        <p class="text-white text-xs leading-relaxed">
+                            Database integrato con oltre 70 biblioteche civiche ed accademiche collegate al catalogo unico regionale.
+                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="db-card concorsi bg-[#1E293B] border border-[#334155] p-6 rounded-xl space-y-3 transition-all duration-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-[#34D399]/20 text-[#34D399] border border-[#34D399]">Concorsi</span>
+                            <i class="fa-solid fa-graduation-cap text-[#34D399]"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white">Istruttore Bibliotecario (Cat. C)</h4>
+                        <p class="text-white text-xs leading-relaxed">
+                            Scheda requisiti: Diploma di scuola secondaria superiore, conoscenza di catalogazione UNIMARC e servizio al pubblico.
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="db-card sistemi bg-[#1E293B] border border-[#334155] p-6 rounded-xl space-y-3 transition-all duration-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-[#38BDF8]/20 text-[#38BDF8] border border-[#38BDF8]">Sistema Bibliotecario</span>
+                            <i class="fa-solid fa-building text-[#38BDF8]"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white">SBAM (Area Metropolitana)</h4>
+                        <p class="text-white text-xs leading-relaxed">
+                            Rete di oltre 400 biblioteche nell'area torinese gestite con software Clavis NG per il prestito interbibliotecario.
+                        </p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="db-card concorsi bg-[#1E293B] border border-[#334155] p-6 rounded-xl space-y-3 transition-all duration-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-[#34D399]/20 text-[#34D399] border border-[#34D399]">Concorsi</span>
+                            <i class="fa-solid fa-user-gear text-[#34D399]"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white">Funzionario Culturale (Cat. D)</h4>
+                        <p class="text-white text-xs leading-relaxed">
+                            Scheda requisiti: Laurea specialistica/magistrale in Beni Culturali/Lettere e gestione progetti di conservazione.
+                        </p>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="db-card sbn bg-[#1E293B] border border-[#334155] p-6 rounded-xl space-y-3 transition-all duration-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-[#38BDF8]/20 text-[#38BDF8] border border-[#38BDF8]">Polo SBN</span>
+                            <i class="fa-solid fa-map-location-dot text-[#38BDF8]"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white">Poli Cuneense ed Alessandrino</h4>
+                        <p class="text-white text-xs leading-relaxed">
+                            Mappatura anagrafica e riferimenti operativi per le reti di catalogazione del sud Piemonte.
+                        </p>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="db-card sistemi bg-[#1E293B] border border-[#334155] p-6 rounded-xl space-y-3 transition-all duration-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-[#38BDF8]/20 text-[#38BDF8] border border-[#38BDF8]">Sistema Bibliotecario</span>
+                            <i class="fa-solid fa-mountain text-[#38BDF8]"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white">Sistemi Vercellese e Novarese</h4>
+                        <p class="text-white text-xs leading-relaxed">
+                            Strutturazione dati per gli enti della zona nord-est della regione per la consultazione unica dei servizi.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEZIONE: STACK TECNOLOGICO -->
+        <section id="stack" class="py-20 border-b border-[#334155]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-4 text-white">Stack Tecnologico</h2>
+                    <p class="text-lg text-white font-medium">
+                        Architettura Frontend pulita e performante.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+                    <div class="bg-[#1E293B] border border-[#334155] p-6 rounded-xl text-center space-y-2 hover:border-[#38BDF8] transition-all">
+                        <i class="fa-brands fa-html5 text-4xl text-[#38BDF8]"></i>
+                        <h4 class="font-bold text-white text-lg">HTML5</h4>
+                        <p class="text-xs text-white">Struttura Semantica</p>
+                    </div>
+
+                    <div class="bg-[#1E293B] border border-[#334155] p-6 rounded-xl text-center space-y-2 hover:border-[#38BDF8] transition-all">
+                        <i class="fa-brands fa-css3-alt text-4xl text-[#38BDF8]"></i>
+                        <h4 class="font-bold text-white text-lg">CSS3 / Custom</h4>
+                        <p class="text-xs text-white">Layout Responsive</p>
+                    </div>
+
+                    <div class="bg-[#1E293B] border border-[#334155] p-6 rounded-xl text-center space-y-2 hover:border-[#38BDF8] transition-all">
+                        <i class="fa-solid fa-database text-4xl text-[#38BDF8]"></i>
+                        <h4 class="font-bold text-white text-lg">Structured Data</h4>
+                        <p class="text-xs text-white">Gestione Dati Enti</p>
+                    </div>
+
+                    <div class="bg-[#1E293B] border border-[#334155] p-6 rounded-xl text-center space-y-2 hover:border-[#38BDF8] transition-all">
+                        <i class="fa-brands fa-github text-4xl text-[#38BDF8]"></i>
+                        <h4 class="font-bold text-white text-lg">GitHub Pages</h4>
+                        <p class="text-xs text-white">Deployment & Hosting</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#0F172A] border-t border-[#334155] py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-landmark text-[#38BDF8] text-xl"></i>
+                <span class="font-bold text-white">LCSPiemonte Case Study</span>
+            </div>
+            <p class="text-sm text-white font-medium text-center md:text-left">
+                Sviluppo Web Frontend per il Settore MAB (Musei, Archivi, Biblioteche).
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODALE LIGHTBOX PER INGRANDIRE GLI SCREENSHOT -->
+    <div id="lightbox" class="fixed inset-0 z-50 bg-[#0F172A]/95 backdrop-blur-xl hidden flex flex-col items-center justify-between p-4 sm:p-8">
+        <div class="w-full max-w-6xl flex justify-between items-center mb-4">
+            <span id="lightbox-title" class="font-bold text-white text-lg sm:text-xl">Anteprima Screenshot</span>
+            <button onclick="closeLightbox()" class="text-white bg-[#1E293B] border border-[#334155] w-10 h-10 rounded-full flex items-center justify-center hover:bg-[#334155]">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+
+        <div class="relative w-full max-w-5xl aspect-video bg-[#1E293B] border border-[#334155] rounded-2xl flex items-center justify-center overflow-hidden">
+            <div id="lightbox-placeholder" class="text-center p-8">
+                <i class="fa-solid fa-image text-6xl text-[#38BDF8] mb-4"></i>
+                <h3 id="lightbox-desc" class="text-2xl font-bold text-white">Inquadratura Dettagliata dello Screenshot</h3>
+                <p class="text-sm text-white mt-2">Sostituisci la sorgente immagine con i file png/jpg del tuo portfolio.</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-4 mt-4">
+            <button onclick="prevLightbox()" class="px-6 py-2.5 rounded-xl bg-[#1E293B] border border-[#334155] font-bold hover:border-[#38BDF8]">
+                <i class="fa-solid fa-chevron-left mr-2"></i> Precedente
+            </button>
+            <span id="lightbox-[#38BDF8] counter" class="font-mono text-sm text-[#38BDF8]">1 / 4</span>
+            <button onclick="nextLightbox()" class="px-6 py-2.5 rounded-xl bg-[#1E293B] border border-[#334155] font-bold hover:border-[#38BDF8]">
+                Successivo <i class="fa-solid fa-chevron-right ml-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- SCRIPT INTERATTIVI PER TAB, FILTRI E LIGHTBOX -->
+    <script>
+        // Data per Lightbox
+        const screenshotsData = [
+            { title: "01. Home Page & Split Layout MAB", desc: "Vista principale della landing page con layout suddiviso per Musei, Archivi e Biblioteche." },
+            { title: "02. Mappa Orientamento Concetti", desc: "Schematizzazione visiva per accedere ai concorsi e alle graduatorie locali." },
+            { title: "03. Consultazione Database Enti", desc: "Interfaccia anagrafica dei poli SBN e dei sistemi bibliotecari regionali." },
+            { title: "04. Design Mobile Responsive", desc: "Adattamento touch fluido per la consultazione da smartphone e tablet." }
+        ];
+
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightbox();
+            document.getElementById('lightbox').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        function updateLightbox() {
+            document.getElementById('lightbox-title').innerText = screenshotsData[currentIndex].title;
+            document.getElementById('lightbox-desc').innerText = screenshotsData[currentIndex].desc;
+            document.getElementById('lightbox-counter').innerText = `${currentIndex + 1} / ${screenshotsData.length}`;
+        }
+
+        function prevLightbox() {
+            currentIndex = (currentIndex - 1 + screenshotsData.length) % screenshotsData.length;
+            updateLightbox();
+        }
+
+        function nextLightbox() {
+            currentIndex = (currentIndex + 1) % screenshotsData.length;
+            updateLightbox();
+        }
+
+        // Tab Switcher per la sezione MAB
+        function switchTab(tabKey) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            document.getElementById(`tab-${tabKey}`).classList.add('tab-active');
+            document.getElementById(`content-${tabKey}`).classList.remove('hidden');
+        }
+
+        // Filtro Dati Simulato
+        function filterData(category) {
+            const cards = document.querySelectorAll('.db-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'block';
+                    card.style.opacity = '1';
+                } else {
+                    card.style.opacity = '0';
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
