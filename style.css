@@ -11,6 +11,8 @@
     border: 0;
 }
 
+
+
 /* Regole per focus-visible ad alto contrasto (Accessibilità Tastiera) */
 a:focus-visible,
 button:focus-visible {
