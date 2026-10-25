@@ -1,87 +1,1770 @@
 <!doctype html>
 <html lang="it">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Portfolio Digital Lab: sviluppo web, progetti culturali, software e accessibilità digitale.">
-<meta name="theme-color" content="#07111f">
-<title>Digital Lab — Tecnologia e cultura</title>
-<link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
-</head>
-<body>
-<a class="skip-link" href="#main">Salta al contenuto</a>
-<header class="site-header">
-  <div class="wrap header-inner">
-    <a class="brand" href="index.html" aria-label="Digital Lab, home"><span class="brand-mark">BC_</span><span>Digital Lab <small>/ Portfolio</small></span></a>
-    <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">Menu</button>
-    <nav id="main-nav" class="nav" aria-label="Navigazione principale">
-      <a href="#home" aria-current="page">Home</a><a href="#progetti">Progetti</a><a href="#cultura">Cultura</a><a href="#software">Software</a><a href="#accessibilita">Accessibilità</a><a href="#profilo">Profilo</a>
-    </nav>
-    <a class="button small outline header-contact" href="#contatti">Contatti</a>
-  </div>
-</header>
 
-<main id="main">
-<section class="hero" id="home">
-  <div class="wrap hero-layout">
-    <div class="hero-copy">
-      <p class="eyebrow">Sviluppatore web &amp; digital creative</p>
-      <h1>Progetto esperienze digitali che uniscono <em>tecnologia e cultura.</em></h1>
-      <p class="lead">Sviluppo siti web, applicazioni e soluzioni digitali con attenzione all'accessibilità, all'usabilità e all'impatto sociale.</p>
-      <div class="actions"><a class="button primary" href="#progetti">Scopri i miei progetti <span aria-hidden="true">→</span></a><a class="button outline" href="#contatti">Contattami <span aria-hidden="true">↗</span></a></div>
-      <div class="stats" aria-label="In breve"><div><strong>07+</strong><span>progetti in portfolio</span></div><div><strong>03</strong><span>aree di lavoro</span></div><div><strong>AA</strong><span>obiettivo WCAG</span></div><div><strong>∞</strong><span>curiosità</span></div></div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portfolio Digital Lab: sviluppo web, progetti culturali, software e accessibilità digitale.">
+  <meta name="theme-color" content="#07111f">
+  <title>Digital Lab — Tecnologia e cultura</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07111f;
+      --panel: #0b192a;
+      --panel2: #10243a;
+      --line: #28415f;
+      --text: #f2f6ff;
+      --muted: #b5c4d9;
+      --blue: #9bb7ff;
+      --purple: #b7a7ff;
+      --focus: #ffe08a;
+      --max: 1180px;
+    }
+
+    :root[data-contrast="high"] {
+      --bg: #000;
+      --panel: #000;
+      --panel2: #111;
+      --line: #fff;
+      --text: #fff;
+      --muted: #fff;
+      --blue: #ff0;
+      --purple: #0ff;
+      --focus: #ff0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.6 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    a {
+      color: var(--blue);
+      text-underline-offset: 0.22em;
+    }
+
+    a:hover {
+      color: var(--text);
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button,
+    a {
+      touch-action: manipulation;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -80px;
+      left: 12px;
+      background: var(--focus);
+      color: #000;
+      padding: 12px;
+      z-index: 100;
+      border-radius: 8px;
+    }
+
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #07111ff0;
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .brand small {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 36px;
+      border: 1px solid var(--blue);
+      border-radius: 8px;
+      color: var(--blue);
+      font: 800 15px ui-monospace, monospace;
+    }
+
+    .nav {
+      display: flex;
+      gap: 3px;
+      margin-left: auto;
+    }
+
+    .nav a {
+      padding: 9px 10px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.87rem;
+      border-radius: 7px;
+    }
+
+    .nav a:hover,
+    .nav a[aria-current="page"] {
+      color: var(--text);
+      background: var(--panel2);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 10px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--panel2);
+    }
+
+    .button.primary {
+      background: var(--blue);
+      color: #07111f;
+      border-color: var(--blue);
+    }
+
+    .button.outline {
+      background: transparent;
+    }
+
+    .button.small {
+      min-height: 38px;
+      padding: 7px 14px;
+      font-size: 0.9rem;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    .hero {
+      padding: clamp(55px, 8vw, 105px) 0 45px;
+      background: radial-gradient(ellipse at 75% 40%, #152b4b 0, transparent 42%);
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 55px;
+    }
+
+    .eyebrow {
+      font: 700 0.75rem/1.4 ui-monospace, monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--blue);
+      margin: 0 0 12px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 5.6vw, 4.7rem);
+      line-height: 1.04;
+      letter-spacing: -0.055em;
+      margin-bottom: 22px;
+      max-width: 14ch;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--purple);
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 3.4vw, 2.7rem);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .lead {
+      font-size: 1.12rem;
+      color: var(--muted);
+      max-width: 56ch;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 25px 0;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-top: 35px;
+    }
+
+    .stats div {
+      padding: 14px 12px;
+      border-right: 1px solid var(--line);
+    }
+
+    .stats div:last-child {
+      border: 0;
+    }
+
+    .stats strong,
+    .stats span {
+      display: block;
+    }
+
+    .stats strong {
+      font-size: 1.25rem;
+    }
+
+    .stats span {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .hero-art {
+      min-height: 350px;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .glow {
+      position: absolute;
+      width: 85%;
+      height: 80%;
+      background: linear-gradient(130deg, #253e72, #775bb4);
+      filter: blur(80px);
+      opacity: 0.23;
+    }
+
+    .code-card,
+    .mini-window {
+      position: absolute;
+      border: 1px solid #3b5a84;
+      background: #091626ed;
+      border-radius: 12px;
+      box-shadow: 0 25px 65px #0007;
+    }
+
+    .code-card {
+      width: 80%;
+      right: 0;
+      top: 35px;
+      transform: rotate(2deg);
+      z-index: 2;
+    }
+
+    .window-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid var(--line);
+      padding: 12px;
+      color: var(--muted);
+      font-size: 0.72rem;
+    }
+
+    .window-bar i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #9bb7ff;
+    }
+
+    .window-bar span {
+      margin-left: auto;
+    }
+
+    .code-card pre {
+      padding: 10px 18px 18px;
+      font: clamp(0.7rem, 1.2vw, 0.9rem)/1.9 ui-monospace, monospace;
+      white-space: pre-wrap;
+    }
+
+    .pink {
+      color: #e5a7ff;
+    }
+
+    .blue {
+      color: #9bb7ff;
+    }
+
+    .green {
+      color: #9ee6c2;
+    }
+
+    .mini-window {
+      width: 65%;
+      left: 0;
+      bottom: 18px;
+      z-index: 3;
+      transform: rotate(-3deg);
+      padding: 12px;
+    }
+
+    .mini-top {
+      font-size: 0.7rem;
+      color: #14253b;
+      background: #dfe9f8;
+      border-radius: 5px;
+      padding: 8px;
+    }
+
+    .mini-top span {
+      float: right;
+    }
+
+    .mini-banner {
+      height: 72px;
+      background: linear-gradient(120deg, #e5ecf9 20%, #8ea8d8 20% 48%, #334f83 48%);
+      margin-top: 8px;
+      border-radius: 5px;
+    }
+
+    .mini-lines {
+      padding: 5px;
+    }
+
+    .mini-lines b,
+    .mini-lines i {
+      display: block;
+      height: 5px;
+      background: #a9bbd7;
+      margin: 5px 0;
+      width: 80%;
+    }
+
+    .mini-lines i {
+      width: 55%;
+    }
+
+    .mini-cards {
+      display: flex;
+      gap: 6px;
+    }
+
+    .mini-cards i {
+      height: 28px;
+      flex: 1;
+      background: #dce6f6;
+      border-radius: 4px;
+    }
+
+    .art-label {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      color: var(--purple);
+      font: 0.75rem ui-monospace, monospace;
+    }
+
+    .section {
+      padding: 65px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 25px;
+      margin-bottom: 25px;
+    }
+
+    .section-head>div {
+      max-width: 700px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .section-head .muted {
+      margin-bottom: 0;
+    }
+
+    .text-link {
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 24px 0;
+    }
+
+    .filter {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 15px;
+      min-height: 40px;
+      cursor: pointer;
+    }
+
+    .filter.active,
+    .filter[aria-pressed="true"] {
+      background: var(--blue);
+      color: #07111f;
+      border-color: var(--blue);
+      font-weight: 750;
+    }
+
+    .carousel-shell,
+    .culture-carousel {
+      min-width: 0;
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 13px;
+    }
+
+    .carousel-count {
+      font: 0.78rem ui-monospace, monospace;
+      color: var(--muted);
+    }
+
+    .arrow {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--panel);
+      color: var(--text);
+      font-size: 1.25rem;
+      cursor: pointer;
+      margin-left: 6px;
+    }
+
+    .arrow:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .carousel-track {
+      display: grid;
+      grid-auto-columns: calc((100% - 36px)/3);
+      grid-auto-flow: column;
+      gap: 18px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-color: var(--line) transparent;
+      scrollbar-width: thin;
+      padding: 2px 2px 18px;
+      overscroll-behavior-inline: contain;
+    }
+
+    .project-card {
+      min-width: 0;
+      scroll-snap-align: start;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      overflow: hidden;
+      background: var(--panel);
+    }
+
+    .project-image {
+      height: 190px;
+      display: block;
+      position: relative;
+      overflow: hidden;
+      background: #12243b;
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+    }
+
+    .image-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      font: 0.65rem ui-monospace, monospace;
+      color: #e9f0ff;
+      border: 1px solid #7795c4;
+      background: #07111fc9;
+      padding: 5px 7px;
+      border-radius: 5px;
+    }
+
+    .library-art,
+    .portal-art,
+    .editor-art,
+    .exhibit-art,
+    .data-art,
+    .story-art {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .library-art {
+      background: linear-gradient(135deg, #213f4c, #0b1928);
+    }
+
+    .library-art span {
+      z-index: 2;
+      font: 700 1.5rem/1.1 Georgia, serif;
+      color: #f1eadb;
+      transform: rotate(-5deg);
+      text-shadow: 0 2px 12px #000;
+    }
+
+    .library-art i {
+      position: absolute;
+      width: 60%;
+      height: 65%;
+      right: -5%;
+      bottom: -15%;
+      background: repeating-linear-gradient(0deg, #c6b38e 0 8px, #3c4d4d 8px 12px);
+      transform: rotate(-15deg);
+      box-shadow: 0 0 0 12px #1b2d35;
+    }
+
+    .library-art b {
+      position: absolute;
+      width: 70px;
+      height: 125px;
+      right: 17%;
+      top: 35px;
+      border: 4px solid #101b29;
+      border-radius: 15px;
+      background: linear-gradient(#dbe8f8 0 20%, #829fcb 20% 27%, #f0f3f9 27%);
+    }
+
+    .image-portal {
+      background: linear-gradient(140deg, #243d6b, #7693c4);
+    }
+
+    .portal-art span {
+      font-size: 2rem;
+      font-weight: 850;
+      line-height: 1;
+      color: #fff;
+      margin-right: 20%;
+      z-index: 2;
+    }
+
+    .portal-art i {
+      position: absolute;
+      right: 5%;
+      bottom: -30%;
+      width: 45%;
+      height: 100%;
+      background: #0d1b30;
+      transform: skew(-20deg);
+    }
+
+    .portal-art b {
+      position: absolute;
+      right: 10%;
+      top: 28%;
+      width: 40%;
+      height: 42%;
+      border: 6px solid #dbe7f9;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #eef3fb 0 50%, #8ca9d8 50%);
+    }
+
+    .image-code {
+      background: linear-gradient(135deg, #102035, #10172d);
+    }
+
+    .editor-art {
+      inset: 22px 14px;
+      border: 1px solid #496487;
+      border-radius: 7px;
+      background: #091321;
+      display: block;
+      padding: 12px;
+      font: 0.7rem/2 ui-monospace, monospace;
+      color: #a7c2f4;
+    }
+
+    .editor-art span,
+    .editor-art i,
+    .editor-art b,
+    .editor-art em {
+      display: block;
+      font-style: normal;
+    }
+
+    .editor-art i {
+      color: #c7a7ff;
+      margin-top: 12px;
+    }
+
+    .editor-art b {
+      color: #a3e7c2;
+    }
+
+    .editor-art em {
+      color: #9bb7ff;
+    }
+
+    .image-exhibit {
+      background: linear-gradient(120deg, #4a302c, #b57954);
+    }
+
+    .exhibit-art i {
+      position: absolute;
+      width: 35%;
+      height: 80%;
+      left: 8%;
+      bottom: -10%;
+      background: linear-gradient(130deg, #d3a778, #3e2a2b);
+      transform: rotate(8deg);
+    }
+
+    .exhibit-art b {
+      position: absolute;
+      width: 35%;
+      height: 65%;
+      right: 10%;
+      top: 18%;
+      background: linear-gradient(135deg, #f0d9b3, #6d4137);
+      border: 7px solid #251c22;
+    }
+
+    .exhibit-art span {
+      z-index: 2;
+      font: 700 1.5rem Georgia, serif;
+      color: white;
+      text-shadow: 0 2px 9px #000;
+    }
+
+    .image-data {
+      background: radial-gradient(circle at 50% 50%, #385b90, #091321 70%);
+    }
+
+    .data-art i {
+      height: 40%;
+      width: 12%;
+      border: 1px solid #8eabff;
+      background: linear-gradient(0deg, #819eff 0 45%, transparent 45%);
+      margin: 0 8px;
+      align-self: center;
+    }
+
+    .data-art i:nth-child(2) {
+      height: 65%;
+    }
+
+    .data-art i:nth-child(3) {
+      height: 85%;
+    }
+
+    .data-art span {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      color: #aebfff;
+      font: 0.7rem ui-monospace, monospace;
+    }
+
+    .image-story {
+      background: linear-gradient(130deg, #342650, #8e668d);
+    }
+
+    .story-art span {
+      font: 700 1.8rem/1.05 Georgia, serif;
+      color: #fff;
+      z-index: 2;
+      margin-right: 25%;
+    }
+
+    .story-art i {
+      position: absolute;
+      width: 40%;
+      height: 80%;
+      right: 5%;
+      background: linear-gradient(135deg, #d8b6a4, #4c365a);
+      transform: rotate(8deg);
+    }
+
+    .story-art b {
+      position: absolute;
+      width: 35%;
+      height: 55%;
+      right: 10%;
+      background: linear-gradient(145deg, #e3d4c6, #6e4c75);
+      border: 6px solid #30213d;
+    }
+
+    .project-info {
+      padding: 17px;
+    }
+
+    .project-info h3 a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .project-info h3 a:hover {
+      color: var(--blue);
+    }
+
+    .project-info p:not(.eyebrow) {
+      font-size: 0.9rem;
+      color: var(--muted);
+      min-height: 4.3em;
+    }
+
+    .project-info .eyebrow {
+      font-size: 0.65rem;
+      margin-bottom: 8px;
+    }
+
+    .culture-band {
+      padding: 65px 0;
+      background: linear-gradient(110deg, #0c1a2b, #101a30);
+      border-block: 1px solid var(--line);
+    }
+
+    .culture-layout {
+      display: grid;
+      grid-template-columns: 0.7fr 1.3fr;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .culture-copy h2 {
+      max-width: 12ch;
+    }
+
+    .culture-copy p:not(.eyebrow) {
+      color: var(--muted);
+    }
+
+    .carousel-track.compact {
+      grid-auto-columns: calc((100% - 24px)/3);
+      gap: 12px;
+    }
+
+    .culture-card {
+      scroll-snap-align: start;
+      min-width: 0;
+    }
+
+    .culture-card h3 {
+      font-size: 1rem;
+      margin: 12px 0 4px;
+    }
+
+    .culture-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .culture-thumb {
+      height: 145px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      background: #1b2e43;
+    }
+
+    .culture-thumb span {
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      color: #fff;
+      font: 0.75rem ui-monospace, monospace;
+      z-index: 2;
+    }
+
+    .thumb-archive {
+      background: linear-gradient(120deg, #735e47, #d2b78d);
+    }
+
+    .thumb-archive i {
+      position: absolute;
+      inset: 20% 12%;
+      background: repeating-linear-gradient(0deg, #e9d9b6 0 12px, #5d4935 12px 15px);
+      transform: rotate(-5deg);
+    }
+
+    .thumb-museum {
+      background: linear-gradient(135deg, #4a315c, #cf9a77);
+    }
+
+    .thumb-museum i {
+      position: absolute;
+      inset: 20% 25%;
+      border: 8px solid #e6c9a8;
+      background: linear-gradient(120deg, #a56c54, #322e4c);
+    }
+
+    .thumb-library {
+      background: linear-gradient(120deg, #203e48, #9eac8a);
+    }
+
+    .thumb-library i {
+      position: absolute;
+      bottom: 0;
+      left: 12%;
+      right: 12%;
+      height: 75%;
+      background: repeating-linear-gradient(0deg, #d9c79c 0 13px, #364d4d 13px 17px);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .feature-card {
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--panel);
+      padding: 23px;
+    }
+
+    .feature-icon {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--blue);
+      font: 700 1.1rem ui-monospace, monospace;
+      margin-bottom: 17px;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .chip {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 9px;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    .access-section {
+      padding: 65px 0;
+      background: #0b1727;
+      border-block: 1px solid var(--line);
+    }
+
+    .access-layout,
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 65px;
+      align-items: center;
+    }
+
+    .access-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .access-list li {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel);
+    }
+
+    .access-list li>span {
+      display: grid;
+      place-items: center;
+      flex: 0 0 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--blue);
+      font-size: 1.2rem;
+    }
+
+    .access-list small {
+      display: block;
+      color: var(--muted);
+    }
+
+    .profile-layout {
+      align-items: start;
+    }
+
+    .skills-panel {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel);
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-list span {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 11px;
+      background: var(--panel2);
+      font-size: 0.87rem;
+    }
+
+    .note {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .contact-section {
+      padding: 65px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 0.8fr;
+      gap: 70px;
+    }
+
+    .contact-layout form {
+      display: grid;
+      gap: 9px;
+    }
+
+    .contact-layout label {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .contact-layout input,
+    .contact-layout textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--panel);
+      color: var(--text);
+    }
+
+    .contact-layout textarea {
+      resize: vertical;
+    }
+
+    .contact-layout form .button {
+      justify-self: start;
+      margin-top: 5px;
+    }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      background: #050b14;
+    }
+
+    .footer-inner {
+      min-height: 85px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-inner>span {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .footer nav {
+      display: flex;
+      gap: 15px;
+    }
+
+    .footer nav a {
+      font-size: 0.85rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 900px) {
+      .header-inner {
+        flex-wrap: wrap;
+        padding: 12px 0;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+        margin-left: auto;
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 8px 12px;
+      }
+
+      .header-contact {
+        display: none;
+      }
+
+      .nav {
+        display: none;
+        order: 5;
+        width: 100%;
+        margin: 0;
+        flex-wrap: wrap;
+      }
+
+      .nav.open {
+        display: flex;
+      }
+
+      .hero-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .hero-art {
+        min-height: 320px;
+      }
+
+      .culture-layout {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .access-layout,
+      .profile-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .carousel-track {
+        grid-auto-columns: calc((100% - 18px)/2);
+      }
+
+      .carousel-track.compact {
+        grid-auto-columns: calc((100% - 12px)/2);
+      }
+    }
+
+    @media (max-width: 580px) {
+      .wrap {
+        width: calc(100% - 28px);
+      }
+
+      .brand small {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 45px;
+      }
+
+      .hero-art {
+        min-height: 270px;
+      }
+
+      .code-card {
+        width: 88%;
+        top: 10px;
+      }
+
+      .mini-window {
+        width: 65%;
+        bottom: 0;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stats div:nth-child(2) {
+        border-right: 0;
+      }
+
+      .stats div:nth-child(-n+2) {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .section,
+      .culture-band,
+      .access-section,
+      .contact-section {
+        padding: 45px 0;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head>.text-link {
+        display: inline-block;
+        margin-top: 15px;
+      }
+
+      .carousel-track {
+        grid-auto-columns: 84%;
+      }
+
+      .carousel-track.compact {
+        grid-auto-columns: 78%;
+      }
+
+      .project-image {
+        height: 200px;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .footer-inner {
+        padding: 18px 0;
+      }
+
+      .footer nav {
+        order: 3;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Salta al contenuto</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Digital Lab, home">
+        <span class="brand-mark">BC_</span>
+        <span>Digital Lab <small>/ Portfolio</small></span>
+      </a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">Menu</button>
+      <nav id="main-nav" class="nav" aria-label="Navigazione principale">
+        <a href="#home" aria-current="page">Home</a>
+        <a href="#progetti">Progetti</a>
+        <a href="#cultura">Cultura</a>
+        <a href="#software">Software</a>
+        <a href="#accessibilita">Accessibilità</a>
+        <a href="#profilo">Profilo</a>
+      </nav>
+      <a class="button small outline header-contact" href="#contatti">Contatti</a>
     </div>
-    <div class="hero-art" aria-label="Anteprima decorativa di codice e sito web">
-      <div class="glow"></div><div class="code-card"><div class="window-bar"><i></i><i></i><i></i><span>approccio.js</span></div><pre><span class="pink">const</span> progetto = {
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home">
+      <div class="wrap hero-layout">
+        <div class="hero-copy">
+          <p class="eyebrow">Sviluppatore web &amp; digital creative</p>
+          <h1>Progetto esperienze digitali che uniscono <em>tecnologia e cultura.</em></h1>
+          <p class="lead">Sviluppo siti web, applicazioni e soluzioni digitali con attenzione all'accessibilità, all'usabilità e all'impatto sociale.</p>
+          <div class="actions">
+            <a class="button primary" href="#progetti">Scopri i miei progetti <span aria-hidden="true">→</span></a>
+            <a class="button outline" href="#contatti">Contattami <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="stats" aria-label="In breve">
+            <div><strong>07+</strong><span>progetti in portfolio</span></div>
+            <div><strong>03</strong><span>aree di lavoro</span></div>
+            <div><strong>AA</strong><span>obiettivo WCAG</span></div>
+            <div><strong>∞</strong><span>curiosità</span></div>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Anteprima decorativa di codice e sito web">
+          <div class="glow"></div>
+          <div class="code-card">
+            <div class="window-bar"><i></i><i></i><i></i><span>approccio.js</span></div>
+            <pre><span class="pink">const</span> progetto = {
   <span class="blue">design</span>: <span class="green">"inclusivo"</span>,
   <span class="blue">codice</span>: <span class="green">"pulito"</span>,
   <span class="blue">cultura</span>: <span class="green">"condivisa"</span>
 };
 
-<span class="pink">return</span> creareImpatto();</pre></div>
-      <div class="mini-window"><div class="mini-top">Biblioteca digitale <span>● ● ●</span></div><div class="mini-banner"></div><div class="mini-lines"><b></b><i></i><i></i></div><div class="mini-cards"><i></i><i></i><i></i></div></div>
-      <span class="art-label">// build for everyone</span>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="progetti">
-  <div class="wrap">
-    <div class="section-head"><div><p class="eyebrow">01 / Selezione</p><h2>I miei progetti</h2><p class="muted">Una selezione di siti, strumenti e concept: ogni progetto nasce da un bisogno reale.</p></div><a class="text-link" href="#cultura">Esplora l'area culturale ↗</a></div>
-    <div class="filters" role="group" aria-label="Filtra i progetti"><button class="filter active" data-filter="tutti" aria-pressed="true">Tutti</button><button class="filter" data-filter="cultura" aria-pressed="false">Culturali</button><button class="filter" data-filter="web" aria-pressed="false">Siti web</button><button class="filter" data-filter="software" aria-pressed="false">Software</button><button class="filter" data-filter="accessibilita" aria-pressed="false">Accessibilità</button></div>
-    <div class="carousel-shell" data-carousel>
-      <div class="carousel-controls"><span class="carousel-count" data-count>01 / 06</span><div><button class="arrow" data-prev aria-label="Progetti precedenti">←</button><button class="arrow" data-next aria-label="Progetti successivi">→</button></div></div>
-      <div class="carousel-track" data-track tabindex="0" aria-label="Carosello dei progetti">
-        <article class="project-card" data-category="cultura accessibilita"><a class="project-image image-library" href="#biblioteca"><span class="image-tag">PROGETTO CULTURALE</span><div class="library-art"><span>Biblioteca<br>Accessibile</span><i></i><b></b></div></a><div class="project-info"><p class="eyebrow">01 / Servizio digitale</p><h3><a href="#biblioteca">Biblioteca Accessibile</a></h3><p>Un servizio per rendere più semplice trovare libri, audiolibri e formati accessibili.</p><a class="text-link" href="#biblioteca">Scopri il progetto ↗</a></div></article>
-        <article class="project-card" data-category="web cultura"><a class="project-image image-portal" href="#cultura"><span class="image-tag">SITO WEB</span><div class="portal-art"><span>Culture<br>connect.</span><i></i><b></b></div></a><div class="project-info"><p class="eyebrow">02 / Portale</p><h3><a href="#cultura">Portale Culturale</a></h3><p>Un sito per raccontare eventi, collezioni e attività di una comunità culturale.</p><a class="text-link" href="#cultura">Scopri il progetto ↗</a></div></article>
-        <article class="project-card" data-category="software accessibilita"><a class="project-image image-code" href="#software"><span class="image-tag">SOFTWARE</span><div class="editor-art"><span>typing_accessible.py</span><i>def exercise():</i><b> feedback = "immediato"</b><em> return accessible_learning</em></div></a><div class="project-info"><p class="eyebrow">03 / Applicazione</p><h3><a href="#software">Typing Accessibile</a></h3><p>Prototipo per esercitarsi nella digitazione con feedback e supporto assistivo.</p><a class="text-link" href="#software">Scopri il progetto ↗</a></div></article>
-        <article class="project-card" data-category="cultura web"><a class="project-image image-exhibit" href="#cultura"><span class="image-tag">MOSTRA DIGITALE</span><div class="exhibit-art"><i></i><b></b><span>Memorie<br>in mostra</span></div></a><div class="project-info"><p class="eyebrow">04 / Esperienza</p><h3><a href="#cultura">Mostra interattiva</a></h3><p>Un percorso narrativo digitale per esplorare storie, oggetti e archivi.</p><a class="text-link" href="#cultura">Scopri il progetto ↗</a></div></article>
-        <article class="project-card" data-category="software"><a class="project-image image-data" href="#software"><span class="image-tag">AUTOMAZIONE</span><div class="data-art"><i></i><i></i><i></i><span>DATA / 001</span></div></a><div class="project-info"><p class="eyebrow">05 / Python</p><h3><a href="#software">Filtro libri antichi</a></h3><p>Uno strumento per filtrare fogli di calcolo e organizzare dati bibliografici.</p><a class="text-link" href="#software">Scopri il progetto ↗</a></div></article>
-        <article class="project-card" data-category="cultura web"><a class="project-image image-story" href="#cultura"><span class="image-tag">STORYTELLING</span><div class="story-art"><span>Archivio<br>Secretato</span><i></i><b></b></div></a><div class="project-info"><p class="eyebrow">06 / Narrazione</p><h3><a href="#cultura">Archivio Secretato</a></h3><p>Un'esperienza web in cui le card diventano accessi a storie e contenuti progressivi.</p><a class="text-link" href="#cultura">Scopri il progetto ↗</a></div></article>
+<span class="pink">return</span> creareImpatto();</pre>
+          </div>
+          <div class="mini-window">
+            <div class="mini-top">Biblioteca digitale <span>● ● ●</span></div>
+            <div class="mini-banner"></div>
+            <div class="mini-lines"><b></b><i></i><i></i></div>
+            <div class="mini-cards"><i></i><i></i><i></i></div>
+          </div>
+          <span class="art-label">// build for everyone</span>
+        </div>
       </div>
-      <p class="sr-only" aria-live="polite" data-carousel-status></p>
+    </section>
+
+    <section class="section" id="progetti">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">01 / Selezione</p>
+            <h2>I miei progetti</h2>
+            <p class="muted">Una selezione di siti, strumenti e concept: ogni progetto nasce da un bisogno reale.</p>
+          </div>
+          <a class="text-link" href="#cultura">Esplora l'area culturale ↗</a>
+        </div>
+
+        <div class="filters" role="group" aria-label="Filtra i progetti">
+          <button class="filter active" data-filter="tutti" aria-pressed="true">Tutti</button>
+          <button class="filter" data-filter="cultura" aria-pressed="false">Culturali</button>
+          <button class="filter" data-filter="web" aria-pressed="false">Siti web</button>
+          <button class="filter" data-filter="software" aria-pressed="false">Software</button>
+          <button class="filter" data-filter="accessibilita" aria-pressed="false">Accessibilità</button>
+        </div>
+
+        <div class="carousel-shell" data-carousel>
+          <div class="carousel-controls">
+            <span class="carousel-count" data-count>01 / 06</span>
+            <div>
+              <button class="arrow" data-prev aria-label="Progetti precedenti">←</button>
+              <button class="arrow" data-next aria-label="Progetti successivi">→</button>
+            </div>
+          </div>
+
+          <div class="carousel-track" data-track tabindex="0" aria-label="Carosello dei progetti">
+            <article class="project-card" data-category="cultura accessibilita">
+              <a class="project-image image-library" href="#biblioteca">
+                <span class="image-tag">PROGETTO CULTURALE</span>
+                <div class="library-art">
+                  <span>Biblioteca<br>Accessibile</span>
+                  <i></i>
+                  <b></b>
+                </div>
+              </a>
+              <div class="project-info">
+                <p class="eyebrow">01 / Servizio digitale</p>
+                <h3><a href="#biblioteca">Biblioteca Accessibile</a></h3>
+                <p>Un servizio per rendere più semplice trovare libri, audiolibri e formati accessibili.</p>
+                <a class="text-link" href="#biblioteca">Scopri il progetto ↗</a>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="web cultura">
+              <a class="project-image image-portal" href="#cultura">
+                <span class="image-tag">SITO WEB</span>
+                <div class="portal-art">
+                  <span>Culture<br>connect.</span>
+                  <i></i>
+                  <b></b>
+                </div>
+              </a>
+              <div class="project-info">
+                <p class="eyebrow">02 / Portale</p>
+                <h3><a href="#cultura">Portale Culturale</a></h3>
+                <p>Un sito per raccontare eventi, collezioni e attività di una comunità culturale.</p>
+                <a class="text-link" href="#cultura">Scopri il progetto ↗</a>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="software accessibilita">
+              <a class="project-image image-code" href="#software">
+                <span class="image-tag">SOFTWARE</span>
+                <div class="editor-art">
+                  <span>typing_accessible.py</span>
+                  <i>def exercise():</i>
+                  <b> feedback = "immediato"</b>
+                  <em> return accessible_learning</em>
+                </div>
+              </a>
+              <div class="project-info">
+                <p class="eyebrow">03 / Applicazione</p>
+                <h3><a href="#software">Typing Accessibile</a></h3>
+                <p>Prototipo per esercitarsi nella digitazione con feedback e supporto assistivo.</p>
+                <a class="text-link" href="#software">Scopri il progetto ↗</a>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="cultura web">
+              <a class="project-image image-exhibit" href="#cultura">
+                <span class="image-tag">MOSTRA DIGITALE</span>
+                <div class="exhibit-art">
+                  <i></i>
+                  <b></b>
+                  <span>Memorie<br>in mostra</span>
+                </div>
+              </a>
+              <div class="project-info">
+                <p class="eyebrow">04 / Esperienza</p>
+                <h3><a href="#cultura">Mostra interattiva</a></h3>
+                <p>Un percorso narrativo digitale per esplorare storie, oggetti e archivi.</p>
+                <a class="text-link" href="#cultura">Scopri il progetto ↗</a>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="software">
+              <a class="project-image image-data" href="#software">
+                <span class="image-tag">AUTOMAZIONE</span>
+                <div class="data-art">
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <span>DATA / 001</span>
+                </div>
+              </a>
+              <div class="project-info">
+                <p class="eyebrow">05 / Python</p>
+                <h3><a href="#software">Filtro libri antichi</a></h3>
+                <p>Uno strumento per filtrare fogli di calcolo e organizzare dati bibliografici.</p>
+                <a class="text-link" href="#software">Scopri il progetto ↗</a>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="cultura web">
+              <a class="project-image image-story" href="#cultura">
+                <span class="image-tag">STORYTELLING</span>
+                <div class="story-art">
+                  <span>Archivio<br>Secretato</span>
+                  <i></i>
+                  <b></b>
+                </div>
+              </a>
+              <div class="project-info">
+                <p class="eyebrow">06 / Narrazione</p>
+                <h3><a href="#cultura">Archivio Secretato</a></h3>
+                <p>Un'esperienza web in cui le card diventano accessi a storie e contenuti progressivi.</p>
+                <a class="text-link" href="#cultura">Scopri il progetto ↗</a>
+              </div>
+            </article>
+          </div>
+          <p class="sr-only" aria-live="polite" data-carousel-status></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="culture-band" id="cultura">
+      <div class="wrap culture-layout">
+        <div class="culture-copy">
+          <p class="eyebrow">02 / Cultura digitale</p>
+          <h2>La cultura prende nuove forme online.</h2>
+          <p class="muted">Progetti dedicati alla valorizzazione del patrimonio, alla narrazione digitale e all'accesso alla conoscenza.</p>
+          <a class="button primary" href="#progetti">Scopri i progetti culturali →</a>
+        </div>
+        <div class="culture-carousel" data-carousel>
+          <div class="carousel-controls">
+            <span class="carousel-count" data-count>01 / 03</span>
+            <div>
+              <button class="arrow" data-prev aria-label="Progetti culturali precedenti">←</button>
+              <button class="arrow" data-next aria-label="Progetti culturali successivi">→</button>
+            </div>
+          </div>
+          <div class="carousel-track compact" data-track tabindex="0" aria-label="Carosello di progetti culturali">
+            <article class="culture-card">
+              <div class="culture-thumb thumb-archive">
+                <span>01</span>
+                <i></i>
+              </div>
+              <h3>Digitalizzazione d'archivio</h3>
+              <p>Metadati, accesso e conservazione.</p>
+            </article>
+            <article class="culture-card">
+              <div class="culture-thumb thumb-museum">
+                <span>02</span>
+                <i></i>
+              </div>
+              <h3>Mostra interattiva</h3>
+              <p>Storie e percorsi da esplorare.</p>
+            </article>
+            <article class="culture-card">
+              <div class="culture-thumb thumb-library">
+                <span>03</span>
+                <i></i>
+              </div>
+              <h3>Biblioteca diffusa</h3>
+              <p>Risorse culturali vicine alle persone.</p>
+            </article>
+          </div>
+          <p class="sr-only" aria-live="polite" data-carousel-status></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="software">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">03 / Software e applicazioni</p>
+            <h2>Strumenti su misura.</h2>
+            <p class="muted">Dal codice all'interfaccia: prototipi e automazioni pensati per risolvere problemi concreti.</p>
+          </div>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-icon">&lt;/&gt;</span>
+            <h3>Sviluppo web</h3>
+            <p>Strutture responsive, componenti e interazioni accessibili.</p>
+            <span class="chip">HTML · CSS · JS</span>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon">⌘</span>
+            <h3>Automazione</h3>
+            <p>Script per elaborare dati e semplificare attività ripetitive.</p>
+            <span class="chip">Python · SQL</span>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon">Aa</span>
+            <h3>Design inclusivo</h3>
+            <p>Interfacce leggibili, navigabili e testabili con tecnologie assistive.</p>
+            <span class="chip">UI/UX · WCAG</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="access-section" id="accessibilita">
+      <div class="wrap access-layout">
+        <div>
+          <p class="eyebrow">04 / Accessibilità</p>
+          <h2>Tecnologia inclusiva per un web più accessibile.</h2>
+          <p class="muted">L'accessibilità è una parte fondamentale del processo: struttura semantica, navigazione da tastiera, contrasto e supporto a diverse modalità d'uso.</p>
+          <a class="button outline" href="#contatti">Parliamo di accessibilità →</a>
+        </div>
+        <ul class="access-list">
+          <li>
+            <span>⌨</span>
+            <div>
+              <strong>Navigazione da tastiera</strong>
+              <small>Focus visibile e ordine coerente</small>
+            </div>
+          </li>
+          <li>
+            <span>◉</span>
+            <div>
+              <strong>Screen reader</strong>
+              <small>Semantica e nomi accessibili</small>
+            </div>
+          </li>
+          <li>
+            <span>◐</span>
+            <div>
+              <strong>Contrasto e leggibilità</strong>
+              <small>Testo chiaro e modalità alto contrasto</small>
+            </div>
+          </li>
+          <li>
+            <span>↔</span>
+            <div>
+              <strong>Responsive design</strong>
+              <small>Layout adatto a schermi diversi</small>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="profilo">
+      <div class="wrap profile-layout">
+        <div>
+          <p class="eyebrow">05 / Il mio percorso</p>
+          <h2>Unisce formazione, passione e voglia di creare impatto.</h2>
+          <p class="muted">Mi interessa lavorare all'incrocio tra sviluppo web, design e cultura, costruendo strumenti digitali utili, inclusivi e sostenibili.</p>
+          <a class="button primary" href="#contatti">Conosci il mio approccio →</a>
+        </div>
+        <div class="skills-panel">
+          <h3>Competenze e aree di interesse</h3>
+          <div class="skill-list">
+            <span>HTML / CSS</span>
+            <span>JavaScript</span>
+            <span>React</span>
+            <span>Python</span>
+            <span>SQL</span>
+            <span>Git</span>
+            <span>UI/UX</span>
+            <span>WCAG</span>
+          </div>
+          <p class="note">Le competenze mostrate vanno aggiornate in base alle tecnologie effettivamente utilizzate nei tuoi progetti.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contatti">
+      <div class="wrap contact-layout">
+        <div>
+          <p class="eyebrow">06 / Contatti</p>
+          <h2>Hai un progetto in mente? Parliamone.</h2>
+          <p class="muted">Sono disponibile per confronti su siti web, software, progetti culturali e accessibilità digitale.</p>
+          <p><a href="mailto:inserisci-email@example.com">inserisci-email@example.com</a></p>
+          <p class="note">Sostituisci l'indirizzo segnaposto prima della pubblicazione.</p>
+        </div>
+        <form id="contact-form">
+          <label for="name">Nome</label>
+          <input id="name" name="name" autocomplete="name" required>
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required>
+
+          <label for="message">Messaggio</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+
+          <button class="button primary" type="submit">Prepara messaggio →</button>
+          <p class="note" id="form-status" role="status">Il modulo apre il programma di posta, non invia dati a un server.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <a class="brand" href="#home">
+        <span class="brand-mark">BC_</span>
+        <span>Digital Lab</span>
+      </a>
+      <span>Portfolio · Tecnologia e cultura</span>
+      <nav aria-label="Navigazione a piè di pagina">
+        <a href="#progetti">Progetti</a>
+        <a href="#accessibilita">Accessibilità</a>
+        <a href="#contatti">Contatti</a>
+      </nav>
+      <a href="#home">Torna su ↑</a>
     </div>
-  </div>
-</section>
+  </footer>
 
-<section class="culture-band" id="cultura"><div class="wrap culture-layout"><div class="culture-copy"><p class="eyebrow">02 / Cultura digitale</p><h2>La cultura prende nuove forme online.</h2><p class="muted">Progetti dedicati alla valorizzazione del patrimonio, alla narrazione digitale e all'accesso alla conoscenza.</p><a class="button primary" href="#progetti">Scopri i progetti culturali →</a></div>
-<div class="culture-carousel" data-carousel><div class="carousel-controls"><span class="carousel-count" data-count>01 / 03</span><div><button class="arrow" data-prev aria-label="Progetti culturali precedenti">←</button><button class="arrow" data-next aria-label="Progetti culturali successivi">→</button></div></div><div class="carousel-track compact" data-track tabindex="0" aria-label="Carosello di progetti culturali">
-<article class="culture-card"><div class="culture-thumb thumb-archive"><span>01</span><i></i></div><h3>Digitalizzazione d'archivio</h3><p>Metadati, accesso e conservazione.</p></article>
-<article class="culture-card"><div class="culture-thumb thumb-museum"><span>02</span><i></i></div><h3>Mostra interattiva</h3><p>Storie e percorsi da esplorare.</p></article>
-<article class="culture-card"><div class="culture-thumb thumb-library"><span>03</span><i></i></div><h3>Biblioteca diffusa</h3><p>Risorse culturali vicine alle persone.</p></article>
-</div><p class="sr-only" aria-live="polite" data-carousel-status></p></div></div></section>
+  <script>
+    (() => {
+      // Navigazione Mobile Toggle
+      const menuButton = document.querySelector(".menu-toggle");
+      const nav = document.querySelector("#main-nav");
 
-<section class="section" id="software"><div class="wrap"><div class="section-head"><div><p class="eyebrow">03 / Software e applicazioni</p><h2>Strumenti su misura.</h2><p class="muted">Dal codice all'interfaccia: prototipi e automazioni pensati per risolvere problemi concreti.</p></div></div>
-<div class="feature-grid"><article class="feature-card"><span class="feature-icon">&lt;/&gt;</span><h3>Sviluppo web</h3><p>Strutture responsive, componenti e interazioni accessibili.</p><span class="chip">HTML · CSS · JS</span></article><article class="feature-card"><span class="feature-icon">⌘</span><h3>Automazione</h3><p>Script per elaborare dati e semplificare attività ripetitive.</p><span class="chip">Python · SQL</span></article><article class="feature-card"><span class="feature-icon">Aa</span><h3>Design inclusivo</h3><p>Interfacce leggibili, navigabili e testabili con tecnologie assistive.</p><span class="chip">UI/UX · WCAG</span></article></div>
-</div></section>
+      if (menuButton && nav) {
+        menuButton.addEventListener("click", () => {
+          const open = menuButton.getAttribute("aria-expanded") !== "true";
+          menuButton.setAttribute("aria-expanded", String(open));
+          nav.classList.toggle("open", open);
+        });
 
-<section class="access-section" id="accessibilita"><div class="wrap access-layout"><div><p class="eyebrow">04 / Accessibilità</p><h2>Tecnologia inclusiva per un web più accessibile.</h2><p class="muted">L'accessibilità è una parte fondamentale del processo: struttura semantica, navigazione da tastiera, contrasto e supporto a diverse modalità d'uso.</p><a class="button outline" href="#contatti">Parliamo di accessibilità →</a></div><ul class="access-list"><li><span>⌨</span><div><strong>Navigazione da tastiera</strong><small>Focus visibile e ordine coerente</small></div></li><li><span>◉</span><div><strong>Screen reader</strong><small>Semantica e nomi accessibili</small></div></li><li><span>◐</span><div><strong>Contrasto e leggibilità</strong><small>Testo chiaro e modalità alto contrasto</small></div></li><li><span>↔</span><div><strong>Responsive design</strong><small>Layout adatto a schermi diversi</small></div></li></ul></div></section>
+        nav.querySelectorAll("a").forEach(link => {
+          link.addEventListener("click", () => {
+            menuButton.setAttribute("aria-expanded", "false");
+            nav.classList.remove("open");
+          });
+        });
+      }
 
-<section class="section" id="profilo"><div class="wrap profile-layout"><div><p class="eyebrow">05 / Il mio percorso</p><h2>Unisce formazione, passione e voglia di creare impatto.</h2><p class="muted">Mi interessa lavorare all'incrocio tra sviluppo web, design e cultura, costruendo strumenti digitali utili, inclusivi e sostenibili.</p><a class="button primary" href="#contatti">Conosci il mio approccio →</a></div><div class="skills-panel"><h3>Competenze e aree di interesse</h3><div class="skill-list"><span>HTML / CSS</span><span>JavaScript</span><span>React</span><span>Python</span><span>SQL</span><span>Git</span><span>UI/UX</span><span>WCAG</span></div><p class="note">Le competenze mostrate vanno aggiornate in base alle tecnologie effettivamente utilizzate nei tuoi progetti.</p></div></div></section>
+      // Logica Caroselli
+      document.querySelectorAll("[data-carousel]").forEach(carousel => {
+        const track = carousel.querySelector("[data-track]");
+        const prev = carousel.querySelector("[data-prev]");
+        const next = carousel.querySelector("[data-next]");
+        const count = carousel.querySelector("[data-count]");
+        const status = carousel.querySelector("[data-carousel-status]");
 
-<section class="contact-section" id="contatti"><div class="wrap contact-layout"><div><p class="eyebrow">06 / Contatti</p><h2>Hai un progetto in mente? Parliamone.</h2><p class="muted">Sono disponibile per confronti su siti web, software, progetti culturali e accessibilità digitale.</p><p><a href="mailto:inserisci-email@example.com">inserisci-email@example.com</a></p><p class="note">Sostituisci l'indirizzo segnaposto prima della pubblicazione.</p></div><form id="contact-form"><label for="name">Nome</label><input id="name" name="name" autocomplete="name" required><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required><label for="message">Messaggio</label><textarea id="message" name="message" rows="4" required></textarea><button class="button primary" type="submit">Prepara messaggio →</button><p class="note" id="form-status" role="status">Il modulo apre il programma di posta, non invia dati a un server.</p></form></div></section>
-</main>
-<footer class="footer"><div class="wrap footer-inner"><a class="brand" href="#home"><span class="brand-mark">BC_</span><span>Digital Lab</span></a><span>Portfolio · Tecnologia e cultura</span><nav aria-label="Navigazione a piè di pagina"><a href="#progetti">Progetti</a><a href="#accessibilita">Accessibilità</a><a href="#contatti">Contatti</a></nav><a href="#home">Torna su ↑</a></div></footer>
+        const cards = () => [...track.querySelectorAll("article:not([hidden])")];
+
+        function update(announce = false) {
+          const visible = cards();
+          const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+
+          if (prev) prev.disabled = track.scrollLeft <= 2;
+          if (next) next.disabled = track.scrollLeft >= maxScroll - 2;
+
+          if (count) {
+            const current = visible.length
+              ? Math.min(
+                visible.length,
+                Math.floor((track.scrollLeft + 8) / Math.max(1, visible[0].getBoundingClientRect().width + parseFloat(getComputedStyle(track).gap || 0))) + 1
+              )
+              : 0;
+            count.textContent = `${String(current).padStart(2, "0")} / ${String(visible.length).padStart(2, "0")}`;
+          }
+
+          if (announce && status) {
+            status.textContent = "Carosello aggiornato. Usa le frecce per spostarti tra i progetti.";
+          }
+        }
+
+        function move(direction) {
+          const visible = cards();
+          if (!visible.length) return;
+
+          const gap = parseFloat(getComputedStyle(track).gap) || 0;
+          const amount = visible[0].getBoundingClientRect().width + gap;
+
+          track.scrollBy({
+            left: direction * amount,
+            behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+          });
+
+          window.setTimeout(() => update(true), 220);
+        }
+
+        prev?.addEventListener("click", () => move(-1));
+        next?.addEventListener("click", () => move(1));
+        track.addEventListener("scroll", () => update(false), { passive: true });
+        window.addEventListener("resize", () => update(false));
+
+        update();
+      });
+
+      // Filtri Progetti
+      const filters = [...document.querySelectorAll("[data-filter]")];
+      const cards = [...document.querySelectorAll(".project-card[data-category]")];
+
+      filters.forEach(button => {
+        button.addEventListener("click", () => {
+          const selected = button.dataset.filter;
+
+          filters.forEach(item => {
+            const active = item === button;
+            item.classList.toggle("active", active);
+            item.setAttribute("aria-pressed", String(active));
+          });
+
+          cards.forEach(card => {
+            card.hidden = selected !== "tutti" && !card.dataset.category.split(" ").includes(selected);
+          });
+
+          const carousel = document.querySelector("#progetti [data-track]");
+          if (carousel) carousel.scrollTo({ left: 0, behavior: "auto" });
+
+          const shell = document.querySelector("#progetti [data-carousel]");
+          if (shell) {
+            const count = shell.querySelector("[data-count]");
+            const visible = cards.filter(card => !card.hidden).length;
+            if (count) {
+              count.textContent = `${visible ? "01" : "00"} / ${String(visible).padStart(2, "0")}`;
+            }
+          }
+        });
+      });
+
+      // Modulo di Contatto
+      const form = document.querySelector("#contact-form");
+      if (form) {
+        form.addEventListener("submit", event => {
+          event.preventDefault();
+
+          const data = new FormData(form);
+          const to = "inserisci-email@example.com";
+          const subject = encodeURIComponent("Contatto portfolio");
+          const body = encodeURIComponent(
+            `Nome: ${data.get("name")}\nEmail: ${data.get("email")}\n\n${data.get("message")}`
+          );
+
+          if (to.includes("inserisci-email")) {
+            document.querySelector("#form-status").textContent =
+              "Sostituisci inserisci-email@example.com nel file js/main.js con il tuo indirizzo prima di usare il modulo.";
+            return;
+          }
+
+          location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+        });
+      }
+    })();
+  </script>
 </body>
+
 </html>
