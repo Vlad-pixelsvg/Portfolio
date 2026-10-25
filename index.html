@@ -1,222 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Gabriel C. Corcodel</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Portfolio Digital Lab: sviluppo web, progetti culturali, software e accessibilità digitale.">
+<meta name="theme-color" content="#07111f">
+<title>Digital Lab — Tecnologia e cultura</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js" defer></script>
 </head>
 <body>
+<a class="skip-link" href="#main">Salta al contenuto</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" aria-label="Digital Lab, home"><span class="brand-mark">BC_</span><span>Digital Lab <small>/ Portfolio</small></span></a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <nav id="main-nav" class="nav" aria-label="Navigazione principale">
+      <a href="#home" aria-current="page">Home</a><a href="#progetti">Progetti</a><a href="#cultura">Cultura</a><a href="#software">Software</a><a href="#accessibilita">Accessibilità</a><a href="#profilo">Profilo</a>
+    </nav>
+    <a class="button small outline header-contact" href="#contatti">Contatti</a>
+  </div>
+</header>
 
-    <div class="spotlight" aria-hidden="true"></div>
-
-    <div class="container">
-        <header class="sidebar">
-            <div>
-                <h1>Gabriel C. Corcodel</h1>
-                <h2>Studente per sempre</h2>
-                <p>Progetto sistemi digitali accessibili dove i dati incontrano le persone.</p>
-                
-                <nav class="nav-links" aria-label="Navigazione principale">
-                    <a href="#about" class="active"><span aria-hidden="true"></span> ABOUT ME</a>
-                    <a href="#education"><span aria-hidden="true"></span> EDUCATION</a>
-                    <a href="#skill"><span aria-hidden="true"></span> SKILLS</a>
-                    <a href="#cultural-projects"><span aria-hidden="true"></span> PROGETTI CULTURALI</a>
-                    <a href="#web-projects"><span aria-hidden="true"></span> SITI WEB</a>
-                    <a href="#contact"><span aria-hidden="true"></span> CONTACT</a>
-                </nav>
-            </div>
-
-            <div class="social-icons">
-                <a href="https://github.com/Vlad-pixelsvg" target="_blank" rel="noopener noreferrer" aria-label="Profilo GitHub (si apre in una nuova scheda)">
-                    <img width="30" height="30" src="https://img.icons8.com/neon/96/github.png" alt="" aria-hidden="true"/>
-                </a>
-                <a href="https://www.linkedin.com/in/cosmin-gabriel-corcodel-9ab7a3403/?skipRedirect=true" target="_blank" rel="noopener noreferrer" aria-label="Profilo LinkedIn (si apre in una nuova scheda)">
-                    <img width="30" height="30" src="https://img.icons8.com/neon/96/linkedin.png" alt="" aria-hidden="true"/>
-                </a>
-                <a href="mailto:gcorcodel05@email.it" aria-label="Invia una e-mail a Gabriel">
-                    <img width="30" height="30" src="https://img.icons8.com/neon/96/gmail-new.png" alt="" aria-hidden="true"/>
-                </a>
-            </div>
-        </header>
-
-        <main class="content">
-            
-            <section id="about" style="font-size: 1.25rem; line-height: 1.8;" aria-labelledby="heading-about">
-                <h2 id="heading-about" class="visually-hidden">Chi sono</h2>
-                <p>Il mio percorso ha radici nelle <strong>Scienze Applicate</strong> e nella programmazione in <strong>Python</strong>, ma si è evoluto in una missione precisa: trasformare il caos dell'infodemia in strutture dati chiare e accessibili.</p>
-                <p>Specializzato nella gestione di <strong>metadati e database</strong>, mi dedico a rendere il web un luogo davvero universale. Progetto interfacce inclusive basate su <strong>ricerca, workshop e interviste</strong>, garantendo un'esperienza utente senza barriere.</p>
-                <p>Unisco lo sviluppo frontend (<strong>HTML, CSS, TailwindCSS, JavaScript</strong>) con strategie di <strong>SEO/SEM</strong>, per rendere più efficace la ricercabilità e la visibilità del sito online, e principi di <strong>User-Centered Design</strong> per renderlo più navigabile ed efficiente in base al proprio target.</p>
-                <p>Ho esperienza con piattaforme come <strong>WordPress, Altervista, Wix, Webnode e Google Sites</strong>.</p>
-            </section>
-
-            <section id="education" aria-labelledby="heading-education">
-                <h2 id="heading-education" class="section-title">Formazione</h2>
-                <div class="card">
-                    <span class="date">Studente</span>
-                    <div class="details">
-                        <h3>Politecnico di Torino</h3>
-                        <p>Ingegneria informatica</p>
-                        <div class="tags">
-                            <span>Programmazione</span><span>Database</span><span>Web Semantico</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <span class="date">Diploma</span>
-                    <div class="details">
-                        <h3>Scienze Applicate Cambridge</h3>
-                        <p>Focus su sviluppo web, Python e Web Security.</p>
-                        <div class="tags">
-                            <span>Python</span><span>Web Dev</span><span>Cambridge</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <span class="date">Qualifica</span>
-                    <div class="details">
-                        <h3>Tecnico dei Servizi Bibliotecari & Dati</h3>
-                        <p>Gestione di biblioteche digitali e metadati.</p>
-                        <div class="tags">
-                            <span>RDF</span><span>SQL</span><span>Digitalizzazione</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="skill" aria-labelledby="heading-skills">
-                <h2 id="heading-skills" class="section-title">Competenze</h2>
-                <div class="card project-card">
-                    <div class="details">
-                        <h3>Accessibilità & Inclusione</h3>
-                        <p>Analisi e sviluppo di interfacce conformi WCAG per ogni tipologia di utenza.</p>
-                        <div class="tags">
-                            <span>WCAG</span><span>UX Inclusiva</span><span>AI</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card project-card">
-                    <div class="details">
-                        <h3>Compliance & Digital Marketing</h3>
-                        <p>Ottimizzazione SEO e implementazione normative GDPR.</p>
-                        <div class="tags">
-                            <span>SEO</span><span>SEM</span><span>GDPR</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SEZIONE 1: CAROSELLO PROGETTI CULTURALI -->
-            <section id="cultural-projects" class="carousel-section" aria-labelledby="heading-cultural">
-                <div class="carousel-header">
-                    <h2 id="heading-cultural">Progetti Culturali</h2>
-                    <div class="carousel-controls">
-                        <button type="button" class="btn-prev" aria-label="Progetto culturale precedente" aria-controls="cultural-carousel-items">‹</button>
-                        <button type="button" class="btn-next" aria-label="Progetto culturale successivo" aria-controls="cultural-carousel-items">›</button>
-                    </div>
-                </div>
-
-                <div id="cultural-carousel-items" class="carousel-track" role="region" aria-live="polite" aria-label="Carosello Progetti Culturali">
-                    <!-- Card 1 -->
-                    <article class="card project-card carousel-slide">
-                        <div class="project-img"><img src="image/LCSPiemonte.png" alt="" aria-hidden="true"></div>
-                        <div class="details">
-                            <h3><a href="https://Vlad-pixelsvg.github.io/LCSPiemonte" class="titolo-linkabile">Orientamento bibliotecario</a></h3>
-                            <p>Un sito per l'orientamento al mondo bibliotecario tra cooperative, fondazioni e concorsi.</p>
-                            <div class="tags"><span>Database</span><span>Accessibilità</span></div>
-                        </div>
-                    </article>
-
-                    <!-- Card 2 -->
-                    <article class="card project-card carousel-slide">
-                        <div class="project-img"><img src="image/Chiavedelluni.png" alt="" aria-hidden="true"></div>
-                        <div class="details">
-                            <h3><a href="https://chiavedelluni.info" class="titolo-linkabile">Associazione Non Profit</a></h3>
-                            <p>Sito "Chiave dell'Uni". Focus su semplicità e accessibilità. Progetto curato dal design alla SEO.</p>
-                            <div class="tags"><span>UX Inclusiva</span><span>Accessibilità</span></div>
-                        </div>
-                    </article>
-
-                    <!-- Card 3 -->
-                    <article class="card project-card carousel-slide">
-                        <div class="project-img"><img src="image/CAA.png" alt="" aria-hidden="true"></div>
-                        <div class="details">
-                            <h3>Convertitore CAA</h3>
-                            <p>Un traduttore digitale da caratteri e testi quotidiani in caratteri CAA, ARASAAC. Progetto in corso.</p>
-                            <div class="tags"><span>CAA</span><span>Accessibilità</span></div>
-                        </div>
-                    </article>
-                </div>
-            </section>
-
-            <!-- SEZIONE 2: CAROSELLO SITI WEB -->
-            <section id="web-projects" class="carousel-section" aria-labelledby="heading-web">
-                <div class="carousel-header">
-                    <h2 id="heading-web">Siti Web</h2>
-                    <div class="carousel-controls">
-                        <button type="button" class="btn-prev" aria-label="Sito web precedente" aria-controls="web-carousel-items">‹</button>
-                        <button type="button" class="btn-next" aria-label="Sito web successivo" aria-controls="web-carousel-items">›</button>
-                    </div>
-                </div>
-
-                <div id="web-carousel-items" class="carousel-track" role="region" aria-live="polite" aria-label="Carosello Siti Web">
-                    <!-- Card 1 -->
-                    <article class="card project-card carousel-slide">
-                        <div class="project-img"><img src="image/Chimica.png" alt="" aria-hidden="true"></div>
-                        <div class="details">
-                            <h3><a href="https://vlad-pixelsvg.github.io/Chimica" class="titolo-linkabile">Sintesi della chimica</a></h3>
-                            <p>Sito one-scroll sulla storia della chimica in 20 personaggi.</p>
-                            <div class="tags"><span>Tech-Design</span><span>Programmazione</span></div>
-                        </div>
-                    </article>
-
-                    <!-- Card 2 -->
-                    <article class="card project-card carousel-slide">
-                        <div class="project-img"><img src="image/spettro.png" alt="" aria-hidden="true"></div>
-                        <div class="details">
-                            <h3><a href="https://vlad-pixelsvg.github.io/Spettro/" class="titolo-linkabile">Blog Pokémon</a></h3>
-                            <p>Un sito creato per un GDR Pokémon. Blog di un ricercatore specializzato nel tipo Spettro.</p>
-                            <div class="tags"><span>Pokémon</span><span>Blog</span><span>FanMade</span></div>
-                        </div>
-                    </article>
-
-                    <!-- Card 3 -->
-                    <article class="card project-card carousel-slide">
-                        <div class="project-img"><img src="image/Hacker.png" alt="" aria-hidden="true"></div>
-                        <div class="details">
-                            <h3><a href="#" class="titolo-linkabile">Ethical Hacking</a></h3>
-                            <p>Piattaforma di divulgazione su sicurezza in rete e crittografia.</p>
-                            <div class="tags"><span>Cybersecurity</span><span>Privacy</span></div>
-                        </div>
-                    </article>
-
-                    <!-- Card 4 -->
-                    <article class="card project-card carousel-slide">
-                        <div class="project-img"><img src="image/PiGreco.png" alt="" aria-hidden="true"></div>
-                        <div class="details">
-                            <h3>La giornata del Pi Greco</h3>
-                            <p>Sito scolastico interattivo per l'elenco dei progetti studenteschi.</p>
-                            <div class="tags"><span>Archimede</span><span>Programmazione</span></div>
-                        </div>
-                    </article>
-                </div>
-            </section>
-
-            <!-- SEZIONE CONTATTI AGGIUNTA PER COMPLETEZZA SEMANTICA -->
-            <section id="contact" aria-labelledby="heading-contact">
-                <h2 id="heading-contact" class="section-title">Contatti</h2>
-                <p>Se vuoi collaborare a progetti accessibili o legati ai beni culturali, scrivimi a <a href="mailto:gcorcodel05@email.it">gcorcodel05@email.it</a>.</p>
-            </section>
-
-            <footer class="site-footer">
-                <p>Sito progettato e codificato da Gabriel C. Corcodel. Icone di <a href="https://icons8.com" target="_blank" rel="noopener noreferrer">Icons8</a>.</p>
-            </footer>
-        </main>
+<main id="main">
+<section class="hero" id="home">
+  <div class="wrap hero-layout">
+    <div class="hero-copy">
+      <p class="eyebrow">Sviluppatore web &amp; digital creative</p>
+      <h1>Progetto esperienze digitali che uniscono <em>tecnologia e cultura.</em></h1>
+      <p class="lead">Sviluppo siti web, applicazioni e soluzioni digitali con attenzione all'accessibilità, all'usabilità e all'impatto sociale.</p>
+      <div class="actions"><a class="button primary" href="#progetti">Scopri i miei progetti <span aria-hidden="true">→</span></a><a class="button outline" href="#contatti">Contattami <span aria-hidden="true">↗</span></a></div>
+      <div class="stats" aria-label="In breve"><div><strong>07+</strong><span>progetti in portfolio</span></div><div><strong>03</strong><span>aree di lavoro</span></div><div><strong>AA</strong><span>obiettivo WCAG</span></div><div><strong>∞</strong><span>curiosità</span></div></div>
     </div>
+    <div class="hero-art" aria-label="Anteprima decorativa di codice e sito web">
+      <div class="glow"></div><div class="code-card"><div class="window-bar"><i></i><i></i><i></i><span>approccio.js</span></div><pre><span class="pink">const</span> progetto = {
+  <span class="blue">design</span>: <span class="green">"inclusivo"</span>,
+  <span class="blue">codice</span>: <span class="green">"pulito"</span>,
+  <span class="blue">cultura</span>: <span class="green">"condivisa"</span>
+};
 
-    <script src="script.js"></script>
+<span class="pink">return</span> creareImpatto();</pre></div>
+      <div class="mini-window"><div class="mini-top">Biblioteca digitale <span>● ● ●</span></div><div class="mini-banner"></div><div class="mini-lines"><b></b><i></i><i></i></div><div class="mini-cards"><i></i><i></i><i></i></div></div>
+      <span class="art-label">// build for everyone</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="progetti">
+  <div class="wrap">
+    <div class="section-head"><div><p class="eyebrow">01 / Selezione</p><h2>I miei progetti</h2><p class="muted">Una selezione di siti, strumenti e concept: ogni progetto nasce da un bisogno reale.</p></div><a class="text-link" href="#cultura">Esplora l'area culturale ↗</a></div>
+    <div class="filters" role="group" aria-label="Filtra i progetti"><button class="filter active" data-filter="tutti" aria-pressed="true">Tutti</button><button class="filter" data-filter="cultura" aria-pressed="false">Culturali</button><button class="filter" data-filter="web" aria-pressed="false">Siti web</button><button class="filter" data-filter="software" aria-pressed="false">Software</button><button class="filter" data-filter="accessibilita" aria-pressed="false">Accessibilità</button></div>
+    <div class="carousel-shell" data-carousel>
+      <div class="carousel-controls"><span class="carousel-count" data-count>01 / 06</span><div><button class="arrow" data-prev aria-label="Progetti precedenti">←</button><button class="arrow" data-next aria-label="Progetti successivi">→</button></div></div>
+      <div class="carousel-track" data-track tabindex="0" aria-label="Carosello dei progetti">
+        <article class="project-card" data-category="cultura accessibilita"><a class="project-image image-library" href="#biblioteca"><span class="image-tag">PROGETTO CULTURALE</span><div class="library-art"><span>Biblioteca<br>Accessibile</span><i></i><b></b></div></a><div class="project-info"><p class="eyebrow">01 / Servizio digitale</p><h3><a href="#biblioteca">Biblioteca Accessibile</a></h3><p>Un servizio per rendere più semplice trovare libri, audiolibri e formati accessibili.</p><a class="text-link" href="#biblioteca">Scopri il progetto ↗</a></div></article>
+        <article class="project-card" data-category="web cultura"><a class="project-image image-portal" href="#cultura"><span class="image-tag">SITO WEB</span><div class="portal-art"><span>Culture<br>connect.</span><i></i><b></b></div></a><div class="project-info"><p class="eyebrow">02 / Portale</p><h3><a href="#cultura">Portale Culturale</a></h3><p>Un sito per raccontare eventi, collezioni e attività di una comunità culturale.</p><a class="text-link" href="#cultura">Scopri il progetto ↗</a></div></article>
+        <article class="project-card" data-category="software accessibilita"><a class="project-image image-code" href="#software"><span class="image-tag">SOFTWARE</span><div class="editor-art"><span>typing_accessible.py</span><i>def exercise():</i><b> feedback = "immediato"</b><em> return accessible_learning</em></div></a><div class="project-info"><p class="eyebrow">03 / Applicazione</p><h3><a href="#software">Typing Accessibile</a></h3><p>Prototipo per esercitarsi nella digitazione con feedback e supporto assistivo.</p><a class="text-link" href="#software">Scopri il progetto ↗</a></div></article>
+        <article class="project-card" data-category="cultura web"><a class="project-image image-exhibit" href="#cultura"><span class="image-tag">MOSTRA DIGITALE</span><div class="exhibit-art"><i></i><b></b><span>Memorie<br>in mostra</span></div></a><div class="project-info"><p class="eyebrow">04 / Esperienza</p><h3><a href="#cultura">Mostra interattiva</a></h3><p>Un percorso narrativo digitale per esplorare storie, oggetti e archivi.</p><a class="text-link" href="#cultura">Scopri il progetto ↗</a></div></article>
+        <article class="project-card" data-category="software"><a class="project-image image-data" href="#software"><span class="image-tag">AUTOMAZIONE</span><div class="data-art"><i></i><i></i><i></i><span>DATA / 001</span></div></a><div class="project-info"><p class="eyebrow">05 / Python</p><h3><a href="#software">Filtro libri antichi</a></h3><p>Uno strumento per filtrare fogli di calcolo e organizzare dati bibliografici.</p><a class="text-link" href="#software">Scopri il progetto ↗</a></div></article>
+        <article class="project-card" data-category="cultura web"><a class="project-image image-story" href="#cultura"><span class="image-tag">STORYTELLING</span><div class="story-art"><span>Archivio<br>Secretato</span><i></i><b></b></div></a><div class="project-info"><p class="eyebrow">06 / Narrazione</p><h3><a href="#cultura">Archivio Secretato</a></h3><p>Un'esperienza web in cui le card diventano accessi a storie e contenuti progressivi.</p><a class="text-link" href="#cultura">Scopri il progetto ↗</a></div></article>
+      </div>
+      <p class="sr-only" aria-live="polite" data-carousel-status></p>
+    </div>
+  </div>
+</section>
+
+<section class="culture-band" id="cultura"><div class="wrap culture-layout"><div class="culture-copy"><p class="eyebrow">02 / Cultura digitale</p><h2>La cultura prende nuove forme online.</h2><p class="muted">Progetti dedicati alla valorizzazione del patrimonio, alla narrazione digitale e all'accesso alla conoscenza.</p><a class="button primary" href="#progetti">Scopri i progetti culturali →</a></div>
+<div class="culture-carousel" data-carousel><div class="carousel-controls"><span class="carousel-count" data-count>01 / 03</span><div><button class="arrow" data-prev aria-label="Progetti culturali precedenti">←</button><button class="arrow" data-next aria-label="Progetti culturali successivi">→</button></div></div><div class="carousel-track compact" data-track tabindex="0" aria-label="Carosello di progetti culturali">
+<article class="culture-card"><div class="culture-thumb thumb-archive"><span>01</span><i></i></div><h3>Digitalizzazione d'archivio</h3><p>Metadati, accesso e conservazione.</p></article>
+<article class="culture-card"><div class="culture-thumb thumb-museum"><span>02</span><i></i></div><h3>Mostra interattiva</h3><p>Storie e percorsi da esplorare.</p></article>
+<article class="culture-card"><div class="culture-thumb thumb-library"><span>03</span><i></i></div><h3>Biblioteca diffusa</h3><p>Risorse culturali vicine alle persone.</p></article>
+</div><p class="sr-only" aria-live="polite" data-carousel-status></p></div></div></section>
+
+<section class="section" id="software"><div class="wrap"><div class="section-head"><div><p class="eyebrow">03 / Software e applicazioni</p><h2>Strumenti su misura.</h2><p class="muted">Dal codice all'interfaccia: prototipi e automazioni pensati per risolvere problemi concreti.</p></div></div>
+<div class="feature-grid"><article class="feature-card"><span class="feature-icon">&lt;/&gt;</span><h3>Sviluppo web</h3><p>Strutture responsive, componenti e interazioni accessibili.</p><span class="chip">HTML · CSS · JS</span></article><article class="feature-card"><span class="feature-icon">⌘</span><h3>Automazione</h3><p>Script per elaborare dati e semplificare attività ripetitive.</p><span class="chip">Python · SQL</span></article><article class="feature-card"><span class="feature-icon">Aa</span><h3>Design inclusivo</h3><p>Interfacce leggibili, navigabili e testabili con tecnologie assistive.</p><span class="chip">UI/UX · WCAG</span></article></div>
+</div></section>
+
+<section class="access-section" id="accessibilita"><div class="wrap access-layout"><div><p class="eyebrow">04 / Accessibilità</p><h2>Tecnologia inclusiva per un web più accessibile.</h2><p class="muted">L'accessibilità è una parte fondamentale del processo: struttura semantica, navigazione da tastiera, contrasto e supporto a diverse modalità d'uso.</p><a class="button outline" href="#contatti">Parliamo di accessibilità →</a></div><ul class="access-list"><li><span>⌨</span><div><strong>Navigazione da tastiera</strong><small>Focus visibile e ordine coerente</small></div></li><li><span>◉</span><div><strong>Screen reader</strong><small>Semantica e nomi accessibili</small></div></li><li><span>◐</span><div><strong>Contrasto e leggibilità</strong><small>Testo chiaro e modalità alto contrasto</small></div></li><li><span>↔</span><div><strong>Responsive design</strong><small>Layout adatto a schermi diversi</small></div></li></ul></div></section>
+
+<section class="section" id="profilo"><div class="wrap profile-layout"><div><p class="eyebrow">05 / Il mio percorso</p><h2>Unisce formazione, passione e voglia di creare impatto.</h2><p class="muted">Mi interessa lavorare all'incrocio tra sviluppo web, design e cultura, costruendo strumenti digitali utili, inclusivi e sostenibili.</p><a class="button primary" href="#contatti">Conosci il mio approccio →</a></div><div class="skills-panel"><h3>Competenze e aree di interesse</h3><div class="skill-list"><span>HTML / CSS</span><span>JavaScript</span><span>React</span><span>Python</span><span>SQL</span><span>Git</span><span>UI/UX</span><span>WCAG</span></div><p class="note">Le competenze mostrate vanno aggiornate in base alle tecnologie effettivamente utilizzate nei tuoi progetti.</p></div></div></section>
+
+<section class="contact-section" id="contatti"><div class="wrap contact-layout"><div><p class="eyebrow">06 / Contatti</p><h2>Hai un progetto in mente? Parliamone.</h2><p class="muted">Sono disponibile per confronti su siti web, software, progetti culturali e accessibilità digitale.</p><p><a href="mailto:inserisci-email@example.com">inserisci-email@example.com</a></p><p class="note">Sostituisci l'indirizzo segnaposto prima della pubblicazione.</p></div><form id="contact-form"><label for="name">Nome</label><input id="name" name="name" autocomplete="name" required><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required><label for="message">Messaggio</label><textarea id="message" name="message" rows="4" required></textarea><button class="button primary" type="submit">Prepara messaggio →</button><p class="note" id="form-status" role="status">Il modulo apre il programma di posta, non invia dati a un server.</p></form></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><a class="brand" href="#home"><span class="brand-mark">BC_</span><span>Digital Lab</span></a><span>Portfolio · Tecnologia e cultura</span><nav aria-label="Navigazione a piè di pagina"><a href="#progetti">Progetti</a><a href="#accessibilita">Accessibilità</a><a href="#contatti">Contatti</a></nav><a href="#home">Torna su ↑</a></div></footer>
 </body>
 </html>
