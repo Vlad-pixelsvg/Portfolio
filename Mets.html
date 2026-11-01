@@ -116,56 +116,19 @@
                     <a href="#struttura-mets" class="px-3 py-2 rounded-md hover:text-sky-400 hover:bg-slate-800/60 transition-all">Struttura METS</a>
                 </nav>
 
-               <!-- MODALE DI RICHIESTA / DOWNLOAD (Incolla questo blocco dove preferisci nella pagina) -->
-<div id="requestModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden">
-    <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg p-6 relative shadow-2xl">
-        
-        <!-- Pulsante di chiusura -->
-        <button onclick="closeRequestModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-            <i class="fa-solid fa-xmark text-xl"></i>
-        </button>
-
-        <!-- Titolo -->
-        <div class="mb-6">
-            <h3 class="text-xl font-bold text-slate-50">Richiesta / Download MetsGeneratore.py</h3>
-            <p class="text-xs text-slate-400 mt-1">Compila il form per ricevere lo script e la documentazione.</p>
-        </div>
-
-        <!-- FORM INTEGRAZIONE FORMSPREE -->
-        <form action="https://formspree.io/f/myeenwrq" method="POST" class="space-y-4">
-            <div>
-                <label class="block text-xs font-mono text-slate-300 mb-1">Tua Email:</label>
-                <input type="email" name="email" required placeholder="nome@ente.it" 
-                    class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-sky-400">
-            </div>
-
-            <div>
-                <label class="block text-xs font-mono text-slate-300 mb-1">Messaggio / Software in uso:</label>
-                <textarea name="message" rows="3" required placeholder="Es. Clavis NG o SBN Web..."
-                    class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-sky-400 resize-none"></textarea>
-            </div>
-
-            <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold py-2.5 rounded-lg text-sm transition-all shadow-md">
-                Invia Richiesta Script
-            </button>
-        </form>
-
-    </div>
-</div>
-<script>
-    function openRequestModal() {
-        document.getElementById('requestModal').classList.remove('hidden');
-    }
-    function closeRequestModal() {
-        document.getElementById('requestModal').classList.add('hidden');
-    }
-</script>
+                <!-- CTA Button -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="openRequestModal()" class="inline-flex items-center space-x-2 bg-sky-500 hover:bg-sky-400 text-slate-900 font-bold px-4 py-2 rounded-lg text-sm transition-all shadow-md hover:shadow-sky-500/20">
+                        <i class="fa-solid fa-download text-xs"></i>
+                        <span>Download / Richiedi Tool</span>
+                    </button>
 
                     <!-- Mobile Menu Button -->
                     <button id="mobile-menu-btn" type="button" aria-label="Apri menu" class="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none">
                         <i class="fa-solid fa-bars text-xl"></i>
                     </button>
                 </div>
+
             </div>
         </div>
 
@@ -906,9 +869,11 @@
         </div>
     </footer>
 
-    <!-- MODAL RICHIESTA / DOWNLOAD SCRIPT -->
-    <div id="request-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden p-4">
+    <!-- UNICO MODALE RICHIESTA / DOWNLOAD SCRIPT (FORMSPREE INTEGRAZIONE) -->
+    <div id="requestModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm hidden p-4">
         <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative">
+            
+            <!-- Pulsante di chiusura -->
             <button onclick="closeRequestModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -922,23 +887,15 @@
                     Il tool è attualmente in fase di distribuzione diretta per istituti MAB, biblioteche e progetti di conservazione. Compila il form per ricevere lo script Python e la documentazione d'uso.
                 </p>
 
-                <form onsubmit="submitRequest(event)" class="space-y-3 pt-2">
+                <!-- FORM DIRETTO FORMSPREE -->
+                <form action="https://formspree.io/f/myeenwrq" method="POST" class="space-y-3 pt-2">
                     <div>
-                        <label class="block text-xs font-mono text-slate-300 mb-1">Nome e Cognome / Ente</label>
-                        <input type="text" required placeholder="Es. Mario Rossi - Biblioteca Civica" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-sky-400">
+                        <label class="block text-xs font-mono text-slate-300 mb-1">Tua Email Istituzionale</label>
+                        <input type="email" name="email" required placeholder="nome@istituto.it" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-sky-400">
                     </div>
                     <div>
-                        <label class="block text-xs font-mono text-slate-300 mb-1">Email Istituzionale</label>
-                        <input type="email" required placeholder="nome@istituto.it" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-sky-400">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-mono text-slate-300 mb-1">Software di catalogazione in uso</label>
-                        <select class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-sky-400">
-                            <option>Clavis NG</option>
-                            <option>SBN Web / ICCU</option>
-                            <option>Sebina OpenLibrary</option>
-                            <option>Altro software MAB</option>
-                        </select>
+                        <label class="block text-xs font-mono text-slate-300 mb-1">Messaggio / Software in uso</label>
+                        <textarea name="message" rows="3" required placeholder="Es. Clavis NG, SBN Web o dettagli dell'ente..." class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-sky-400 resize-none"></textarea>
                     </div>
                     <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-900 font-bold py-3 rounded-lg text-sm transition-all mt-4">
                         Invia Richiesta Script
@@ -954,9 +911,11 @@
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
 
         document.querySelectorAll('.mobile-link').forEach(link => {
             link.addEventListener('click', () => {
@@ -966,16 +925,10 @@
 
         // Modal Controls
         function openRequestModal() {
-            document.getElementById('request-modal').classList.remove('hidden');
+            document.getElementById('requestModal').classList.remove('hidden');
         }
         function closeRequestModal() {
-            document.getElementById('request-modal').classList.add('hidden');
-        }
-
-        function submitRequest(e) {
-            e.preventDefault();
-            closeRequestModal();
-            showToast("Richiesta inviata! Riceverai lo script via mail.");
+            document.getElementById('requestModal').classList.add('hidden');
         }
 
         // XML Snippets Code Viewer
