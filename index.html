@@ -104,7 +104,7 @@
     .project-card { min-width: 0; scroll-snap-align: start; border: 1px solid var(--line); border-radius: 13px; overflow: hidden; background: var(--panel); }
     .project-image { height: 190px; display: block; position: relative; overflow: hidden; background: #12243b; border-bottom: 1px solid var(--line); text-decoration: none; }
     .image-tag { position: absolute; top: 12px; left: 12px; z-index: 2; font: 0.65rem ui-monospace, monospace; color: #e9f0ff; border: 1px solid #7795c4; background: #07111fc9; padding: 5px 7px; border-radius: 5px; }
-    .library-art, .portal-art, .editor-art, .exhibit-art, .data-art, .story-art { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .library-art, .portal-art, .editor-art, .exhibit-art, .data-art, .story-art, .nfc-art { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .library-art { background: linear-gradient(135deg, #213f4c, #0b1928); }
     .library-art span { z-index: 2; font: 700 1.5rem/1.1 Georgia, serif; color: #f1eadb; transform: rotate(-5deg); text-shadow: 0 2px 12px #000; }
     .library-art i { position: absolute; width: 60%; height: 65%; right: -5%; bottom: -15%; background: repeating-linear-gradient(0deg, #c6b38e 0 8px, #3c4d4d 8px 12px); transform: rotate(-15deg); box-shadow: 0 0 0 12px #1b2d35; }
@@ -132,6 +132,14 @@
     .story-art span { font: 700 1.8rem/1.05 Georgia, serif; color: #fff; z-index: 2; margin-right: 25%; }
     .story-art i { position: absolute; width: 40%; height: 80%; right: 5%; background: linear-gradient(135deg, #d8b6a4, #4c365a); transform: rotate(8deg); }
     .story-art b { position: absolute; width: 35%; height: 55%; right: 10%; background: linear-gradient(145deg, #e3d4c6, #6e4c75); border: 6px solid #30213d; }
+    .nfc-art { background: linear-gradient(135deg, #1e3c72, #2a5298); }
+    .nfc-art span { font: 700 1.4rem/1.1 Inter, sans-serif; color: #fff; z-index: 2; text-shadow: 0 2px 10px #000; }
+    .nfc-art i { position: absolute; width: 50px; height: 50px; border: 3px solid rgba(255,255,255,0.4); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 0.3; }
+      100% { transform: scale(1); opacity: 0.8; }
+    }
     .project-info { padding: 17px; }
     .project-info h3 a { color: var(--text); text-decoration: none; }
     .project-info h3 a:hover { color: var(--blue); }
@@ -250,7 +258,7 @@
           <p class="lead">Sviluppo siti web, applicazioni e soluzioni digitali con attenzione all'accessibilità, all'usabilità e all'impatto sociale.</p>
           <div class="actions">
             <a class="button primary" href="#progetti">Scopri i miei progetti <span aria-hidden="true">→</span></a>
-            <a class="button outline" href="#contatti">Contattami <span aria-hidden="true">↗</span></a>
+            <a class="button outline" href="#contattami">Contattami <span aria-hidden="true">↗</span></a>
           </div>
           <div class="stats" aria-label="In breve">
             <div><strong>07+</strong><span>progetti in portfolio</span></div>
@@ -303,7 +311,7 @@
 
         <div class="carousel-shell" data-carousel>
           <div class="carousel-controls">
-            <span class="carousel-count" data-count>01 / 06</span>
+            <span class="carousel-count" data-count>01 / 07</span>
             <div>
               <button class="arrow" data-prev aria-label="Progetti precedenti">←</button>
               <button class="arrow" data-next aria-label="Progetti successivi">→</button>
@@ -381,7 +389,24 @@
               </div>
             </article>
 
-            <!-- Progetto 5: Filtri Python Libri Antichi -->
+            <!-- Progetto 5: Riproduttore Audio NFC -->
+            <article class="project-card" data-category="accessibilita web">
+              <a class="project-image nfc-art" href="#accessibilita">
+                <span class="image-tag">NFC & ACCESSIBILITÀ</span>
+                <div class="nfc-art">
+                  <i></i>
+                  <span>Audio NFC</span>
+                </div>
+              </a>
+              <div class="project-info">
+                <p class="eyebrow">05 / Mobile & Screen Reader</p>
+                <h3><a href="#accessibilita">Riproduttore Audio NFC</a></h3>
+                <p>Player audio ottimizzato per tag NFC, apertura istantanea, schermo interamente cliccabile e compatibile con TalkBack/VoiceOver.</p>
+                <a class="text-link" href="#accessibilita">Scopri il progetto ↗</a>
+              </div>
+            </article>
+
+            <!-- Progetto 6: Filtri Python Libri Antichi -->
             <article class="project-card" data-category="software">
               <a class="project-image image-exhibit" href="#software">
                 <span class="image-tag">PYTHON SCRIPT</span>
@@ -391,14 +416,14 @@
                 </div>
               </a>
               <div class="project-info">
-                <p class="eyebrow">05 / Elaborazione Dati</p>
+                <p class="eyebrow">06 / Elaborazione Dati</p>
                 <h3><a href="#software">Filtri Libri Antichi</a></h3>
                 <p>Script in Python per l'elaborazione di dati di massa relativi a cataloghi di libri antichi e moderni.</p>
                 <a class="text-link" href="#software">Scopri lo strumento ↗</a>
               </div>
             </article>
 
-            <!-- Progetto 6: Vetrina Scrittore & Orientamento -->
+            <!-- Progetto 7: Vetrina Scrittore & Orientamento -->
             <article class="project-card" data-category="web cultura">
               <a class="project-image image-story" href="#cultura">
                 <span class="image-tag">PORTALI WEB</span>
@@ -408,7 +433,7 @@
                 </div>
               </a>
               <div class="project-info">
-                <p class="eyebrow">06 / Siti Dedicati</p>
+                <p class="eyebrow">07 / Siti Dedicati</p>
                 <h3><a href="#cultura">Editoria & Università</a></h3>
                 <p>Pagine web per scrittori, associazioni studentesche per l'orientamento universitario, biblioteche GDR e blog.</p>
                 <a class="text-link" href="#cultura">Esplora i concept ↗</a>
@@ -502,7 +527,7 @@
         <div>
           <p class="eyebrow">04 / Accessibilità</p>
           <h2>Tecnologia inclusiva per un web più accessibile.</h2>
-          <p class="muted">L'accessibilità è una parte fondamentale del processo: struttura semantica, navigazione da tastiera, contrasto e supporto a diverse modalità d'uso.</p>
+          <p class="muted">L'accessibilità è una parte fondamentale del processo: struttura semantica, navigazione da tastiera, contrasto e supporto a diverse modalità d'uso, inclusi dispositivi mobili con screen reader e tag NFC.</p>
           <a class="button outline" href="#contatti">Parliamo di accessibilità →</a>
         </div>
         <ul class="access-list">
@@ -560,7 +585,7 @@
       <a class="brand" href="#home"><span class="brand-mark">BC_</span><span>Digital Lab</span></a>
       <span>Portfolio · Tecnologia e cultura</span>
       <nav aria-label="Navigazione a piè di pagina"><a href="#progetti">Progetti</a><a href="#accessibilita">Accessibilità</a><a href="#contatti">Contatti</a></nav>
-      <a href="#home">Torna su ↑</a>
+      <a href="#home">Torna sur ↑</a>
     </div>
   </footer>
 
