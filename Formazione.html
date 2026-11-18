@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guida Operativa MetsGeneratore | Formazione Interna</title>
+    <meta name="description" content="Manuale operativo interno per la configurazione, estrazione catalografica, generazione e verifica dei pacchetti METS/MODS/MIX.">
+    
+    <!-- Google Fonts: Lexend per alta leggibilità e JetBrains Mono per percorsi e codice -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Palette ad alto contrasto ispirata al tuo portfolio */
+            --bg-primary: #0b0f19;
+            --bg-secondary: #131a2a;
+            --bg-tertiary: #1c253b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --accent-primary: #38bdf8; /* Azzurro tecnico */
+            --accent-hover: #7dd3fc;
+            --accent-subtle: rgba(56, 189, 248, 0.12);
+            --border-color: #2a3752;
+            --warning-bg: rgba(245, 158, 11, 0.12);
+            --warning-border: #f59e0b;
+            --warning-text: #fde68a;
+            --success-bg: rgba(16, 185, 129, 0.12);
+            --success-border: #10b981;
+            --code-bg: #070a12;
+            
+            --font-sans: 'Lexend', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+
+        /* Reset e Accessibilità di base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Focus visibile ad alto contrasto per navigazione da tastiera */
+        :focus-visible {
+            outline: 3px solid var(--accent-primary);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        /* Skip link per screen reader e tastiera */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 1rem;
+            background: var(--accent-primary);
+            color: #000;
+            font-weight: 700;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-md);
+            z-index: 1000;
+            text-decoration: none;
+            transition: top 0.2s;
+        }
+
+        .skip-link:focus {
+            top: 1rem;
+        }
+
+        /* Header */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.08), transparent 50%), var(--bg-primary);
+            padding: 3rem 1.5rem 2.5rem;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-subtle);
+            color: var(--accent-primary);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            margin-bottom: 1rem;
+            letter-spacing: 0.03em;
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 4vw, 2.75rem);
+            line-height: 1.2;
+            margin: 0 0 1rem;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 75ch;
+            margin: 0;
+        }
+
+        /* Layout principale con Sidebar indice */
+        .layout-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 5rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .layout-wrapper {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Indice laterale sticky */
+        .toc-nav {
+            position: sticky;
+            top: 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .toc-nav {
+                position: static;
+            }
+        }
+
+        .toc-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin: 0 0 1rem;
+            font-weight: 700;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .toc-list a {
+            display: flex;
+            align-items: baseline;
+            gap: 0.6rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 0.4rem 0.6rem;
+            border-radius: var(--radius-md);
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .toc-list a:hover {
+            background: var(--bg-tertiary);
+            color: var(--accent-hover);
+        }
+
+        .toc-step-num {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        /* Contenuto principale */
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: 3.5rem;
+            min-width: 0; /* Previene overflow dei blocchi pre */
+        }
+
+        .step-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            scroll-margin-top: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .step-section {
+                padding: 1.25rem;
+            }
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .step-badge {
+            background: var(--accent-primary);
+            color: #050811;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: var(--radius-md);
+            flex-shrink: 0;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            color: var(--accent-hover);
+            margin: 1.75rem 0 0.75rem;
+        }
+
+        p {
+            margin: 0 0 1rem;
+            color: var(--text-secondary);
+        }
+
+        ul, ol {
+            margin: 0 0 1.25rem;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        li strong {
+            color: var(--text-primary);
+        }
+
+        /* Albero delle cartelle */
+        .folder-tree {
+            background: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+            overflow-x: auto;
+            margin: 1.25rem 0;
+        }
+
+        .folder-tree .comment {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .folder-tree .highlight {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        /* Box Avvisi / Regole Critiche */
+        .callout {
+            border-left: 4px solid var(--accent-primary);
+            background: var(--accent-subtle);
+            padding: 1rem 1.25rem;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin: 1.5rem 0;
+        }
+
+        .callout.warning {
+            border-left-color: var(--warning-border);
+            background: var(--warning-bg);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.35rem;
+            display: block;
+        }
+
+        .callout.warning .callout-title {
+            color: var(--warning-text);
+        }
+
+        .callout p:last-child {
+            margin-bottom: 0;
+            color: var(--text-primary);
+        }
+
+        /* Area Immagini / Screenshot */
+        figure.screenshot-frame {
+            margin: 1.75rem 0;
+            background: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        /* Stile del segnaposto finché non inserisci le tue immagini reali */
+        .screenshot-placeholder {
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            border: 2px dashed #334155;
+            margin: 1rem;
+            border-radius: var(--radius-md);
+            background: repeating-linear-gradient(
+                -45deg,
+                rgba(255, 255, 255, 0.015),
+                rgba(255, 255, 255, 0.015) 10px,
+                transparent 10px,
+                transparent 20px
+            );
+        }
+
+        .screenshot-placeholder strong {
+            color: var(--accent-primary);
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .screenshot-placeholder span {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            max-width: 50ch;
+        }
+
+        /* Quando inserirai le immagini reali usa questa classe */
+        figure.screenshot-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        figcaption {
+            padding: 0.85rem 1.25rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            background: var(--bg-tertiary);
+        }
+
+        figcaption strong {
+            color: var(--text-primary);
+        }
+
+        /* Tabella nomenclatura file */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        code {
+            font-family: var(--font-mono);
+            background: var(--code-bg);
+            color: var(--accent-hover);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Blocco Codice XML */
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-tertiary);
+            padding: 0.6rem 1rem;
+            border: 1px solid var(--border-color);
+            border-bottom: none;
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .copy-btn {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+        }
+
+        .copy-btn:hover {
+            border-color: var(--accent-primary);
+            background: var(--accent-subtle);
+        }
+
+        pre.xml-sample {
+            margin: 0 0 1.5rem;
+            background: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0 0 var(--radius-md) var(--radius-md);
+            padding: 1.25rem;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        .xml-tag { color: #38bdf8; }
+        .xml-attr { color: #a78bfa; }
+        .xml-val { color: #34d399; }
+        .xml-comment { color: #64748b; }
+
+        /* Accordion nativo accessibile per FAQ/Troubleshooting */
+        details {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.75rem;
+        }
+
+        summary {
+            padding: 1rem 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style-position: inside;
+            color: var(--text-primary);
+        }
+
+        summary:hover {
+            color: var(--accent-hover);
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .details-content {
+            padding: 1rem 1.25rem;
+            color: var(--text-secondary);
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 2rem 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#contenuto-principale" class="skip-link">Vai direttamente alla procedura operativa</a>
+
+    <header>
+        <div class="header-container">
+            <span class="badge">DOCUMENTAZIONE INTERNA • FLUSSO DIGITALIZZAZIONE</span>
+            <h1>Manuale Operativo MetsGeneratore</h1>
+            <p class="subtitle">
+                Procedura standard per la preparazione dell'ambiente, l'estrazione dei record catalografici (Clavis, Sebina, SBN), 
+                la generazione dei pacchetti METS/MODS/MIX e la verifica strutturale.
+            </p>
+        </div>
+    </header>
+
+    <div class="layout-wrapper">
+        <!-- Indice di navigazione -->
+        <nav class="toc-nav" aria-label="Indice delle fasi operative">
+            <h2 class="toc-title">Fasi del Flusso</h2>
+            <ol class="toc-list">
+                <li><a href="#fase-1"><span class="toc-step-num">01</span> Struttura cartelle e Static</a></li>
+                <li><a href="#fase-2"><span class="toc-step-num">02</span> Estrazione da OPAC / SBN</a></li>
+                <li><a href="#fase-3"><span class="toc-step-num">03</span> Posizionamento file estratti</a></li>
+                <li><a href="#fase-4"><span class="toc-step-num">04</span> Come si presenta lo Static</a></li>
+                <li><a href="#fase-5"><span class="toc-step-num">05</span> Generazione e Controllo</a></li>
+                <li><a href="#fase-6"><span class="toc-step-num">06</span> Modifica manuale XML</a></li>
+            </ol>
+        </nav>
+
+        <!-- Contenuto principale -->
+        <main id="contenuto-principale">
+
+            <!-- FASE 1 -->
+            <section id="fase-1" class="step-section" aria-labelledby="titolo-fase-1">
+                <div class="step-header">
+                    <span class="step-badge">FASE 01</span>
+                    <h2 id="titolo-fase-1">Impostazione delle cartelle e posizione di <code>static</code></h2>
+                </div>
+
+                <p>
+                    Per funzionare correttamente in locale senza errori di percorso, l'eseguibile <code>MetsGeneratore.exe</code> 
+                    deve trovarsi nella stessa directory radice della cartella <code>static</code> (che contiene l'interfaccia web del visualizzatore Flask e gli asset).
+                </p>
+
+                <div class="folder-tree" role="region" aria-label="Struttura directory richiesta">
+📁 Cartella_Lavoro_METS/<br>
+├── ⚙️ <span class="highlight">MetsGeneratore.exe</span> <span class="comment">&lt;-- Eseguibile principale</span><br>
+├── 📁 <span class="highlight">static/</span> <span class="comment">&lt;-- OBBLIGATORIO: deve stare accanto all'eseguibile</span><br>
+│   ├── 📁 css/<br>
+│   ├── 📁 js/<br>
+│   └── 📁 img/<br>
+├── 📁 templates/ <span class="comment">&lt;-- Template HTML dell'interfaccia di controllo</span><br>
+└── 📁 Lotti_Da_Elaborare/ <span class="comment">&lt;-- Cartella con le sottocartelle dei volumi scansionati</span><br>
+    ├── 📁 [BID_o_ID_Volume_1]/<br>
+    └── 📁 [BID_o_ID_Volume_2]/
+                </div>
+
+                <div class="callout warning">
+                    <span class="callout-title">Attenzione: Non spostare o rinominare <code>static</code></span>
+                    <p>
+                        Se avvii <code>MetsGeneratore.exe</code> da una cartella in cui non è presente <code>static</code> accanto ad esso, 
+                        l'interfaccia grafica di controllo si aprirà senza fogli di stile e senza pulsanti funzionanti. Non avviare mai il programma direttamente dentro un file <code>.zip</code>: estrai sempre tutto il pacchetto prima.
+                    </p>
+                </div>
+
+                <figure class="screenshot-frame">
+                    <!-- SOSTITUISCI QUESTO DIV CON: <img src="img/01-struttura-cartelle.png" alt="Finestra di Esplora File di Windows che mostra MetsGeneratore.exe accanto alla cartella static"> -->
+                    <div class="screenshot-placeholder">
+                        <strong>[INSERIRE IMMAGINE 01: img/01-struttura-cartelle.png]</strong>
+                        <span>Screenshot di Esplora File di Windows con <code>MetsGeneratore.exe</code> e la cartella <code>static</code> affiancati nella stessa directory.</span>
+                    </div>
+                    <figcaption>
+                        <strong>Figura 1:</strong> Disposizione corretta dei file nella cartella radice prima dell'avvio.
+                    </figcaption>
+                </figure>
+            </section>
+
+            <!-- FASE 2 -->
+            <section id="fase-2" class="step-section" aria-labelledby="titolo-fase-2">
+                <div class="step-header">
+                    <span class="step-badge">FASE 02</span>
+                    <h2 id="titolo-fase-2">Estrapolazione dei metadati da Clavis, Sebina o SBN</h2>
+                </div>
+
+                <p>
+                    Il software legge automaticamente tutti i file <code>.txt</code> e <code>.mrc</code> presenti nella cartella di input per abbinare i metadati bibliografici alle immagini tramite identificativo (BID / ID). A seconda del gestionale utilizzato, procedi come segue:
+                </p>
+
+                <h3>A. Estrazione da Clavis</h3>
+                <ol>
+                    <li>Accedi al catalogo gestionale Clavis e ricerca l'opera tramite titolo o BID.</li>
+                    <li>Apri la scheda bibliografica completa e seleziona la funzione di <strong>Esportazione / Download record</strong>.</li>
+                    <li>Scegli il formato <strong>UNIMARC (.mrc)</strong> oppure esportazione testuale strutturata (<code>.txt</code>).</li>
+                </ol>
+
+                <figure class="screenshot-frame">
+                    <!-- SOSTITUISCI CON: <img src="img/02-estrazione-clavis.png" alt="Schermata di Clavis con evidenziato il pulsante di esportazione UNIMARC"> -->
+                    <div class="screenshot-placeholder">
+                        <strong>[INSERIRE IMMAGINE 02: img/02-estrazione-clavis.png]</strong>
+                        <span>Screenshot della schermata di esportazione record su Clavis (evidenziare il menu formato UNIMARC / TXT).</span>
+                    </div>
+                    <figcaption>
+                        <strong>Figura 2:</strong> Selezione del formato di esportazione record in Clavis.
+                    </figcaption>
+                </figure>
+
+                <h3>B. Estrazione da Sebina / Polo SBN</h3>
+                <ol>
+                    <li>Individua la notizia bibliografica sul catalogo Sebina o sull'OPAC SBN.</li>
+                    <li>Assicurati che sia visibile il codice <strong>BID</strong> univoco della notizia (es. <code>IT\ICCU\TO0\...</code>).</li>
+                    <li>Esporta il tracciato in formato <strong>ISO 2709 / UNIMARC (<code>.mrc</code>)</strong> o salva la visualizzazione completa in formato <strong>Testo (<code>.txt</code>)</strong>.</li>
+                </ol>
+
+                <figure class="screenshot-frame">
+                    <!-- SOSTITUISCI CON: <img src="img/03-estrazione-sebina-sbn.png" alt="Schermata di Sebina/SBN con il salvataggio del tracciato UNIMARC"> -->
+                    <div class="screenshot-placeholder">
+                        <strong>[INSERIRE IMMAGINE 03: img/03-estrazione-sebina-sbn.png]</strong>
+                        <span>Screenshot dell'esportazione record da Sebina o OPAC SBN.</span>
+                    </div>
+                    <figcaption>
+                        <strong>Figura 3:</strong> Salvataggio del tracciato bibliografico da Sebina / SBN.
+                    </figcaption>
+                </figure>
+            </section>
+
+            <!-- FASE 3 -->
+            <section id="fase-3" class="step-section" aria-labelledby="titolo-fase-3">
+                <div class="step-header">
+                    <span class="step-badge">FASE 03</span>
+                    <h2 id="titolo-fase-3">Dove inserire i file estratti e nomenclatura immagini</h2>
+                </div>
+
+                <p>
+                    I file bibliografici esportati (<code>.mrc</code> e/o <code>.txt</code>) vanno inseriti nella cartella contenente i lotti da processare (o nella cartella specificata all'avvio del programma). 
+                    Il motore legge <strong>tutti i file <code>.txt</code> e <code>.mrc</code> insieme</strong>: puoi quindi avere un unico file cumulativo per l'intero lotto oppure un file per ogni singolo volume.
+                </p>
+
+                <div class="folder-tree" role="region" aria-label="Posizionamento file estratti">
+📁 Lotto_Biblioteca_X/<br>
+├── 📄 <span class="highlight">export_clavis.mrc</span> <span class="comment">&lt;-- File esportato dal gestionale (qui o nelle sottocartelle)</span><br>
+├── 📄 <span class="highlight">export_sbn.txt</span> <span class="comment">&lt;-- Eventuale secondo export testuale</span><br>
+├── 📁 TO00123456/ <span class="comment">&lt;-- Cartella nominata con il BID dell'opera</span><br>
+│   ├── 🖼️ TO00123456_0001_copertina.tif<br>
+│   ├── 🖼️ TO00123456_0002_guardia.tif<br>
+│   ├── 🖼️ TO00123456_0003_frontespizio.tif<br>
+│   └── 🖼️ TO00123456_0004.tif<br>
+└── 📁 TO00987654/
+                </div>
+
+                <h3>Parole chiave riconosciute automaticamente nei nomi file</h3>
+                <p>
+                    Durante la scansione e la rinomina, inserisci le seguenti parole chiave nel nome del file immagine affinché il generatore compili automaticamente la mappa strutturale (<code>structMap</code>) del METS:
+                </p>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Parola chiave nel filename</th>
+                                <th scope="col">Etichetta / Tipo attribuito nel METS</th>
+                                <th scope="col">Esempio pratico</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>copertina</code></td>
+                                <td>Copertina (anteriore / posteriore)</td>
+                                <td><code>BID_0001_copertina.tif</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>dorso</code></td>
+                                <td>Dorso del volume</td>
+                                <td><code>BID_0002_dorso.tif</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>guardia</code></td>
+                                <td>Carta di guardia</td>
+                                <td><code>BID_0003_guardia.tif</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>frontespizio</code></td>
+                                <td>Frontespizio</td>
+                                <td><code>BID_0005_frontespizio.tif</code></td>
+                            </tr>
+                            <tr>
+                                <td><em>(nessuna parola chiave)</em></td>
+                                <td>Pagina numerata progressiva</td>
+                                <td><code>BID_0006.tif</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <figure class="screenshot-frame">
+                    <!-- SOSTITUISCI CON: <img src="img/04-posizionamento-export.png" alt="Cartella del lotto con file mrc, txt e sottocartelle immagini"> -->
+                    <div class="screenshot-placeholder">
+                        <strong>[INSERIRE IMMAGINE 04: img/04-posizionamento-export.png]</strong>
+                        <span>Screenshot della cartella del lotto con i file <code>.mrc</code> / <code>.txt</code> e le sottocartelle delle immagini nominate con il BID.</span>
+                    </div>
+                    <figcaption>
+                        <strong>Figura 4:</strong> Organizzazione corretta dei file di export bibliografico e delle cartelle immagini.
+                    </figcaption>
+                </figure>
+            </section>
+
+            <!-- FASE 4 -->
+            <section id="fase-4" class="step-section" aria-labelledby="titolo-fase-4">
+                <div class="step-header">
+                    <span class="step-badge">FASE 04</span>
+                    <h2 id="titolo-fase-4">Come si presenta l'interfaccia <code>static</code> (Visualizzatore)</h2>
+                </div>
+
+                <p>
+                    Avviando <code>MetsGeneratore.exe</code>, viene avviato un server locale e si apre automaticamente nel browser l'interfaccia web basata sulla cartella <code>static</code>. 
+                    Questa dashboard permette di selezionare il percorso di lavoro, lanciare l'elaborazione batch e ispezionare visivamente il risultato prima della consegna.
+                </p>
+
+                <ul>
+                    <li><strong>Barra superiore / Selezione cartella:</strong> permette di indicare la directory madre contenente le cartelle dei volumi e i file <code>.mrc</code>/<code>.txt</code>.</li>
+                    <li><strong>Pannello di avanzamento e log:</strong> mostra in tempo reale quali BID sono stati agganciati ai metadati e segnala eventuali cartelle prive di corrispondenza catalografica.</li>
+                    <li><strong>Anteprima struttura e immagini:</strong> consente di sfogliare le pagine riconosicute (copertina, frontespizio, tavole) affiancate ai metadati MODS estratti e ai parametri tecnici MIX (risoluzione DPI, spazio colore, dimensione).</li>
+                </ul>
+
+                <figure class="screenshot-frame">
+                    <!-- SOSTITUISCI CON: <img src="img/05-interfaccia-static.png" alt="Panoramica dell'interfaccia web del visualizzatore MetsGeneratore nel browser"> -->
+                    <div class="screenshot-placeholder">
+                        <strong>[INSERIRE IMMAGINE 05: img/05-interfaccia-static.png]</strong>
+                        <span>Screenshot a schermo intero dell'interfaccia web (<code>static</code>) aperta nel browser, con menu cartelle e pannello di anteprima.</span>
+                    </div>
+                    <figcaption>
+                        <strong>Figura 5:</strong> Panoramica dell'interfaccia web locale per l'elaborazione e l'ispezione.
+                    </figcaption>
+                </figure>
+            </section>
+
+            <!-- FASE 5 -->
+            <section id="fase-5" class="step-section" aria-labelledby="titolo-fase-5">
+                <div class="step-header">
+                    <span class="step-badge">FASE 05</span>
+                    <h2 id="titolo-fase-5">Come generare i pacchetti e fare il controllo qualità</h2>
+                </div>
+
+                <ol>
+                    <li>Verifica che nella cartella selezionata siano presenti sia le sottocartelle immagini sia i file <code>.mrc</code>/<code>.txt</code>.</li>
+                    <li>Clicca su <strong>Avvia Generazione METS</strong> nell'interfaccia. Attendi il completamento dell'analisi delle immagini (calcolo hash MD5/SHA e lettura header TIFF/JPEG per la sezione MIX).</li>
+                    <li>Al termine, all'interno di ogni cartella volume verrà creato il file <code>[BID]_mets.xml</code> (o <code>mets.xml</code>).</li>
+                </ol>
+
+                <h3>Checklist obbligatoria di controllo</h3>
+                <p>Prima di considerare chiuso un lotto, verifica sempre questi 4 punti nell'interfaccia di controllo:</p>
+                <ul>
+                    <li><strong>Corrispondenza Titolo/Autore (MODS):</strong> il titolo mostrato nell'anteprima corrisponde effettivamente al frontespizio scansionato (nessun scambio di BID).</li>
+                    <li><strong>Conteggio file (fileSec):</strong> il numero totale di file elencati nel METS coincide esattamente con il numero di immagini presenti nella cartella (esclusi file di sistema come <code>Thumbs.db</code>).</li>
+                    <li><strong>Sequenza logica (structMap):</strong> copertina, guardia e frontespizio sono nell'ordine corretto e non ci sono pagine invertite.</li>
+                    <li><strong>Dati tecnici (MIX):</strong> i DPI rilevati (es. <code>200</code> o <code>300</code> DPI) e le dimensioni in pixel sono coerenti con le specifiche di progetto.</li>
+                </ul>
+
+                <figure class="screenshot-frame">
+                    <!-- SOSTITUISCI CON: <img src="img/06-generazione-controllo.png" alt="Schermata di verifica post-generazione con elenco pagine, metadati MODS e parametri MIX"> -->
+                    <div class="screenshot-placeholder">
+                        <strong>[INSERIRE IMMAGINE 06: img/06-generazione-controllo.png]</strong>
+                        <span>Screenshot della fase di controllo qualità nell'interfaccia web: verifica metadati MODS, lista pagine e stato di validazione.</span>
+                    </div>
+                    <figcaption>
+                        <strong>Figura 6:</strong> Verifica dei metadati estratti e della struttura logica dopo la generazione.
+                    </figcaption>
+                </figure>
+            </section>
+
+            <!-- FASE 6 -->
+            <section id="fase-6" class="step-section" aria-labelledby="titolo-fase-6">
+                <div class="step-header">
+                    <span class="step-badge">FASE 06</span>
+                    <h2 id="titolo-fase-6">Come modificare il file XML manualmente in caso di necessità</h2>
+                </div>
+
+                <p>
+                    Può capitare che un record catalografico sia incompleto (es. manca la data di pubblicazione, l'autore è scritto in modo errato su SBN, oppure bisogna correggere l'etichetta di una singola pagina). In questi casi non serve rigenerare tutto: puoi intervenire direttamente sul file <code>.xml</code>.
+                </p>
+
+                <div class="callout warning">
+                    <span class="callout-title">Regola fondamentale per l'editing XML</span>
+                    <p>
+                        Apri il file <strong>esclusivamente con Visual Studio Code o Notepad++</strong> (mai con Word o WordPad). 
+                        Assicurati che la codifica in basso a destra sia impostata su <strong>UTF-8</strong> e non toccare mai i codici <code>CHECKSUM</code> (MD5) a meno che tu non abbia sostituito l'immagine.
+                    </p>
+                </div>
+
+                <h3>1. Correggere Titolo, Autore o Data (Sezione <code>&lt;mods:mods&gt;</code>)</h3>
+                <p>Cerca nel file il blocco <code>&lt;mods:titleInfo&gt;</code>, <code>&lt;mods:name&gt;</code> o <code>&lt;mods:originInfo&gt;</code> e modifica solo il testo contenuto tra i tag di apertura e chiusura:</p>
+
+                <div class="code-block-header">
+                    <span>Esempio sezione MODS nel file METS</span>
+                    <button type="button" class="copy-btn" onclick="copyCode(this, 'xml-mods')">Copia snippet</button>
+                </div>
+                <pre id="xml-mods" class="xml-sample"><code><span class="xml-tag">&lt;mods:titleInfo&gt;</span>
+    <span class="xml-comment">&lt;!-- Modifica solo il testo interno se il titolo su SBN ha refusi --&gt;</span>
+    <span class="xml-tag">&lt;mods:title&gt;</span>Storia della Città di Torino<span class="xml-tag">&lt;/mods:title&gt;</span>
+<span class="xml-tag">&lt;/mods:titleInfo&gt;</span>
+
+<span class="xml-tag">&lt;mods:originInfo&gt;</span>
+    <span class="xml-tag">&lt;mods:place&gt;</span>
+        <span class="xml-tag">&lt;mods:placeTerm</span> <span class="xml-attr">type=</span><span class="xml-val">"text"</span><span class="xml-tag">&gt;</span>Torino<span class="xml-tag">&lt;/mods:placeTerm&gt;</span>
+    <span class="xml-tag">&lt;/mods:place&gt;</span>
+    <span class="xml-comment">&lt;!-- Inserisci l'anno se mancante nel record originario --&gt;</span>
+    <span class="xml-tag">&lt;mods:dateIssued&gt;</span>1898<span class="xml-tag">&lt;/mods:dateIssued&gt;</span>
+<span class="xml-tag">&lt;/mods:originInfo&gt;</span></code></pre>
+
+                <h3>2. Correggere l'etichetta di una pagina (Sezione <code>&lt;mets:structMap&gt;</code>)</h3>
+                <p>Se hai dimenticato di scrivere <code>frontespizio</code> nel nome del file prima della generazione, scorri fino in fondo all'XML nella sezione <code>&lt;mets:structMap&gt;</code> e modifica l'attributo <code>LABEL</code> del relativo <code>&lt;mets:div&gt;</code>:</p>
+
+                <div class="code-block-header">
+                    <span>Esempio sezione structMap nel file METS</span>
+                    <button type="button" class="copy-btn" onclick="copyCode(this, 'xml-struct')">Copia snippet</button>
+                </div>
+                <pre id="xml-struct" class="xml-sample"><code><span class="xml-tag">&lt;mets:div</span> <span class="xml-attr">ID=</span><span class="xml-val">"DIV_0003"</span> <span class="xml-attr">ORDER=</span><span class="xml-val">"3"</span> <span class="xml-attr">TYPE=</span><span class="xml-val">"page"</span> <span class="xml-attr">LABEL=</span><span class="xml-val">"Frontespizio"</span><span class="xml-tag">&gt;</span>
+    <span class="xml-tag">&lt;mets:fptr</span> <span class="xml-attr">FILEID=</span><span class="xml-val">"FILE_0003"</span> <span class="xml-tag">/&gt;</span>
+<span class="xml-tag">&lt;/mets:div&gt;</span></code></pre>
+
+                <figure class="screenshot-frame">
+                    <!-- SOSTITUISCI CON: <img src="img/07-modifica-xml.png" alt="File METS aperto in Visual Studio Code con evidenziati i tag MODS e structMap"> -->
+                    <div class="screenshot-placeholder">
+                        <strong>[INSERIRE IMMAGINE 07: img/07-modifica-xml.png]</strong>
+                        <span>Screenshot di Visual Studio Code con un file <code>_mets.xml</code> aperto, evidenziando i punti sicuri da modificare (<code>mods:title</code> e <code>LABEL</code>).</span>
+                    </div>
+                    <figcaption>
+                        <strong>Figura 7:</strong> Modifica manuale sicura dei campi testuali in Visual Studio Code con codifica UTF-8.
+                    </figcaption>
+                </figure>
+
+                <h3>Risoluzione rapida problemi comuni</h3>
+                <details>
+                    <summary>Il file XML dà errore quando lo riapro nel browser dopo una modifica</summary>
+                    <div class="details-content">
+                        Hai inserito un carattere speciale non ammesso in XML oppure hai cancellato per sbaglio una parentesi angolare (<code>&lt;</code> o <code>&gt;</code>). 
+                        In XML i caratteri <code>&amp;</code>, <code>&lt;</code> e <code>&gt;</code> dentro i testi devono essere scritti rispettivamente come <code>&amp;amp;</code>, <code>&amp;lt;</code> e <code>&amp;gt;</code>.
+                    </div>
+                </details>
+                <details>
+                    <summary>Il generatore non trova i metadati per una cartella anche se ho messo il file .mrc</summary>
+                    <div class="details-content">
+                        Verifica che il nome della cartella delle immagini corrisponda esattamente al BID contenuto nel record esportato (senza spazi extra o caratteri non validi come <code>\</code> o <code>/</code> al posto dell'underscore).
+                    </div>
+                </details>
+            </section>
+
+        </main>
+    </div>
+
+    <footer>
+        <p>Documentazione operativa interna — Flusso di Digitalizzazione e Standard METS/MODS/MIX.</p>
+    </footer>
+
+    <script>
+        function copyCode(button, elementId) {
+            const codeElement = document.getElementById(elementId);
+            const textToCopy = codeElement.innerText;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copiato!';
+                button.style.borderColor = '#10b981';
+                button.style.color = '#34d399';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.borderColor = '';
+                    button.style.color = '';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
